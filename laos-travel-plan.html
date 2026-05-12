@@ -1473,7 +1473,7 @@
 
   // 替换 checkbox
   document.querySelectorAll('ul li').forEach(li => {
-    const text = li.textContent.trim();
+    const text = li.textContent.trim().replace(/^☐\s*/, '');
     const id = Object.keys(packingMap).find(k => packingMap[k] === text);
     if (id) {
       li.innerHTML = `<input type="checkbox" class="packing-checkbox" data-pack-id="${id}" id="pack_${id}"><label for="pack_${id}" style="font-size:14px;color:#555;cursor:pointer">${text}</label>`;
