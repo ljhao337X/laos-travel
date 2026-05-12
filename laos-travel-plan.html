@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>老挝旅行计划 | 5月25日出发 · 琅勃拉邦2天 · 万荣2天</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  :root {
+    --gold: #C9A96E;
+    --dark: #2C2C2C;
+    --light: #FAF8F5;
+    --accent: #5B8C5A;
+    --blue: #4A90A4;
+    --warm: #E8D5B7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: var(--light);
+    color: var(--dark);
+    line-height: 1.8;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #2C5F2D 0%, #1B4332 50%, #0B2B1A 100%);
+    color: white;
+    padding: 80px 40px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .hero h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .hero .subtitle {
+    font-size: 20px;
+    font-weight: 300;
+    opacity: 0.9;
+    position: relative;
+  }
+
+  .hero .dates {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--gold);
+    position: relative;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .overview {
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    margin: -30px 20px 40px;
+    position: relative;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    border: 1px solid #eee;
+  }
+
+  .overview h2 {
+    font-size: 24px;
+    color: var(--accent);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--warm);
+  }
+
+  .route {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+
+  .route-stop {
+    background: var(--accent);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 15px;
+  }
+
+  .route-arrow {
+    color: var(--gold);
+    font-size: 24px;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .info-card {
+    background: var(--light);
+    padding: 16px;
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  .info-card .icon { font-size: 28px; margin-bottom: 8px; }
+  .info-card .label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+  .info-card .value { font-size: 16px; font-weight: 500; margin-top: 4px; }
+
+  .day-section {
+    margin-bottom: 48px;
+  }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .day-badge {
+    background: linear-gradient(135deg, var(--accent), #4a7a49);
+    color: white;
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .day-badge .day-num { font-size: 28px; font-weight: 700; line-height: 1; }
+  .day-badge .day-label { font-size: 11px; opacity: 0.9; }
+
+  .day-title h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--dark);
+  }
+
+  .day-title .date {
+    font-size: 14px;
+    color: #888;
+    margin-top: 2px;
+  }
+
+  .location-tag {
+    display: inline-block;
+    background: var(--warm);
+    color: var(--dark);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 8px;
+  }
+
+  .timeline {
+    margin-left: 36px;
+    border-left: 2px solid #e8e8e8;
+    padding-left: 24px;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 24px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid #f0f0f0;
+    transition: transform 0.2s;
+  }
+
+  .timeline-item:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -31px;
+    top: 24px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 3px solid var(--light);
+  }
+
+  .timeline-item .time {
+    font-size: 13px;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .timeline-item h4 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .timeline-item p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  .timeline-item .tip {
+    background: #FFF9E6;
+    border-left: 3px solid var(--gold);
+    padding: 8px 12px;
+    margin-top: 10px;
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+    color: #776B3E;
+  }
+
+  .timeline-item .price {
+    display: inline-block;
+    background: #E8F5E9;
+    color: var(--accent);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  .food-section {
+    background: linear-gradient(135deg, #FFF8E1, #FFF3E0);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 16px 0;
+    border: 1px solid #FFE0B2;
+  }
+
+  .food-section h4 {
+    font-size: 16px;
+    color: #E65100;
+    margin-bottom: 12px;
+  }
+
+  .food-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+  }
+
+  .food-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .food-item .emoji { font-size: 18px; }
+
+  .transport-card {
+    background: linear-gradient(135deg, #E3F2FD, #E8EAF6);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+    border: 1px solid #BBDEFB;
+  }
+
+  .transport-card h4 {
+    font-size: 16px;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+
+  .transport-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #E3F2FD;
+  }
+
+  .transport-option:last-child { border-bottom: none; }
+
+  .transport-option .mode {
+    font-weight: 600;
+    min-width: 80px;
+    color: var(--dark);
+  }
+
+  .transport-option .detail {
+    font-size: 14px;
+    color: #555;
+  }
+
+  .budget-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  .budget-table th {
+    background: var(--accent);
+    color: white;
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 14px;
+  }
+
+  .budget-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+  }
+
+  .budget-table tr:nth-child(even) { background: var(--light); }
+
+  .budget-table .total {
+    font-weight: 700;
+    background: var(--warm);
+    font-size: 16px;
+  }
+
+  .tips-section {
+    background: linear-gradient(135deg, #E8F5E9, #F1F8E9);
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: 40px;
+    border: 1px solid #C8E6C9;
+  }
+
+  .tips-section h3 {
+    font-size: 20px;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+  }
+
+  .tip-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .tip-card h5 {
+    font-size: 15px;
+    color: var(--dark);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tip-card p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.7;
+  }
+
+  .section-title {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin: 60px 0 32px;
+    color: var(--dark);
+  }
+
+  .section-title span {
+    color: var(--accent);
+  }
+
+  .divider {
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 48px 0;
+  }
+
+  .map-note {
+    background: #FFF3E0;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #E65100;
+  }
+
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: #999;
+    font-size: 13px;
+  }
+
+  @media print {
+    .hero { padding: 40px 20px; }
+    .timeline-item:hover { transform: none; }
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 28px; }
+    .overview { padding: 24px; margin: -20px 12px 30px; }
+    .timeline { margin-left: 20px; padding-left: 16px; }
+    .timeline-item::before { left: -23px; }
+  }
+
+  /* ===== 协作功能样式 ===== */
+  .collab-zone {
+    border: 2px dashed transparent;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+  }
+  .collab-zone:hover {
+    border-color: #d0d0d0;
+    background: #fafafa;
+  }
+  .collab-edit-icon {
+    position: absolute;
+    top: 4px; right: 8px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    color: #999;
+  }
+  .collab-zone:hover .collab-edit-icon { opacity: 1; }
+
+  .note-editor {
+    margin-top: 12px;
+    padding: 12px;
+    background: #FFFDE7;
+    border-radius: 8px;
+    border: 1px solid #FFF9C4;
+    min-height: 40px;
+    font-size: 14px;
+    color: #555;
+    outline: none;
+    transition: background 0.2s;
+  }
+  .note-editor:focus {
+    background: #FFF9C4;
+    border-color: var(--gold);
+  }
+  .note-editor:empty::before {
+    content: attr(data-placeholder);
+    color: #bbb;
+  }
+
+  .add-note-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    background: transparent;
+    color: #999;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .add-note-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: #FFFDE7;
+  }
+
+  .day-notes-card {
+    margin-top: 24px;
+    padding: 20px;
+    background: linear-gradient(135deg, #F3E5F5, #E8EAF6);
+    border-radius: 12px;
+    border: 1px solid #CE93D8;
+  }
+  .day-notes-card h4 {
+    font-size: 15px;
+    color: #7B1FA2;
+    margin-bottom: 12px;
+  }
+  .day-notes-editor {
+    min-height: 60px;
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #555;
+    outline: none;
+    border: 1px solid #E1BEE7;
+    transition: border-color 0.2s;
+  }
+  .day-notes-editor:focus {
+    border-color: #7B1FA2;
+  }
+  .day-notes-editor:empty::before {
+    content: "写下当天的想法、提醒或待办事项...";
+    color: #bbb;
+  }
+
+  .save-status {
+    font-size: 11px;
+    color: #999;
+    margin-left: 8px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .save-status.saving { color: #F57C00; }
+  .save-status.saved { color: var(--accent); }
+
+  .packing-checkbox {
+    appearance: none;
+    width: 18px; height: 18px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .packing-checkbox:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .packing-checkbox:checked::after {
+    content: '✓';
+    color: white;
+    position: absolute;
+    top: -1px; left: 2px;
+    font-size: 13px;
+    font-weight: bold;
+  }
+
+  .packing-counter {
+    font-size: 13px;
+    color: #666;
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: var(--light);
+    border-radius: 8px;
+    display: inline-block;
+  }
+
+  .shared-notes-section {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    margin: 40px 20px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    border: 2px dashed #ccc;
+  }
+  .shared-notes-section h3 {
+    font-size: 20px;
+    color: var(--blue);
+    margin-bottom: 16px;
+  }
+  .shared-notes-editor {
+    min-height: 120px;
+    padding: 16px;
+    background: #F5F5F5;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #555;
+    outline: none;
+    border: 1px solid #E0E0E0;
+    transition: border-color 0.2s;
+    line-height: 1.8;
+  }
+  .shared-notes-editor:focus {
+    border-color: var(--blue);
+    background: white;
+  }
+  .shared-notes-editor:empty::before {
+    content: "在这里写下所有人共享的备注：谁负责订机票？集合时间和地点？其他想法...";
+    color: #bbb;
+  }
+
+  .presence-pill {
+    position: fixed;
+    top: 16px; right: 16px;
+    z-index: 9999;
+    background: white;
+    border-radius: 24px;
+    padding: 8px 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    font-size: 13px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 260px;
+  }
+  .presence-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .presence-list {
+    display: none;
+    position: absolute;
+    top: 100%; right: 0;
+    margin-top: 8px;
+    background: white;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    min-width: 180px;
+  }
+  .presence-pill:hover .presence-list { display: block; }
+  .presence-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 12px;
+  }
+  .presence-avatar {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+  }
+
+  .photo-gallery {
+    margin-top: 20px;
+    padding: 16px;
+    background: #F8F9FA;
+    border-radius: 12px;
+  }
+  .photo-gallery h4 {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 12px;
+  }
+  .photo-upload-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    background: white;
+    color: #777;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .photo-upload-btn:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .photo-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    background: #eee;
+  }
+  .photo-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .photo-delete {
+    position: absolute;
+    top: 4px; right: 4px;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .photo-item:hover .photo-delete { opacity: 1; }
+
+  .upload-progress {
+    width: 100%;
+    height: 4px;
+    background: #eee;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  .upload-progress-bar {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+
+  .collab-loading {
+    text-align: center;
+    padding: 20px;
+    color: #999;
+    font-size: 14px;
+  }
+
+  @media (max-width: 600px) {
+    .presence-pill { top: 8px; right: 8px; padding: 6px 12px; font-size: 12px; }
+    .shared-notes-section { margin: 30px 12px; padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🇱🇦 老挝旅行计划</h1>
+  <div class="subtitle">琅勃拉邦 · 万荣 — 古城寺庙与喀斯特山水之旅</div>
+  <div class="dates">📅 2026年5月25日出发 | 共4天</div>
+</div>
+
+<div class="container">
+
+  <!-- Overview -->
+  <div class="overview">
+    <h2>📋 行程总览</h2>
+    <div class="route">
+      <span class="route-stop">✈️ 出发地</span>
+      <span class="route-arrow">→</span>
+      <span class="route-stop">🏛️ 琅勃拉邦 (2天)</span>
+      <span class="route-arrow">→</span>
+      <span class="route-stop">⛰️ 万荣 (2天)</span>
+      <span class="route-arrow">→</span>
+      <span class="route-stop">🏠 返程</span>
+    </div>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="icon">🌤️</div>
+        <div class="label">5月天气</div>
+        <div class="value">雨季初期 25-35°C</div>
+      </div>
+      <div class="info-card">
+        <div class="icon">💰</div>
+        <div class="label">货币</div>
+        <div class="value">老挝基普 (LAK)</div>
+      </div>
+      <div class="info-card">
+        <div class="icon">🛂</div>
+        <div class="label">签证</div>
+        <div class="value">中国护照可落地签</div>
+      </div>
+      <div class="info-card">
+        <div class="icon">🗣️</div>
+        <div class="label">语言</div>
+        <div class="value">老挝语，旅游区可用英语</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 28px; padding-top: 24px; border-top: 1px solid #eee;">
+      <h3 style="font-size: 18px; color: var(--dark); margin-bottom: 16px;">🏨 已确认住宿</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+        <div style="background: linear-gradient(135deg, #f8f5f0, #f0ebe3); border-radius: 12px; padding: 20px; border: 1px solid #e8e0d0;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+            <span style="font-size: 20px;">✅</span>
+            <strong style="font-size: 16px;">Satri House</strong>
+            <span style="font-size: 12px; color: var(--accent); background: #e8f5e9; padding: 2px 8px; border-radius: 10px;">已确认</span>
+          </div>
+          <p style="font-size: 13px; color: #666; margin-bottom: 8px;">📍 琅勃拉邦 · 古城内</p>
+          <p style="font-size: 13px; color: #888; line-height: 1.6;">精品殖民风格别墅酒店，位置极佳——步行到夜市和主街仅几分钟。带有泳池和花园，融合了法式优雅与老挝传统装饰。含早餐，非常适合琅勃拉邦的文化探索之旅。</p>
+          <div style="margin-top: 8px;">
+            <span style="font-size: 12px; background: var(--warm); padding: 3px 10px; border-radius: 10px; color: var(--dark);">📅 5/25 - 5/27 (2晚)</span>
+          </div>
+        </div>
+        <div style="background: linear-gradient(135deg, #f8f5f0, #f0ebe3); border-radius: 12px; padding: 20px; border: 1px solid #e8e0d0;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+            <span style="font-size: 20px;">✅</span>
+            <strong style="font-size: 16px;">Riverside Boutique Resort</strong>
+            <span style="font-size: 12px; color: var(--accent); background: #e8f5e9; padding: 2px 8px; border-radius: 10px;">已确认</span>
+          </div>
+          <p style="font-size: 13px; color: #666; margin-bottom: 8px;">📍 万荣 · 南松河畔</p>
+          <p style="font-size: 13px; color: #888; line-height: 1.6;">南松河畔精品度假村，别墅构造正对喀斯特群山河景。设有室外泳池、私人码头、自行车租赁、餐厅。含早餐。酒店可代订热气球、皮划艇等各类户外活动，出门即是水上活动出发点。Agoda位置评分8.7。</p>
+          <div style="margin-top: 8px;">
+            <span style="font-size: 12px; background: var(--warm); padding: 3px 10px; border-radius: 10px; color: var(--dark);">📅 5/27 - 5/29 (2晚) · 约400-700元/晚</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-title">🏛️ 第一站：<span>琅勃拉邦</span></div>
+
+  <!-- Day 1 -->
+  <div class="day-section">
+    <div class="day-header">
+      <div class="day-badge">
+        <div class="day-num">D1</div>
+        <div class="day-label">Day 1</div>
+      </div>
+      <div class="day-title">
+        <h3>抵达琅勃拉邦 · 古城初探</h3>
+        <div class="date">5月25日（周一）</div>
+        <span class="location-tag">📍 Luang Prabang · 琅勃拉邦</span>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="time">☀️ 上午 — 抵达</div>
+        <h4>抵达琅勃拉邦</h4>
+        <p>抵达琅勃拉邦国际机场（LPQ）或琅勃拉邦火车站。从机场打车到 Satri House 约15分钟，从火车站约30分钟。</p>
+        <div class="tip">💡 建议提前换好老挝基普，机场汇率较差，可到市区银行或兑换点换钱</div>
+        <div class="price">🚕 机场到古城约 50,000-80,000 LAK（约25-40元）</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">🕛 中午 — 入住 Satri House</div>
+        <h4>办理入住 @ Satri House</h4>
+        <p>Satri House 位于琅勃拉邦古城核心位置，步行可达夜市、主街和主要寺庙。放下行李后，可以在酒店的泳池稍作休息，然后步行出门探索古城。</p>
+        <div class="tip">💡 Satri House 是殖民风格精品酒店，建议体验酒店的花园和泳池区。前台可以帮忙预订火车票、包车和当地 Tours</div>
+        <div class="food-section">
+          <h4>🍽️ 推荐午餐</h4>
+          <div class="food-list">
+            <div class="food-item"><span class="emoji">🍜</span> 老挝牛肉粉 (Pho Lao)</div>
+            <div class="food-item"><span class="emoji">🥖</span> 法式法棍三明治 (Khao Jee)</div>
+            <div class="food-item"><span class="emoji">🥗</span> 青木瓜沙拉 (Tam Mak Hoong)</div>
+            <div class="food-item"><span class="emoji">🍺</span> 老挝啤酒 (Beerlao)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">🕐 下午 — 古城漫步</div>
+        <h4>古城寺庙巡礼</h4>
+        <p>沿湄公河畔漫步，游览以下核心景点：</p>
+        <p>
+          <strong>1. 香通寺 (Wat Xieng Thong)</strong> — 琅勃拉邦最神圣的寺庙，金色屋顶和"生命之树"马赛克壁画令人叹为观止。<br>
+          <strong>2. 王宫博物馆 (Royal Palace Museum)</strong> — 了解老挝王室历史，外观高棉风格建筑。<br>
+          <strong>3. 普西山 (Phousi Hill)</strong> — 登高俯瞰全城和湄公河全景，日落时分最佳。约300级台阶。
+        </p>
+        <div class="price">🎫 香通寺 20,000 LAK（约￥7）| 王宫 30,000 LAK（约￥10）| 普西山 20,000 LAK（约￥7）· 合计约￥24</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">🌅 傍晚 — 日落 & 夜市</div>
+        <h4>普西山日落 → 琅勃拉邦夜市</h4>
+        <p>在普西山顶看湄公河日落，下山后步行至夜市（Sakkaline Road）。夜市从下午5点左右开始，售卖手工艺品、纺织品、绘画和当地小吃。</p>
+        <div class="tip">💡 夜市可以砍价，一般从标价的60%-70%开始谈起</div>
+        <div class="food-section">
+          <h4>🍽️ 夜市必吃</h4>
+          <div class="food-list">
+            <div class="food-item"><span class="emoji">🐟</span> 湄公河烤鱼</div>
+            <div class="food-item"><span class="emoji">🥞</span> 香蕉煎饼</div>
+            <div class="food-item"><span class="emoji">🍢</span> 老挝烤肉串</div>
+            <div class="food-item"><span class="emoji">🥭</span> 芒果糯米饭</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">🌙 晚上 — 放松</div>
+        <h4>河畔晚餐 & 按摩</h4>
+        <p>在湄公河畔的餐厅享用晚餐，之后体验老挝传统按摩放松旅途疲劳。</p>
+        <div class="price">💆 老挝按摩约 60,000-100,000 LAK/小时（约30-50元）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 2 -->
+  <div class="day-section">
+    <div class="day-header">
+      <div class="day-badge">
+        <div class="day-num">D2</div>
+        <div class="day-label">Day 2</div>
+      </div>
+      <div class="day-title">
+        <h3>布施体验 · 关西瀑布 · 文化深度</h3>
+        <div class="date">5月26日（周二）</div>
+        <span class="location-tag">📍 Luang Prabang · 琅勃拉邦</span>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="time">🌅 清晨 5:30-6:30</div>
+        <h4>体验僧侣布施 (Tak Bat)</h4>
+        <p>琅勃拉邦最著名的文化体验！每天清晨数百名僧侣赤脚走过古城街道接受信徒布施。你可以提前购买糯米饭参与这一神圣仪式。</p>
+        <div class="tip">💡 注意事项：穿着保守（遮盖肩膀和膝盖），保持安静，不要使用闪光灯拍照。Satri House 位于古城内，出门步行即可到布施路线经过的主街，非常方便</div>
+        <div class="price">🍚 布施糯米饭约 20,000-30,000 LAK（约￥7-10）</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">☀️ 上午 7:30-12:00</div>
+        <h4>关西瀑布 (Kuang Si Falls)</h4>
+        <p>包车或拼车前往关西瀑布（约45分钟车程）。这是老挝最美的瀑布群，层层叠叠的石灰华梯田瀑布汇入翡翠色的天然泳池，可以在下游游泳。</p>
+        <p>瀑布旁还有亚洲黑熊保护中心可以参观。</p>
+        <div class="tip">💡 5月是雨季初期，水量充沛，瀑布会更加壮观。建议早去避开人流高峰，带上泳衣和防滑鞋</div>
+        <div class="price">🎫 门票 25,000 LAK（约￥9）| 🚗 包车往返约 200,000-300,000 LAK（$14-20 USD / 约￥100-150）</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">🕛 中午 12:00-13:30</div>
+        <h4>瀑布附近午餐</h4>
+        <p>瀑布入口处有一些简餐选择，或返回古城后再用餐。</p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">🕑 下午 14:00-17:00</div>
+        <h4>古城深度游</h4>
+        <p>返回古城后，继续探索以下景点：</p>
+        <p>
+          <strong>4. 维苏那拉特寺 (Wat Visoun)</strong> — 琅勃拉邦最古老的寺庙之一，独特的西瓜形佛塔。<br>
+          <strong>5. 琅勃拉邦夜市/手工艺村</strong> — Ock Pop Tok 生活工艺中心体验传统纺织和手工。<br>
+          <strong>6. 法国殖民街区</strong> — 感受法式建筑与老挝风格的融合。
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">🌙 晚上</div>
+        <h4>特色晚餐 & 酒吧街</h4>
+        <p>推荐体验湄公河上的游船晚餐，或去Sakkaline路的酒吧街感受当地夜生活。也可以找一家有现场音乐的餐厅享受在 Satri House 的最后一夜。</p>
+        <div class="food-section">
+          <h4>🍽️ 推荐晚餐</h4>
+          <div class="food-list">
+            <div class="food-item"><span class="emoji">🍲</span> 老挝火锅 (Sin Dat)</div>
+            <div class="food-item"><span class="emoji">🐔</span> 香茅烤鸡</div>
+            <div class="food-item"><span class="emoji">🍜</span> 琅勃拉邦米粉 (Khao Soi)</div>
+            <div class="food-item"><span class="emoji">☕</span> 老挝咖啡 (加炼乳)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-title">⛰️ 第二站：<span>万荣</span></div>
+
+  <!-- Day 3 -->
+  <div class="day-section">
+    <div class="day-header">
+      <div class="day-badge">
+        <div class="day-num">D3</div>
+        <div class="day-label">Day 3</div>
+      </div>
+      <div class="day-title">
+        <h3>琅勃拉邦 → 万荣 · 蓝湖探险</h3>
+        <div class="date">5月27日（周三）</div>
+        <span class="location-tag">📍 Vang Vieng · 万荣</span>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="transport-card">
+        <h4>🚗 交通方案</h4>
+        <div class="transport-option">
+          <span class="mode">🚂 火车</span>
+          <span class="detail">琅勃拉邦站 → 万荣站，约40分钟，每天多班次，二等座约 85,000 LAK（推荐！）</span>
+        </div>
+        <div class="transport-option">
+          <span class="mode">🚌 大巴</span>
+          <span class="detail">约3-4小时，约 80,000-120,000 LAK，沿途风景好但颠簸</span>
+        </div>
+        <div class="transport-option">
+          <span class="mode">🚐 拼车</span>
+          <span class="detail">约3小时，约 150,000-200,000 LAK，门到门方便</span>
+        </div>
+        <div class="tip" style="margin-top:12px">💡 推荐乘坐中老铁路动车组，速度快、舒适、准点。提前到车站买票或请酒店代订。万荣火车站距镇中心约4公里，可搭突突车前往酒店。</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">☀️ 上午 9:00-11:00</div>
+        <h4>Satri House 退房 → 出发前往万荣</h4>
+        <p>早上从 Satri House 退房（一般最晚12点），步行或打车前往琅勃拉邦火车站。乘坐火车从琅勃拉邦前往万荣，沿途欣赏老挝的山区和田园风光。抵达万荣火车站后，打车前往酒店办理入住。</p>
+        <div class="price">🚂 火车票约 85,000 LAK（$6 USD / 约￥42）| 🛺 火车站到酒店约 30,000-50,000 LAK（约￥10-17）</div>
+      </div>
+
+      <!-- Hotel Confirmed -->
+      <div class="timeline-item" style="border: 2px solid var(--accent);">
+        <div class="time">🏨 万荣住宿（已确认）</div>
+        <h4>✅ Riverside Boutique Resort（滨江精品度假村）</h4>
+        <p>南松河畔精品度假村，别墅构造正对喀斯特群山河景。Agoda 位置评分 8.7，住客评价"去万荣必住"。</p>
+
+        <div style="margin-top: 16px;">
+          <div style="background: linear-gradient(135deg, #E8F5E9, #F1F8E9); padding: 16px; border-radius: 10px; margin-bottom: 12px;">
+            <strong>核心设施</strong>
+            <p style="font-size: 13px; color: #555; margin-top: 4px;">
+              · 室外泳池 + 儿童泳池（配日光浴躺椅）<br>
+              · 私人河畔码头（日落观景绝佳）<br>
+              · 自行车租赁（免费）<br>
+              · 餐厅 + 含自助早餐<br>
+              · 前台代订热气球、皮划艇等各类户外活动
+            </p>
+          </div>
+          <div style="background: linear-gradient(135deg, #E3F2FD, #E8EAF6); padding: 16px; border-radius: 10px;">
+            <strong>位置优势</strong>
+            <p style="font-size: 13px; color: #555; margin-top: 4px;">
+              · 紧邻南松河，出门即是水上活动出发点<br>
+              · 步行可达主街餐厅和活动预订点<br>
+              · 热气球公司提供酒店接送服务
+            </p>
+            <div class="price">💰 约 400-700 元/晚（$55-95 USD）· 2晚合计约 800-1,400 元</div>
+          </div>
+        </div>
+        <div class="tip">💡 建议通过 Booking.com 或 Agoda 提前预订，5月价格相对合理。酒店官网 riversidevangvieng.com 也可直接预订</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">🕛 中午 11:00-13:00</div>
+        <h4>万荣午餐 & 休整</h4>
+        <p>万荣主街（River Road）沿线有很多餐厅，可以在这里吃午饭，顺便熟悉环境。</p>
+        <div class="food-section">
+          <h4>🍽️ 万荣推荐午餐</h4>
+          <div class="food-list">
+            <div class="food-item"><span class="emoji">🍜</span> 越南河粉 (很多越南风味)</div>
+            <div class="food-item"><span class="emoji">🥘</span> 老挝炖菜</div>
+            <div class="food-item"><span class="emoji">🥤</span> 新鲜果昔/冰沙</div>
+            <div class="food-item"><span class="emoji">🍕</span> 万荣也有不错的披萨店</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">🕑 下午 13:30-17:30</div>
+        <h4>蓝湖 & 坦普坎溶洞 (Tham Phu Kham)</h4>
+        <p>万荣最著名的景点！蓝湖是天然溶洞形成的人工湖，水呈翡翠蓝色，清澈见底。湖上有木制跳台可以跳水游泳。旁边的溶洞内有佛像可以参观。</p>
+        <p>周边还有蓝湖2号、3号，人更少更原生态，可以租摩托车逐一探索。</p>
+        <div class="tip">💡 蓝湖1号人最多但设施最完善，蓝湖3号最原生态。建议租摩托车（约 80,000-120,000 LAK/天）自由出行</div>
+        <div class="price">🎫 蓝湖门票 20,000 LAK（约￥7）| 🛵 摩托车日租 80,000-120,000 LAK（$6-8 USD / 约￥40-60）</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">🌙 晚上</div>
+        <h4>南松河畔晚餐</h4>
+        <p>万荣的夜生活以河边酒吧和餐厅为主。推荐找一家有吊床和河景的餐厅，一边享用美食一边看喀斯特山峰的剪影。</p>
+        <div class="tip">💡 建议今晚通过 Riverside Boutique Resort 前台预订明天的热气球（Above Laos 日出场 $145/人），确保有位。5月雨季初期需关注天气</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 4 -->
+  <div class="day-section">
+    <div class="day-header">
+      <div class="day-badge">
+        <div class="day-num">D4</div>
+        <div class="day-label">Day 4</div>
+      </div>
+      <div class="day-title">
+        <h3>南松河体验 · 溶洞探险 · 返程</h3>
+        <div class="date">5月28日（周四）</div>
+        <span class="location-tag">📍 Vang Vieng · 万荣</span>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="time">☀️ 上午 8:30-12:00</div>
+        <h4>南松河水上活动</h4>
+        <p>万荣的灵魂体验！选择以下活动：</p>
+        <p>
+          <strong>🎈 热气球（Above Laos）</strong> — 日出场 06:00-06:30 起飞，飞行30分钟-1小时15分钟，俯瞰万荣全景。含酒店接送+早餐+气泡酒+飞行证书。整体行程约3小时。<br>
+          <strong>🚣 皮划艇/桨板</strong> — 沿着南松河划行，穿梭于喀斯特山峰之间。半日行程约2-3小时。<br>
+          <strong>🛶 竹筏漂流</strong> — 经典万荣体验，坐竹筏顺流而下，悠闲欣赏两岸风景。<br>
+          <strong>🧗 攀岩</strong> — 万荣是世界级石灰岩攀岩胜地，有适合初学者的线路。半日含教练指导。<br>
+          <strong>🪂 滑翔伞</strong> — 从山顶起飞，约15分钟空中体验，俯瞰南松河和田园风光。
+        </p>
+        <div class="tip">💡 热气球强烈建议选日出场（早上天气更稳定），到万荣当天就通过酒店前台或 abovelaos.com 预订确认。5月雨季初期受天气影响较大，如遇取消可免费改期</div>
+        <div class="price">
+          🎈 热气球 $145 USD/人（约￥1,050）含接送+早餐+气泡酒 |
+          🚣 皮划艇半日 $15-25 USD/人（约￥110-180）|
+          🛶 竹筏漂流 $8-12 USD/人（约￥60-85）<br>
+          🧗 攀岩半日 $35-55 USD/人（约￥250-400）|
+          🪂 滑翔伞 $80-100 USD/人（约￥580-720）
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">🕛 中午 12:00-13:30</div>
+        <h4>午餐 & 休息</h4>
+        <p>返回主街用餐，可以选择在咖啡馆里休息，点一杯老挝咖啡慢慢回味。</p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">🕑 下午 13:30-17:00</div>
+        <h4>溶洞探险 & 观景台</h4>
+        <p>
+          <strong>坦江溶洞 (Tham Chang)</strong> — 位于河边的大型石灰岩溶洞，内有千姿百态的钟乳石和佛像。<br>
+          <strong>凯西山观景台 (Pha Kaew)</strong> — 登上山顶观景台，360度俯瞰万荣全景和南松河蜿蜒的壮丽景色。
+        </p>
+        <div class="price">🎫 坦江溶洞门票 10,000-15,000 LAK（约￥4-5）| 观景台 10,000 LAK（约￥4）</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">🌙 晚上</div>
+        <h4>万荣告别之夜</h4>
+        <p>在万荣的最后一晚，可以体验：</p>
+        <p>
+          · 河边酒吧看星空<br>
+          · 体验老挝传统按摩<br>
+          · 逛万荣夜市<br>
+          · 或早点休息为返程做准备
+        </p>
+        <div class="tip">💡 如果5月29日返程，可以考虑今晚提前收拾行李。万荣到万象约2小时火车，万象有机场可以飞回。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Budget -->
+  <div class="section-title">💰 <span>预算参考</span></div>
+
+  <div style="background:white; border-radius:12px; padding:24px; box-shadow:0 2px 8px rgba(0,0,0,0.04); border:1px solid #f0f0f0;">
+    <p style="font-size:14px; color:#888; margin-bottom:16px;">以下为人均预算参考（不含往返国际机票），以人民币计价：</p>
+
+    <div style="background: #E8F5E9; border-radius: 8px; padding: 14px; margin-bottom: 12px; border-left: 3px solid var(--accent);">
+      <strong style="font-size: 14px; color: var(--accent);">✅ 已确认：Satri House (琅勃拉邦 2晚)</strong>
+      <p style="font-size: 13px; color: #555; margin-top: 4px;">精品殖民风格酒店，约 400-800 元/晚（$55-110 USD），已含早餐。</p>
+    </div>
+
+    <div style="background: #E8F5E9; border-radius: 8px; padding: 14px; margin-bottom: 16px; border-left: 3px solid var(--accent);">
+      <strong style="font-size: 14px; color: var(--accent);">✅ 已确认：Riverside Boutique Resort (万荣 2晚)</strong>
+      <p style="font-size: 13px; color: #555; margin-top: 4px;">南松河畔精品度假村，约 400-700 元/晚（$55-95 USD），含早餐，紧邻户外活动出发点。</p>
+    </div>
+
+    <table class="budget-table">
+      <thead>
+        <tr>
+          <th>项目</th>
+          <th>费用（￥人民币）</th>
+          <th>费用（$美元）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>🏨 住宿 (4晚)</td>
+          <td>约 1,600-3,000 元</td>
+          <td>约 $220-410 USD</td>
+        </tr>
+        <tr>
+          <td style="font-size:12px; color:#888;">&nbsp;&nbsp;&nbsp;&nbsp;├ Satri House (2晚) ✅</td>
+          <td style="font-size:12px; color: var(--accent);">约 800-1,600 元</td>
+          <td style="font-size:12px; color: var(--accent);">$110-220 USD</td>
+        </tr>
+        <tr>
+          <td style="font-size:12px; color:#888;">&nbsp;&nbsp;&nbsp;&nbsp;└ Riverside Boutique (2晚) ✅</td>
+          <td style="font-size:12px; color: var(--accent);">约 800-1,400 元</td>
+          <td style="font-size:12px; color: var(--accent);">$110-190 USD</td>
+        </tr>
+        <tr>
+          <td>🍽️ 餐饮 (4天)</td>
+          <td>200-600 元</td>
+          <td>$28-82 USD</td>
+        </tr>
+        <tr>
+          <td>🚗 交通 (城际+当地)</td>
+          <td>150-300 元</td>
+          <td>$20-41 USD</td>
+        </tr>
+        <tr>
+          <td style="font-size:12px; color:#888;">&nbsp;&nbsp;&nbsp;&nbsp;├ 琅勃拉邦→万荣火车</td>
+          <td style="font-size:12px;">约 42 元</td>
+          <td style="font-size:12px;">$6 USD</td>
+        </tr>
+        <tr>
+          <td style="font-size:12px; color:#888;">&nbsp;&nbsp;&nbsp;&nbsp;├ 关西瀑布包车</td>
+          <td style="font-size:12px;">约 100-150 元</td>
+          <td style="font-size:12px;">$14-20 USD</td>
+        </tr>
+        <tr>
+          <td style="font-size:12px; color:#888;">&nbsp;&nbsp;&nbsp;&nbsp;└ 当地突突车/摩托</td>
+          <td style="font-size:12px;">约 40-60 元/天</td>
+          <td style="font-size:12px;">$6-8 USD/天</td>
+        </tr>
+        <tr>
+          <td>🎫 景点门票</td>
+          <td>50-80 元</td>
+          <td>$7-11 USD</td>
+        </tr>
+        <tr>
+          <td>🎯 户外活动</td>
+          <td>1,050-2,500 元</td>
+          <td>$145-345 USD</td>
+        </tr>
+        <tr>
+          <td style="font-size:12px; color:#888;">&nbsp;&nbsp;&nbsp;&nbsp;├ 🎈 热气球 (Above Laos)</td>
+          <td style="font-size:12px;">约 1,050 元</td>
+          <td style="font-size:12px;">$145 USD（含接送+早餐+酒）</td>
+        </tr>
+        <tr>
+          <td style="font-size:12px; color:#888;">&nbsp;&nbsp;&nbsp;&nbsp;├ 🚣 皮划艇半日</td>
+          <td style="font-size:12px;">约 110-180 元</td>
+          <td style="font-size:12px;">$15-25 USD</td>
+        </tr>
+        <tr>
+          <td style="font-size:12px; color:#888;">&nbsp;&nbsp;&nbsp;&nbsp;├ 🧗 攀岩半日</td>
+          <td style="font-size:12px;">约 250-400 元</td>
+          <td style="font-size:12px;">$35-55 USD（含教练）</td>
+        </tr>
+        <tr>
+          <td style="font-size:12px; color:#888;">&nbsp;&nbsp;&nbsp;&nbsp;├ 🪂 滑翔伞</td>
+          <td style="font-size:12px;">约 580-720 元</td>
+          <td style="font-size:12px;">$80-100 USD</td>
+        </tr>
+        <tr>
+          <td style="font-size:12px; color:#888;">&nbsp;&nbsp;&nbsp;&nbsp;└ 🛶 竹筏漂流</td>
+          <td style="font-size:12px;">约 60-85 元</td>
+          <td style="font-size:12px;">$8-12 USD</td>
+        </tr>
+        <tr>
+          <td>🛂 签证/保险</td>
+          <td>250-300 元</td>
+          <td>$35-41 USD</td>
+        </tr>
+        <tr>
+          <td>💆 按摩/休闲</td>
+          <td>60-100 元</td>
+          <td>$8-14 USD</td>
+        </tr>
+        <tr class="total">
+          <td>合计（不含国际机票）</td>
+          <td>约 3,350-6,880 元</td>
+          <td>约 $460-945 USD</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="map-note" style="margin-top:16px;">
+      ⚠️ 以上为人均预算参考。汇率按 1 USD ≈ 7.25 CNY，1 CNY ≈ 3,000 LAK 估算。热气球为必选项目已计入，其他户外活动可按兴趣选择1-2项。实际花费因汇率和消费习惯而异。
+    </div>
+  </div>
+
+  <!-- Tips -->
+  <div class="tips-section">
+    <h3>🎒 实用贴士</h3>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <h5>🛂 签证</h5>
+        <p>中国护照可在老挝口岸办理落地签（约20-30美元），需准备2寸照片。也可提前办理电子签证。建议确保护照有效期6个月以上。</p>
+      </div>
+      <div class="tip-card">
+        <h5>💵 货币与支付</h5>
+        <p>老挝通用货币为基普（LAK），部分旅游区也接受美元和泰铢。建议使用ATM取现或到银行兑换，汇率优于机场。5月汇率参考：1 CNY ≈ 3,000 LAK。</p>
+      </div>
+      <div class="tip-card">
+        <h5>🌤️ 5月天气</h5>
+        <p>5月为雨季初期，气温25-35°C。午后常有阵雨但通常时间不长。建议携带轻便雨衣或折叠伞，穿速干衣物，做好防蚊防晒。</p>
+      </div>
+      <div class="tip-card">
+        <h5>👗 穿衣建议</h5>
+        <p>参观寺庙时穿着保守：遮住肩膀和膝盖。建议带：速干T恤、轻便长裤/长裙、凉鞋/拖鞋、泳衣（瀑布和蓝湖用）、薄外套（火车空调冷）。</p>
+      </div>
+      <div class="tip-card">
+        <h5>📱 网络与通讯</h5>
+        <p>建议到达后购买当地SIM卡（Unitel或Lao Telecom），约50,000 LAK含流量。古城和万荣主街大部分餐厅/酒店有WiFi。</p>
+      </div>
+      <div class="tip-card">
+        <h5>🏥 安全与健康</h5>
+        <p>老挝整体安全，但注意：喝瓶装水、吃熟食；备肠胃药和防蚊液（登革热风险）；游泳注意水流情况；骑摩托车戴头盔。</p>
+      </div>
+      <div class="tip-card">
+        <h5>🚗 当地交通</h5>
+        <p>琅勃拉邦古城内步行即可，远途可租自行车或摩托车。万荣适合租摩托车探索周边（约8-12万基普/天）。突突车要事先谈好价格。</p>
+      </div>
+      <div class="tip-card">
+        <h5>🙏 文化礼仪</h5>
+        <p>老挝是佛教国家，参观寺庙需脱鞋、衣着端庄。不要摸别人的头，不要用脚指人或物。双手合十是传统问候方式。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Packing List -->
+  <div class="section-title">🎒 <span>打包清单</span></div>
+
+  <div style="background:white; border-radius:12px; padding:24px; box-shadow:0 2px 8px rgba(0,0,0,0.04); border:1px solid #f0f0f0;">
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:16px;">
+      <div>
+        <h5 style="color:var(--accent); margin-bottom:8px;">📄 证件</h5>
+        <ul style="font-size:14px; color:#555; list-style:none; padding:0;">
+          <li>☐ 护照（有效期6个月以上）</li>
+          <li>☐ 签证材料/照片</li>
+          <li>☐ 机票行程单</li>
+          <li>☐ 酒店预订单</li>
+          <li>☐ 旅游保险单</li>
+        </ul>
+      </div>
+      <div>
+        <h5 style="color:var(--accent); margin-bottom:8px;">👕 衣物</h5>
+        <ul style="font-size:14px; color:#555; list-style:none; padding:0;">
+          <li>☐ 速干T恤 x3-4</li>
+          <li>☐ 轻便长裤 x2</li>
+          <li>☐ 寺庙用长袖 x1</li>
+          <li>☐ 泳衣</li>
+          <li>☐ 凉鞋/拖鞋</li>
+          <li>☐ 薄外套</li>
+        </ul>
+      </div>
+      <div>
+        <h5 style="color:var(--accent); margin-bottom:8px;">💊 药品</h5>
+        <ul style="font-size:14px; color:#555; list-style:none; padding:0;">
+          <li>☐ 肠胃药</li>
+          <li>☐ 防蚊液</li>
+          <li>☐ 防晒霜</li>
+          <li>☐ 创可贴</li>
+          <li>☐ 晕车药</li>
+        </ul>
+      </div>
+      <div>
+        <h5 style="color:var(--accent); margin-bottom:8px;">🔌 电子</h5>
+        <ul style="font-size:14px; color:#555; list-style:none; padding:0;">
+          <li>☐ 手机+充电器</li>
+          <li>☐ 充电宝</li>
+          <li>☐ 相机</li>
+          <li>☐ 防水手机袋</li>
+          <li>☐ 转换插头</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script type="module">
+  // ===== Firebase SDK =====
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+  import { getDatabase, ref, onValue, set, update, remove, onDisconnect, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
+  import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA3BLKqMcG848EOGGXVLvJr2rRp7T4ebbA",
+    authDomain: "laos-travel-log.firebaseapp.com",
+    databaseURL: "https://laos-travel-log-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "laos-travel-log",
+    storageBucket: "laos-travel-log.firebasestorage.app",
+    messagingSenderId: "928952280898",
+    appId: "1:928952280898:web:5e373c5ffd17a4a939cadb",
+    measurementId: "G-0KTZ9DV5H4"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const storage = getStorage(app);
+
+  // ===== 工具函数 =====
+  function debounce(fn, ms) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn(...args), ms);
+    };
+  }
+
+  // ===== 在线状态系统 =====
+  const animals = ['仙鹤','熊猫','老虎','孔雀','海豚','企鹅','考拉','狐狸','鹿','猫头鹰','蝴蝶','鲸鱼','海龟','蜜蜂','鹦鹉'];
+  const colors = ['#4A90A4','#E91E63','#FF9800','#4CAF50','#9C27B0','#F44336','#00BCD4','#795548','#607D8B','#8BC34A'];
+  let userId = sessionStorage.getItem('collabUserId');
+  if (!userId) {
+    userId = 'user_' + Math.random().toString(36).substr(2, 9);
+    const name = '匿名' + animals[Math.floor(Math.random() * animals.length)];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    sessionStorage.setItem('collabUserId', userId);
+    sessionStorage.setItem('collabUserName', name);
+    sessionStorage.setItem('collabUserColor', color);
+  }
+  const userName = sessionStorage.getItem('collabUserName');
+  const userColor = sessionStorage.getItem('collabUserColor');
+
+  const presenceRef = ref(db, 'presence/' + userId);
+  set(presenceRef, { name: userName, color: userColor, online: true, updatedAt: Date.now() });
+  onDisconnect(presenceRef).remove();
+
+  // 更新在线状态显示
+  const presenceHTML = `
+    <div class="presence-pill">
+      <div class="presence-dot"></div>
+      <span id="presenceCount">1 人在线</span>
+      <div class="presence-list" id="presenceList"></div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', presenceHTML);
+
+  onValue(ref(db, 'presence'), (snapshot) => {
+    const data = snapshot.val() || {};
+    const users = Object.values(data);
+    const count = users.filter(u => u.online).length;
+    const el = document.getElementById('presenceCount');
+    if (el) el.textContent = count + ' 人在线';
+    const list = document.getElementById('presenceList');
+    if (list) {
+      list.innerHTML = users.map(u => `
+        <div class="presence-user">
+          <div class="presence-avatar" style="background:${u.color}">${u.name.slice(-1)}</div>
+          <span>${u.name}</span>
+        </div>
+      `).join('');
+    }
+  });
+
+  setInterval(() => {
+    update(presenceRef, { online: true, updatedAt: Date.now() });
+  }, 15000);
+
+  // ===== 打包清单同步 =====
+  const packingMap = {
+    'passport': '护照（有效期6个月以上）',
+    'visa_photos': '签证材料/照片',
+    'flight_itinerary': '机票行程单',
+    'hotel_booking': '酒店预订单',
+    'travel_insurance': '旅游保险单',
+    'quick_dry_shirts': '速干T恤 x3-4',
+    'light_pants': '轻便长裤 x2',
+    'temple_shirt': '寺庙用长袖 x1',
+    'swimsuit': '泳衣',
+    'sandals': '凉鞋/拖鞋',
+    'light_jacket': '薄外套',
+    'stomach_meds': '肠胃药',
+    'mosquito_repellent': '防蚊液',
+    'sunscreen': '防晒霜',
+    'bandaids': '创可贴',
+    'motion_sickness': '晕车药',
+    'phone_charger': '手机+充电器',
+    'power_bank': '充电宝',
+    'camera': '相机',
+    'waterproof_bag': '防水手机袋',
+    'adapter': '转换插头'
+  };
+
+  // 替换 checkbox
+  document.querySelectorAll('ul li').forEach(li => {
+    const text = li.textContent.trim();
+    const id = Object.keys(packingMap).find(k => packingMap[k] === text);
+    if (id) {
+      li.innerHTML = `<input type="checkbox" class="packing-checkbox" data-pack-id="${id}" id="pack_${id}"><label for="pack_${id}" style="font-size:14px;color:#555;cursor:pointer">${text}</label>`;
+    }
+  });
+
+  // 添加打包计数器
+  const packingGrid = document.querySelector('[style*="grid-template-columns"]');
+  if (packingGrid) {
+    const counter = document.createElement('div');
+    counter.className = 'packing-counter';
+    counter.id = 'packingCounter';
+    counter.textContent = '正在加载...';
+    packingGrid.parentElement.appendChild(counter);
+  }
+
+  onValue(ref(db, 'packing'), (snapshot) => {
+    const data = snapshot.val() || {};
+    document.querySelectorAll('.packing-checkbox').forEach(cb => {
+      const id = cb.dataset.packId;
+      if (data[id] !== undefined) cb.checked = data[id];
+    });
+    const checked = Object.values(data).filter(v => v).length;
+    const total = Object.keys(packingMap).length;
+    const counter = document.getElementById('packingCounter');
+    if (counter) counter.textContent = `已打包 ${checked}/${total} 件物品`;
+  });
+
+  document.addEventListener('change', (e) => {
+    if (e.target.classList.contains('packing-checkbox')) {
+      set(ref(db, 'packing/' + e.target.dataset.packId), e.target.checked);
+    }
+  });
+
+  // ===== 备注系统 =====
+  const timelineItems = document.querySelectorAll('.timeline-item');
+  timelineItems.forEach((item, index) => {
+    const addBtn = document.createElement('button');
+    addBtn.className = 'add-note-btn';
+    addBtn.textContent = '+ 添加备注';
+    addBtn.onclick = () => {
+      const editor = item.querySelector('.note-editor');
+      if (editor) { editor.style.display = 'block'; editor.focus(); }
+      addBtn.style.display = 'none';
+    };
+    item.appendChild(addBtn);
+
+    const editor = document.createElement('div');
+    editor.className = 'note-editor collab-zone';
+    editor.contentEditable = 'true';
+    editor.setAttribute('data-placeholder', '写下备注、提醒、想法...');
+    editor.dataset.noteId = 'item_' + index;
+    editor.style.display = 'none';
+    item.appendChild(editor);
+
+    const status = document.createElement('span');
+    status.className = 'save-status';
+    status.id = 'status_item_' + index;
+    editor.after(status);
+
+    let isFocused = false;
+    editor.addEventListener('focus', () => { isFocused = true; });
+    editor.addEventListener('blur', () => {
+      isFocused = false;
+      if (!editor.textContent.trim()) {
+        editor.style.display = 'none';
+        addBtn.style.display = 'inline-flex';
+        status.textContent = '';
+      }
+      writeNote(editor.dataset.noteId, editor.innerHTML, status);
+    });
+
+    const debouncedWrite = debounce(() => writeNote(editor.dataset.noteId, editor.innerHTML, status), 500);
+    editor.addEventListener('input', () => {
+      status.textContent = '编辑中...';
+      status.className = 'save-status saving';
+      debouncedWrite();
+    });
+
+    onValue(ref(db, 'notes/' + editor.dataset.noteId), (snapshot) => {
+      const data = snapshot.val();
+      if (data && data.value && !isFocused) {
+        editor.innerHTML = data.value;
+        if (!data.value.trim()) {
+          editor.style.display = 'none';
+          addBtn.style.display = 'inline-flex';
+          status.textContent = '';
+        } else {
+          editor.style.display = 'block';
+          status.textContent = '已同步';
+          status.className = 'save-status saved';
+        }
+      }
+    });
+  });
+
+  async function writeNote(noteId, content, statusEl) {
+    try {
+      await set(ref(db, 'notes/' + noteId), { value: content, updatedAt: serverTimestamp() });
+      if (statusEl) { statusEl.textContent = '已保存'; statusEl.className = 'save-status saved'; }
+    } catch (err) { console.error('保存笔记失败:', err); }
+  }
+
+  // ===== 每天笔记卡片 =====
+  const daySections = document.querySelectorAll('.day-section');
+  daySections.forEach((section, index) => {
+    const dayNum = index + 1;
+    const dayTitle = section.querySelector('.day-title h3');
+    const dayName = dayTitle ? dayTitle.textContent : '第' + dayNum + '天';
+
+    const notesCard = document.createElement('div');
+    notesCard.className = 'day-notes-card';
+    notesCard.innerHTML = `
+      <h4>📝 ${dayName} — 团队笔记</h4>
+      <div class="day-notes-editor collab-zone" contenteditable="true" data-day-note="day${dayNum}"></div>
+      <span class="save-status" id="status_day${dayNum}"></span>
+    `;
+    section.appendChild(notesCard);
+
+    const editor = notesCard.querySelector('.day-notes-editor');
+    const status = document.getElementById('status_day' + dayNum);
+    let isFocused = false;
+
+    editor.addEventListener('focus', () => { isFocused = true; });
+    editor.addEventListener('blur', () => { isFocused = false; writeDayNote('day' + dayNum, editor.innerHTML, status); });
+    const debouncedWrite = debounce(() => writeDayNote('day' + dayNum, editor.innerHTML, status), 500);
+    editor.addEventListener('input', () => {
+      status.textContent = '编辑中...';
+      status.className = 'save-status saving';
+      debouncedWrite();
+    });
+
+    onValue(ref(db, 'notes/day' + dayNum + '/_day'), (snapshot) => {
+      const data = snapshot.val();
+      if (data && data.value && !isFocused) {
+        editor.innerHTML = data.value;
+        status.textContent = '已同步';
+        status.className = 'save-status saved';
+      }
+    });
+  });
+
+  async function writeDayNote(dayId, content, statusEl) {
+    try {
+      await set(ref(db, 'notes/' + dayId + '/_day'), { value: content, updatedAt: serverTimestamp() });
+      if (statusEl) { statusEl.textContent = '已保存'; statusEl.className = 'save-status saved'; }
+    } catch (err) { console.error('保存天笔记失败:', err); }
+  }
+
+  // ===== 共享笔记区 =====
+  const footer = document.querySelector('footer');
+  if (footer) {
+    const sharedSection = document.createElement('div');
+    sharedSection.className = 'shared-notes-section';
+    sharedSection.innerHTML = `
+      <h3>💬 团队共享笔记</h3>
+      <div class="shared-notes-editor collab-zone" contenteditable="true" id="sharedNotesEditor"></div>
+      <span class="save-status" id="status_shared"></span>
+    `;
+    footer.before(sharedSection);
+
+    const editor = document.getElementById('sharedNotesEditor');
+    const status = document.getElementById('status_shared');
+    let isFocused = false;
+
+    editor.addEventListener('focus', () => { isFocused = true; });
+    editor.addEventListener('blur', () => { isFocused = false; writeSharedNotes(editor.innerHTML, status); });
+    const debouncedWrite = debounce(() => writeSharedNotes(editor.innerHTML, status), 800);
+    editor.addEventListener('input', () => {
+      status.textContent = '编辑中...';
+      status.className = 'save-status saving';
+      debouncedWrite();
+    });
+
+    onValue(ref(db, 'sharedNotes/content'), (snapshot) => {
+      const data = snapshot.val();
+      if (data && !isFocused) {
+        editor.innerHTML = data;
+        status.textContent = '已同步';
+        status.className = 'save-status saved';
+      }
+    });
+  }
+
+  async function writeSharedNotes(content, statusEl) {
+    try {
+      await set(ref(db, 'sharedNotes/content'), content);
+      if (statusEl) { statusEl.textContent = '已保存'; statusEl.className = 'save-status saved'; }
+    } catch (err) { console.error('保存共享笔记失败:', err); }
+  }
+
+  // ===== 照片上传系统 =====
+  const dayPhotoIds = ['day1', 'day2', 'day3', 'day4'];
+  daySections.forEach((section, index) => {
+    const dayId = dayPhotoIds[index];
+    const photoGallery = document.createElement('div');
+    photoGallery.className = 'photo-gallery';
+    photoGallery.id = 'gallery_' + dayId;
+    photoGallery.innerHTML = `
+      <h4>📸 照片墙</h4>
+      <button class="photo-upload-btn" data-day="${dayId}">📷 上传照片</button>
+      <div class="upload-progress" id="uploadProgress_${dayId}" style="display:none;">
+        <div class="upload-progress-bar" id="uploadProgressBar_${dayId}" style="width:0%"></div>
+      </div>
+      <div class="photo-grid" id="photoGrid_${dayId}"></div>
+      <input type="file" id="fileInput_${dayId}" accept="image/*" style="display:none">
+    `;
+    section.appendChild(photoGallery);
+
+    const btn = photoGallery.querySelector('.photo-upload-btn');
+    const fileInput = photoGallery.querySelector('input[type="file"]');
+    btn.onclick = () => fileInput.click();
+    fileInput.onchange = (e) => handlePhotoUpload(e.target.files[0], dayId);
+
+    onValue(ref(db, 'photos/' + dayId), (snapshot) => {
+      const data = snapshot.val() || {};
+      const grid = document.getElementById('photoGrid_' + dayId);
+      if (grid) {
+        grid.innerHTML = Object.entries(data).map(([id, photo]) => `
+          <div class="photo-item" data-photo-id="${id}">
+            <img src="${photo.url}" alt="${photo.name}" loading="lazy">
+            <button class="photo-delete" onclick="deletePhoto('${dayId}','${id}')">×</button>
+          </div>
+        `).join('');
+      }
+    });
+  });
+
+  async function handlePhotoUpload(file, dayId) {
+    if (!file || !file.type.startsWith('image/')) return;
+    const compressedBlob = await compressImage(file, 1920, 0.8);
+    const progressBar = document.getElementById('uploadProgressBar_' + dayId);
+    const progressContainer = document.getElementById('uploadProgress_' + dayId);
+    if (progressBar && progressContainer) progressContainer.style.display = 'block';
+
+    const photoId = 'photo_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+    const storageRef = sRef(storage, 'photos/' + dayId + '/' + photoId + '.jpg');
+    const uploadTask = uploadBytesResumable(storageRef, compressedBlob);
+
+    uploadTask.on('state_changed',
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        if (progressBar) progressBar.style.width = progress + '%';
+      },
+      (error) => { console.error('上传失败:', error); if (progressContainer) progressContainer.style.display = 'none'; },
+      async () => {
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        await set(ref(db, 'photos/' + dayId + '/' + photoId), { url: downloadURL, name: file.name, uploadedAt: serverTimestamp() });
+        if (progressContainer) progressContainer.style.display = 'none';
+      }
+    );
+  }
+
+  function compressImage(file, maxWidth, quality) {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width, height = img.height;
+          if (width > maxWidth) { height = (maxWidth / width) * height; width = maxWidth; }
+          canvas.width = width; canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          canvas.toBlob((blob) => resolve(blob), 'image/jpeg', quality);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  window.deletePhoto = async function(dayId, photoId) {
+    if (!confirm('确定删除这张照片吗？')) return;
+    try { await deleteObject(sRef(storage, 'photos/' + dayId + '/' + photoId + '.jpg')); } catch (e) {}
+    await remove(ref(db, 'photos/' + dayId + '/' + photoId));
+  };
+
+  console.log('🇱🇦 老挝旅行计划 - Firebase 协作已启用');
+  console.log('用户:', userName);
+</script>
+
+<footer>
+  <p>🇱🇦 老挝旅行计划 · 2026年5月25日出发 · 祝你旅途愉快！</p>
+  <p style="margin-top:8px;">琅勃拉邦 2天 → 万荣 2天</p>
+</footer>
+
+</body>
+</html>

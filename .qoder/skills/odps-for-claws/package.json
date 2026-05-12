@@ -1,0 +1,11 @@
+{
+  "name": "odps-for-claws",
+  "version": "0.31.0",
+  "description": "安装和配置 ODPSCMD 离线数据分析环境，执行 SQL 查询、查看表结构、解决权限问题。当用户提到 ODPS、MaxCompute、离线数据分析、odpscmd 或需要执行 SQL 查询时使用。",
+  "publishConfig": {
+    "registry": "https://contextlab.alibaba-inc.com/skill"
+  },
+  "aoneKit": {
+    "generated": true
+  }
+}
