@@ -110,7 +110,7 @@
   .place-card .cat-badge { font-size: 11px; padding: 1px 8px; border-radius: 10px; color: white; font-weight: 500; }
   .place-card .status-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
   .status-pending { background: #F5C542; }
-  .status-drawn { background: var(--ocean-mid); }
+
   .status-scheduled { background: var(--seafoam); }
   .status-visited { background: #4CAF50; }
   .status-skipped { background: #bbb; }
@@ -178,20 +178,89 @@
   .day-header .day-date { font-size: 13px; opacity: 0.85; }
   .day-header .day-count { font-size: 12px; background: rgba(255,255,255,0.2); padding: 2px 10px; border-radius: 10px; }
   .day-slots { padding: 8px; }
+
+  /* Fixed event row (arrival/departure) */
   .time-slot { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 10px; margin-bottom: 6px; transition: all 0.2s; border: 1.5px solid transparent; min-height: 52px; }
   .time-slot:hover { background: #fafafa; }
   .time-slot .slot-time { font-size: 13px; font-weight: 600; color: var(--ocean-mid); min-width: 48px; flex-shrink: 0; }
-  .time-slot .slot-label { font-size: 12px; color: var(--text-muted); }
   .time-slot .slot-content { flex: 1; display: flex; align-items: center; gap: 8px; }
-  .time-slot .slot-empty { font-size: 13px; color: #ccc; font-style: italic; }
-  .time-slot .slot-place { display: flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 8px; background: var(--sand-light); border: 1px solid #e8e0d0; font-size: 14px; flex: 1; cursor: pointer; transition: all 0.2s; }
-  .time-slot .slot-place:hover { box-shadow: 0 2px 8px rgba(27,73,101,0.1); }
+  .time-slot .slot-place { display: flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 8px; background: linear-gradient(135deg, #E3F2FD, #E8EAF6); border: 1px solid #BBDEFB; font-size: 14px; flex: 1; }
   .time-slot .slot-place .sp-emoji { font-size: 18px; }
   .time-slot .slot-place .sp-name { font-weight: 600; font-size: 13px; }
-  .time-slot .slot-place .sp-cat { font-size: 10px; padding: 1px 6px; border-radius: 8px; color: white; font-weight: 500; }
-  .time-slot .slot-remove { width: 24px; height: 24px; border-radius: 50%; border: none; background: #f0f0f0; color: #999; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; }
-  .time-slot .slot-remove:hover { background: var(--coral); color: white; }
-  .time-slot.fixed .slot-place { background: linear-gradient(135deg, #E3F2FD, #E8EAF6); border-color: #BBDEFB; cursor: default; }
+  .time-slot.fixed .slot-place { cursor: default; }
+
+  /* Period Divider */
+  .period-divider {
+    display: flex; align-items: center; gap: 8px; padding: 4px 12px;
+    margin: 8px 0 4px; border-radius: 6px; font-size: 11px; font-weight: 500;
+  }
+  .period-divider.period-morning { background: #FFF3E0; color: #E65100; }
+  .period-divider.period-afternoon { background: #E3F2FD; color: #1565C0; }
+  .period-divider.period-evening { background: #E8EAF6; color: #283593; }
+  .period-divider .divider-line { flex: 1; height: 1px; opacity: 0.3; }
+  .period-divider.period-morning .divider-line { background: #E65100; }
+  .period-divider.period-afternoon .divider-line { background: #1565C0; }
+  .period-divider.period-evening .divider-line { background: #283593; }
+
+  /* Timeline Activity Row */
+  .timeline-activity {
+    display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+    border-radius: 10px; margin-bottom: 6px; transition: all 0.2s;
+    border: 1.5px solid #eee; background: white;
+  }
+  .timeline-activity:hover { box-shadow: 0 2px 8px rgba(27,73,101,0.08); }
+  .timeline-activity.pinned { border-left: 3px solid var(--coral); }
+
+  .reorder-controls { display: flex; flex-direction: column; gap: 1px; flex-shrink: 0; }
+  .reorder-btn {
+    width: 20px; height: 16px; border: none; background: transparent; color: #bbb;
+    cursor: pointer; font-size: 9px; display: flex; align-items: center; justify-content: center;
+    border-radius: 3px; transition: all 0.2s; padding: 0; line-height: 1;
+  }
+  .reorder-btn:hover:not(:disabled) { background: #f0f0f0; color: var(--ocean-mid); }
+  .reorder-btn:disabled { opacity: 0.15; cursor: not-allowed; }
+
+  .activity-time {
+    font-size: 11px; font-weight: 600; color: var(--ocean-mid); min-width: 78px;
+    flex-shrink: 0; cursor: pointer; line-height: 1.4; text-align: center;
+    padding: 2px 4px; border-radius: 4px; transition: background 0.2s;
+  }
+  .activity-time:hover { background: #f0f0f0; }
+  .activity-time.pinned { color: var(--coral); }
+  .activity-time input[type="time"] {
+    font-size: 12px; font-family: inherit; border: 1.5px solid var(--ocean-mid);
+    border-radius: 4px; padding: 2px 4px; width: 80px; outline: none;
+  }
+  .activity-time .time-end { color: var(--text-muted); font-weight: 400; }
+
+  .activity-card {
+    display: flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 8px;
+    background: var(--sand-light); border: 1px solid #e8e0d0; font-size: 14px;
+    flex: 1; min-width: 0; cursor: pointer; transition: all 0.2s;
+  }
+  .activity-card:hover { box-shadow: 0 2px 8px rgba(27,73,101,0.1); }
+  .activity-card .ac-emoji { font-size: 16px; flex-shrink: 0; }
+  .activity-card .ac-name { font-weight: 600; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .activity-card .ac-cat { font-size: 10px; padding: 1px 6px; border-radius: 8px; color: white; font-weight: 500; flex-shrink: 0; }
+
+  .activity-duration { font-size: 11px; color: var(--text-muted); flex-shrink: 0; min-width: 32px; text-align: center; }
+
+  .slot-remove {
+    width: 22px; height: 22px; border-radius: 50%; border: none; background: #f0f0f0;
+    color: #999; font-size: 13px; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0; transition: all 0.2s;
+  }
+  .slot-remove:hover { background: var(--coral); color: white; }
+
+  /* Gap Indicator */
+  .timeline-gap {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 4px 12px; margin: 4px 0; border-radius: 8px;
+    border: 1.5px dashed #ddd; font-size: 12px; color: #bbb;
+  }
+
+  /* Empty day state */
+  .day-empty { text-align: center; padding: 24px 16px; color: #ccc; font-size: 14px; font-style: italic; }
 
   /* ===== Modals ===== */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
@@ -202,12 +271,20 @@
   .modal-day-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
   .modal-day-tab { flex: 1; padding: 10px; border: 1.5px solid #ddd; border-radius: 10px; background: white; text-align: center; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 600; transition: all 0.2s; }
   .modal-day-tab.active { background: var(--ocean-mid); color: white; border-color: var(--ocean-mid); }
-  .modal-slots { display: flex; flex-direction: column; gap: 8px; }
-  .modal-slot { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border: 1.5px solid #eee; border-radius: 10px; cursor: pointer; transition: all 0.2s; font-family: inherit; background: white; font-size: 14px; }
-  .modal-slot:hover:not(.occupied) { border-color: var(--ocean-mid); background: rgba(61,142,185,0.05); }
-  .modal-slot.occupied { opacity: 0.5; cursor: not-allowed; background: #f9f9f9; }
-  .modal-slot .ms-time { font-weight: 600; color: var(--ocean-mid); }
-  .modal-slot .ms-label { color: var(--text-muted); font-size: 13px; }
+
+  /* Period picker buttons */
+  .modal-periods { display: flex; flex-direction: column; gap: 8px; }
+  .modal-period-btn {
+    display: flex; align-items: center; justify-content: space-between; padding: 14px 16px;
+    border: 1.5px solid #eee; border-radius: 10px; cursor: pointer; transition: all 0.2s;
+    font-family: inherit; background: white; font-size: 14px;
+  }
+  .modal-period-btn:hover:not(:disabled) { border-color: var(--ocean-mid); background: rgba(61,142,185,0.05); }
+  .modal-period-btn:disabled { opacity: 0.35; cursor: not-allowed; background: #f9f9f9; }
+  .modal-period-btn .mp-label { font-weight: 600; }
+  .modal-period-btn .mp-count { font-size: 12px; color: var(--text-muted); }
+  .modal-period-btn.recommended { border-color: var(--ocean-mid); background: rgba(61,142,185,0.04); }
+  .modal-period-btn.recommended .mp-label::after { content: ' (推荐)'; font-size: 11px; color: var(--ocean-mid); font-weight: 400; }
 
   /* Place Detail Modal */
   .detail-modal .modal-box { text-align: center; max-width: 400px; }
@@ -261,6 +338,10 @@
     .reel-container { width: 90px; height: 64px; }
     .reel-item { height: 64px; font-size: 12px; }
     .reel-item .reel-emoji { font-size: 20px; }
+    .reorder-btn { width: 28px; height: 22px; font-size: 12px; }
+    .activity-time { min-width: 64px; font-size: 10px; }
+    .activity-duration { display: none; }
+    .timeline-activity { gap: 6px; padding: 6px 8px; }
   }
   @media (max-width: 480px) {
     .modal-box { padding: 20px; }
@@ -304,7 +385,6 @@
         <select id="statusFilter">
           <option value="all">全部状态</option>
           <option value="pending">待抽签</option>
-          <option value="drawn">已抽出</option>
           <option value="scheduled">已安排</option>
           <option value="visited">已去过</option>
           <option value="skipped">已跳过</option>
@@ -386,10 +466,10 @@
 <div class="modal-overlay" id="assignModal">
   <div class="modal-box">
     <button class="modal-close" id="modalClose">&times;</button>
-    <h3>📌 选择时间段</h3>
+    <h3>📌 放入行程</h3>
     <p style="font-size:14px; color:var(--text-muted); margin-bottom:16px;" id="modalPlaceInfo"></p>
     <div class="modal-day-tabs" id="modalDayTabs"></div>
-    <div class="modal-slots" id="modalSlots"></div>
+    <div class="modal-periods" id="modalPeriods"></div>
   </div>
 </div>
 
@@ -412,7 +492,7 @@
 
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-  import { getDatabase, ref, onValue, set, update, remove, onDisconnect, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
+  import { getDatabase, ref, onValue, set, update, remove, get, onDisconnect, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
 
   const firebaseConfig = {
     apiKey: "AIzaSyA3BLKqMcG848EOGGXVLvJr2rRp7T4ebbA",
@@ -460,29 +540,15 @@
     { id: 'huandao', name: '环岛路骑行', group: '逛的', category: '闲逛', emoji: '🚲', description: '沿海骑行，途经白城沙滩、曾厝垵等', duration: 120, price: '租车约 30-50 元' },
   ];
 
-  const DAY_SLOTS = {
-    1: [
-      { time: '14:45', label: '抵达厦门北', fixed: true, emoji: '🚄' },
-      { time: '15:30', label: '入住酒店', fixed: true, emoji: '🏨' },
-      { time: '16:00', label: '下午活动' },
-      { time: '18:00', label: '晚餐' },
-      { time: '20:00', label: '晚间' },
-    ],
-    2: [
-      { time: '08:00', label: '早餐/出发' },
-      { time: '10:00', label: '上午活动' },
-      { time: '12:00', label: '午餐' },
-      { time: '14:00', label: '下午活动' },
-      { time: '16:00', label: '下午续' },
-      { time: '18:00', label: '晚餐' },
-      { time: '20:00', label: '晚间' },
-    ],
-    3: [
-      { time: '08:00', label: '早餐/出发' },
-      { time: '10:00', label: '上午活动' },
-      { time: '12:00', label: '午餐' },
-      { time: '14:00', label: '返程', fixed: true, emoji: '🚄' },
-    ],
+  // ===== Day Configuration (replaces old DAY_SLOTS) =====
+  const DAY_CONFIG = {
+    1: { startTime: '14:45', fixedEvents: [
+         { time: '14:45', label: '抵达厦门北', emoji: '🚄' }
+       ]},
+    2: { startTime: '08:00', fixedEvents: [] },
+    3: { startTime: '08:00', fixedEvents: [
+         { time: '14:00', label: '返程', emoji: '🚄' }
+       ]},
   };
   const DAY_INFO = {
     1: { label: 'Day 1', date: '6 月 19 日（周四）' },
@@ -490,13 +556,42 @@
     3: { label: 'Day 3', date: '6 月 21 日（周六）' },
   };
 
+  // ===== Time Utilities =====
+  function timeToMinutes(t) {
+    const [h, m] = t.split(':').map(Number);
+    return h * 60 + m;
+  }
+  function minutesToTime(mins) {
+    const h = Math.floor(mins / 60) % 24;
+    const m = mins % 60;
+    return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
+  }
+  function getPeriod(mins) {
+    if (mins < 720) return 'morning';
+    if (mins < 1080) return 'afternoon';
+    return 'evening';
+  }
+  const PERIOD_INFO = {
+    morning:   { label: '上午', emoji: '🌅', cssClass: 'period-morning', maxMinutes: 720 },
+    afternoon: { label: '下午', emoji: '🌤️', cssClass: 'period-afternoon', maxMinutes: 1080 },
+    evening:   { label: '晚上', emoji: '🌙', cssClass: 'period-evening', maxMinutes: 1440 },
+  };
+  function findPlaceInTimeline(placeId) {
+    for (let d = 1; d <= 3; d++) {
+      const arr = state.timeline['day' + d] || [];
+      const idx = arr.findIndex(a => a.placeId === placeId);
+      if (idx !== -1) return { day: d, index: idx };
+    }
+    return null;
+  }
+
   // ===== State =====
   const state = {
     placeStatus: {},
-    timeline: {},
+    timeline: { day1: [], day2: [], day3: [] },
     lotteryHistory: [],
-    activeGroupFilter: '全部',  // '全部' | '吃的' | '玩的' | '逛的'
-    activeSubFilter: null,       // null | specific sub like '正餐'
+    activeGroupFilter: '全部',
+    activeSubFilter: null,
     activeStatusFilter: 'all',
     currentDraw: null,
     isAnimating: false,
@@ -506,7 +601,7 @@
   function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; }
   function shuffle(arr) { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 
-  const STATUS_LABELS = { pending: '待抽签', drawn: '已抽出', scheduled: '已安排', visited: '已去过', skipped: '已跳过' };
+  const STATUS_LABELS = { pending: '待抽签', scheduled: '已安排', visited: '已去过', skipped: '已跳过' };
 
   // ===== Firebase Listeners =====
   onValue(ref(db, BASE + '/placeStatus'), (snap) => {
@@ -515,13 +610,19 @@
     Object.entries(data).forEach(([id, obj]) => { if (obj && obj.status) state.placeStatus[id] = obj.status; });
     renderPlaceGrid(); renderTimeline(); updatePoolCounter(); updateLotteryHint();
   });
-  onValue(ref(db, BASE + '/timeline'), (snap) => {
+  onValue(ref(db, BASE + '/timelineV2'), (snap) => {
     const data = snap.val() || {};
     state.timeline = {};
-    Object.entries(data).forEach(([day, slots]) => {
-      state.timeline[day] = {};
-      if (slots) Object.entries(slots).forEach(([k, v]) => { if (v && v.placeId) state.timeline[day][k] = v; });
-    });
+    for (let d = 1; d <= 3; d++) {
+      const dayData = data['day' + d];
+      if (dayData) {
+        state.timeline['day' + d] = Object.entries(dayData)
+          .sort(([a], [b]) => parseInt(a) - parseInt(b))
+          .map(([, v]) => v);
+      } else {
+        state.timeline['day' + d] = [];
+      }
+    }
     renderTimeline(); renderPlaceGrid(); updatePoolCounter();
   });
   onValue(ref(db, BASE + '/lotteryHistory'), (snap) => {
@@ -529,6 +630,77 @@
     state.lotteryHistory = Object.entries(data).map(([id, val]) => ({ id, ...val })).sort((a, b) => (b.drawnAt || 0) - (a.drawnAt || 0));
     renderDrawHistory();
   });
+
+  // ===== Core: Compute Day Schedule =====
+  function computeDaySchedule(day) {
+    const config = DAY_CONFIG[day];
+    const activities = state.timeline['day' + day] || [];
+    const result = [];
+    let cursor = timeToMinutes(config.startTime);
+    const shownPeriods = new Set();
+
+    // Leading fixed events
+    const leadingFixed = config.fixedEvents
+      .filter(e => timeToMinutes(e.time) <= cursor)
+      .sort((a, b) => timeToMinutes(a.time) - timeToMinutes(b.time));
+    leadingFixed.forEach(e => {
+      result.push({ type: 'fixed', time: e.time, label: e.label, emoji: e.emoji });
+    });
+
+    // Process activities
+    activities.forEach((activity, index) => {
+      const place = PLACES.find(p => p.id === activity.placeId);
+      if (!place) return;
+
+      let startTime = cursor;
+      let isPinned = false;
+
+      if (activity.pinnedTime) {
+        const pinned = timeToMinutes(activity.pinnedTime);
+        isPinned = true;
+        if (pinned > cursor + 60) {
+          result.push({ type: 'gap', start: cursor, end: pinned, duration: pinned - cursor });
+        }
+        startTime = Math.max(pinned, cursor);
+      }
+
+      const endTime = startTime + activity.duration;
+
+      // Period divider logic
+      const startPeriod = getPeriod(startTime);
+      if (!shownPeriods.has(startPeriod)) {
+        shownPeriods.add(startPeriod);
+        result.push({ type: 'divider', period: startPeriod, ...PERIOD_INFO[startPeriod] });
+      }
+      // Mark crossed periods
+      const endPeriod = getPeriod(endTime);
+      if (endPeriod !== startPeriod) {
+        for (let m = startTime; m < endTime; m += 60) shownPeriods.add(getPeriod(m));
+        shownPeriods.add(endPeriod);
+      }
+
+      result.push({
+        type: 'activity', index, placeId: activity.placeId, place,
+        startTime, endTime, duration: activity.duration, isPinned,
+      });
+
+      cursor = endTime;
+    });
+
+    // Trailing fixed events
+    const trailingFixed = config.fixedEvents
+      .filter(e => timeToMinutes(e.time) > cursor)
+      .sort((a, b) => timeToMinutes(a.time) - timeToMinutes(b.time));
+    trailingFixed.forEach(e => {
+      const evMins = timeToMinutes(e.time);
+      if (evMins > cursor + 60) {
+        result.push({ type: 'gap', start: cursor, end: evMins, duration: evMins - cursor });
+      }
+      result.push({ type: 'fixed', time: e.time, label: e.label, emoji: e.emoji });
+    });
+
+    return result;
+  }
 
   // ===== Filtered Places Helper =====
   function getFilteredPlaces() {
@@ -556,7 +728,6 @@
     });
     html += '</div>';
 
-    // Second level
     if (state.activeGroupFilter !== '全部') {
       const group = GROUPS.find(g => g.key === state.activeGroupFilter);
       if (group) {
@@ -570,7 +741,6 @@
     }
     container.innerHTML = html;
 
-    // Events - level 1
     container.querySelectorAll('[data-group]').forEach(btn => {
       btn.onclick = () => {
         state.activeGroupFilter = btn.dataset.group;
@@ -578,7 +748,6 @@
         renderFilterBar(); renderPlaceGrid(); updatePoolCounter(); updateLotteryHint();
       };
     });
-    // Events - level 2
     container.querySelectorAll('[data-sub]').forEach(btn => {
       btn.onclick = () => {
         state.activeSubFilter = btn.dataset.sub || null;
@@ -615,7 +784,6 @@
     if (places.length === 0) {
       grid.innerHTML = '<div style="text-align:center; color:#ccc; padding:24px; font-size:14px;">没有匹配的地点</div>';
     }
-    // Click to open detail
     grid.querySelectorAll('.place-card').forEach(card => {
       card.onclick = () => showPlaceDetail(card.dataset.placeId);
     });
@@ -644,57 +812,180 @@
     let html = '';
     for (let day = 1; day <= 3; day++) {
       const info = DAY_INFO[day];
-      const slots = DAY_SLOTS[day];
+      const activities = state.timeline['day' + day] || [];
       const dayKey = 'day' + day;
-      const assignedCount = slots.filter(s => !s.fixed && (state.timeline[dayKey] || {})[s.time]?.placeId).length;
+      const schedule = computeDaySchedule(day);
+
       html += `<div class="day-column"><div class="day-header">
         <div><div class="day-label">${info.label}</div><div class="day-date">${info.date}</div></div>
-        <div class="day-count">已安排 ${assignedCount} 项</div></div><div class="day-slots">`;
-      slots.forEach(slot => {
-        const slotKey = 'slot_' + slot.time.replace(':', '');
-        const slotData = (state.timeline[dayKey] || {})[slotKey];
-        const hasPlace = slotData && slotData.placeId;
-        const place = hasPlace ? PLACES.find(p => p.id === slotData.placeId) : null;
-        if (slot.fixed) {
-          html += `<div class="time-slot fixed"><div class="slot-time">${slot.time}</div><div class="slot-content"><div class="slot-place"><span class="sp-emoji">${slot.emoji || '📍'}</span><span class="sp-name">${slot.label}</span></div></div></div>`;
-        } else if (hasPlace && place) {
-          html += `<div class="time-slot" data-day="${day}" data-slot-key="${slotKey}"><div class="slot-time">${slot.time}</div><div class="slot-content"><div class="slot-place" data-place-id="${place.id}"><span class="sp-emoji">${place.emoji}</span><span class="sp-name">${place.name}</span><span class="sp-cat" style="background:${getCatColor(place.category)}">${place.category}</span></div><button class="slot-remove" data-day="${day}" data-slot-key="${slotKey}" title="移除">&times;</button></div></div>`;
-        } else {
-          html += `<div class="time-slot"><div class="slot-time">${slot.time}</div><div class="slot-label">${slot.label}</div><div class="slot-content"><span class="slot-empty">空 - 从抽签或详情分配</span></div></div>`;
+        <div class="day-count">已安排 ${activities.length} 项</div></div><div class="day-slots">`;
+
+      if (schedule.length === 0) {
+        html += '<div class="day-empty">暂无活动安排 — 通过抽签添加</div>';
+      }
+
+      schedule.forEach(entry => {
+        if (entry.type === 'fixed') {
+          html += `<div class="time-slot fixed"><div class="slot-time">${entry.time}</div><div class="slot-content"><div class="slot-place"><span class="sp-emoji">${entry.emoji || '📍'}</span><span class="sp-name">${entry.label}</span></div></div></div>`;
+        } else if (entry.type === 'divider') {
+          html += `<div class="period-divider ${entry.cssClass}"><span>${entry.emoji} ${entry.label}</span><div class="divider-line"></div></div>`;
+        } else if (entry.type === 'gap') {
+          html += `<div class="timeline-gap">⏸ 空闲 ${entry.duration} 分钟</div>`;
+        } else if (entry.type === 'activity') {
+          const p = entry.place;
+          const isFirst = entry.index === 0;
+          const isLast = entry.index === activities.length - 1;
+          const pinnedClass = entry.isPinned ? ' pinned' : '';
+          const pinIcon = entry.isPinned ? '📌 ' : '';
+          html += `<div class="timeline-activity${pinnedClass}" data-day="${day}" data-index="${entry.index}">
+            <div class="reorder-controls">
+              <button class="reorder-btn" data-day="${day}" data-index="${entry.index}" data-dir="up" ${isFirst ? 'disabled' : ''}>▲</button>
+              <button class="reorder-btn" data-day="${day}" data-index="${entry.index}" data-dir="down" ${isLast ? 'disabled' : ''}>▼</button>
+            </div>
+            <div class="activity-time${entry.isPinned ? ' pinned' : ''}" data-day="${day}" data-index="${entry.index}">
+              ${pinIcon}${minutesToTime(entry.startTime)}<br><span class="time-end">↓${minutesToTime(entry.endTime)}</span>
+            </div>
+            <div class="activity-card" data-place-id="${p.id}">
+              <span class="ac-emoji">${p.emoji}</span>
+              <span class="ac-name">${p.name}</span>
+              <span class="ac-cat" style="background:${getCatColor(p.category)}">${p.category}</span>
+            </div>
+            <div class="activity-duration">${entry.duration}min</div>
+            <button class="slot-remove" data-day="${day}" data-index="${entry.index}" title="移除">&times;</button>
+          </div>`;
         }
       });
+
       html += '</div></div>';
     }
     container.innerHTML = html;
-    // Remove buttons
-    container.querySelectorAll('.slot-remove').forEach(btn => {
-      btn.onclick = (e) => { e.stopPropagation(); removeFromSlot(btn.dataset.day, btn.dataset.slotKey); };
+
+    // Bind events: reorder
+    container.querySelectorAll('.reorder-btn').forEach(btn => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        reorderActivity(parseInt(btn.dataset.day), parseInt(btn.dataset.index), btn.dataset.dir);
+      };
     });
-    // Click on assigned place to show detail
-    container.querySelectorAll('.slot-place[data-place-id]').forEach(el => {
+    // Bind events: remove
+    container.querySelectorAll('.slot-remove').forEach(btn => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        removeActivity(parseInt(btn.dataset.day), parseInt(btn.dataset.index));
+      };
+    });
+    // Bind events: click place card → detail
+    container.querySelectorAll('.activity-card').forEach(el => {
       el.onclick = (e) => { e.stopPropagation(); showPlaceDetail(el.dataset.placeId); };
+    });
+    // Bind events: click time → inline edit for pinning
+    container.querySelectorAll('.activity-time').forEach(el => {
+      el.onclick = (e) => {
+        e.stopPropagation();
+        startPinTimeEdit(parseInt(el.dataset.day), parseInt(el.dataset.index), el);
+      };
     });
   }
 
-  // ===== Assign / Remove =====
-  async function assignToSlot(placeId, day, slotTime) {
+  // ===== Inline Pin-Time Editing =====
+  function startPinTimeEdit(day, index, containerEl) {
+    const activities = state.timeline['day' + day] || [];
+    const activity = activities[index];
+    if (!activity) return;
+
+    const schedule = computeDaySchedule(day);
+    const entry = schedule.find(e => e.type === 'activity' && e.index === index);
+    if (!entry) return;
+
+    const currentValue = activity.pinnedTime || minutesToTime(entry.startTime);
+    containerEl.innerHTML = `<input type="time" value="${currentValue}" style="font-size:12px; font-family:inherit; border:1.5px solid var(--ocean-mid); border-radius:4px; padding:2px 4px; width:80px; outline:none;">`;
+    const input = containerEl.querySelector('input');
+    input.focus();
+
+    const commit = async () => {
+      const val = input.value;
+      if (!val) { renderTimeline(); return; }
+      const arr = [...(state.timeline['day' + day] || [])];
+      if (arr[index].pinnedTime === val) { renderTimeline(); return; }
+      arr[index] = { ...arr[index], pinnedTime: val };
+      state.timeline['day' + day] = arr;
+      const dayObj = {};
+      arr.forEach((a, i) => { dayObj[i] = a; });
+      await set(ref(db, `${BASE}/timelineV2/day${day}`), dayObj);
+    };
+    const cancel = () => { renderTimeline(); };
+
+    input.addEventListener('blur', commit);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); input.removeEventListener('blur', commit); commit(); }
+      if (e.key === 'Escape') { input.removeEventListener('blur', commit); cancel(); }
+    });
+  }
+
+  // ===== Activity CRUD =====
+  async function addActivityToDay(placeId, day, period) {
+    const place = PLACES.find(p => p.id === placeId);
+    if (!place) return;
     const dayKey = 'day' + day;
-    const slotKey = 'slot_' + slotTime.replace(':', '');
+    const arr = [...(state.timeline[dayKey] || [])];
+    const newActivity = { placeId, duration: place.duration };
+
+    if (period === 'end' || !period) {
+      arr.push(newActivity);
+    } else {
+      // Compute schedule to find insertion point
+      const schedule = computeDaySchedule(day);
+      const periodMax = period === 'morning' ? 720 : period === 'afternoon' ? 1080 : 1440;
+      let insertIdx = 0;
+      for (const entry of schedule) {
+        if (entry.type === 'activity' && entry.startTime < periodMax) {
+          insertIdx = entry.index + 1;
+        }
+      }
+      arr.splice(insertIdx, 0, newActivity);
+    }
+
+    state.timeline[dayKey] = arr;
+    const dayObj = {};
+    arr.forEach((a, i) => { dayObj[i] = a; });
+
     const updates = {};
     updates[`${BASE}/placeStatus/${placeId}/status`] = 'scheduled';
-    updates[`${BASE}/timeline/${dayKey}/${slotKey}`] = { placeId, assignedAt: Date.now() };
+    updates[`${BASE}/timelineV2/${dayKey}`] = dayObj;
     await update(ref(db), updates);
     hideAssignModal();
   }
 
-  async function removeFromSlot(day, slotKey) {
-    const slotData = (state.timeline['day' + day] || {})[slotKey];
-    if (!slotData || !slotData.placeId) return;
-    const placeId = slotData.placeId;
+  async function removeActivity(day, index) {
+    const dayKey = 'day' + day;
+    const arr = [...(state.timeline[dayKey] || [])];
+    if (index < 0 || index >= arr.length) return;
+    const placeId = arr[index].placeId;
+    arr.splice(index, 1);
+    state.timeline[dayKey] = arr;
+
     const updates = {};
-    updates[`${BASE}/placeStatus/${placeId}/status`] = 'drawn';
-    updates[`${BASE}/timeline/day${day}/${slotKey}`] = null;
+    updates[`${BASE}/placeStatus/${placeId}/status`] = 'pending';
+    if (arr.length > 0) {
+      const dayObj = {};
+      arr.forEach((a, i) => { dayObj[i] = a; });
+      updates[`${BASE}/timelineV2/${dayKey}`] = dayObj;
+    } else {
+      updates[`${BASE}/timelineV2/${dayKey}`] = null;
+    }
     await update(ref(db), updates);
+  }
+
+  async function reorderActivity(day, index, direction) {
+    const dayKey = 'day' + day;
+    const arr = [...(state.timeline[dayKey] || [])];
+    const target = direction === 'up' ? index - 1 : index + 1;
+    if (target < 0 || target >= arr.length) return;
+    [arr[index], arr[target]] = [arr[target], arr[index]];
+    state.timeline[dayKey] = arr;
+    const dayObj = {};
+    arr.forEach((a, i) => { dayObj[i] = a; });
+    await set(ref(db, `${BASE}/timelineV2/${dayKey}`), dayObj);
   }
 
   // ===== Place Detail Modal =====
@@ -716,18 +1007,15 @@
     document.getElementById('detailMeta').innerHTML = `<span>⏱️ ${place.duration} 分钟</span>${place.price ? `<span>💰 ${place.price}</span>` : ''}`;
     document.getElementById('detailStatus').innerHTML = `<div class="status-dot status-${status}"></div> ${STATUS_LABELS[status]}`;
 
-    // Action buttons based on status
     const actions = document.getElementById('detailActions');
     let btns = '';
-    if (status === 'pending' || status === 'drawn') {
+    if (status === 'pending') {
       btns += `<button class="btn-assign" onclick="window._detailAssign()">📌 放入行程</button>`;
       btns += `<button class="btn-skip" onclick="window._detailSkip()">⏭️ 跳过</button>`;
     }
-    if (status === 'drawn') {
-      btns += `<button class="btn-redraw" onclick="window._detailReset()">↩️ 放回池中</button>`;
-    }
     if (status === 'scheduled') {
       btns += `<button class="btn-assign" onclick="window._detailVisit()">✅ 标记已去过</button>`;
+      btns += `<button class="btn-assign" style="background:var(--gold)" onclick="window._detailPinTime()">📌 固定时间</button>`;
       btns += `<button class="btn-redraw" onclick="window._detailUnschedule()">🔙 从时间轴移除</button>`;
     }
     if (status === 'visited' || status === 'skipped') {
@@ -742,7 +1030,6 @@
     detailPlaceId = null;
   }
 
-  // Global handlers for detail modal buttons
   window._detailAssign = () => {
     if (detailPlaceId) { hidePlaceDetail(); const place = PLACES.find(p => p.id === detailPlaceId); if (place) showAssignModal(place); }
   };
@@ -757,20 +1044,23 @@
   };
   window._detailUnschedule = async () => {
     if (detailPlaceId) {
-      // Find and remove from timeline
-      for (let d = 1; d <= 3; d++) {
-        const dayKey = 'day' + d;
-        const daySlots = state.timeline[dayKey] || {};
-        for (const [slotKey, val] of Object.entries(daySlots)) {
-          if (val && val.placeId === detailPlaceId) {
-            const updates = {};
-            updates[`${BASE}/placeStatus/${detailPlaceId}/status`] = 'drawn';
-            updates[`${BASE}/timeline/${dayKey}/${slotKey}`] = null;
-            await update(ref(db), updates);
-            hidePlaceDetail();
-            return;
+      const loc = findPlaceInTimeline(detailPlaceId);
+      if (loc) { await removeActivity(loc.day, loc.index); }
+      hidePlaceDetail();
+    }
+  };
+  window._detailPinTime = () => {
+    if (detailPlaceId) {
+      const loc = findPlaceInTimeline(detailPlaceId);
+      if (loc) {
+        hidePlaceDetail();
+        setTimeout(() => {
+          const el = document.querySelector(`.timeline-activity[data-day="${loc.day}"][data-index="${loc.index}"] .activity-time`);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => startPinTimeEdit(loc.day, loc.index, el), 300);
           }
-        }
+        }, 100);
       }
     }
   };
@@ -833,7 +1123,6 @@
     setTimeout(async () => {
       slotMachine.classList.remove('active');
       showResult(winner);
-      await set(ref(db, `${BASE}/placeStatus/${winner.id}/status`), 'drawn');
       const drawId = 'draw_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
       await set(ref(db, `${BASE}/lotteryHistory/${drawId}`), {
         placeId: winner.id, drawnAt: Date.now(), drawnBy: sessionStorage.getItem('collabUserName') || '匿名',
@@ -860,8 +1149,8 @@
   document.getElementById('btnSkip').onclick = async () => {
     if (state.currentDraw) { await set(ref(db, `${BASE}/placeStatus/${state.currentDraw.id}/status`), 'skipped'); lotteryResult.classList.remove('active'); state.currentDraw = null; }
   };
-  document.getElementById('btnRedraw').onclick = async () => {
-    if (state.currentDraw) { await set(ref(db, `${BASE}/placeStatus/${state.currentDraw.id}/status`), 'pending'); lotteryResult.classList.remove('active'); state.currentDraw = null; startLottery(); }
+  document.getElementById('btnRedraw').onclick = () => {
+    if (state.currentDraw) { lotteryResult.classList.remove('active'); state.currentDraw = null; startLottery(); }
   };
 
   function showConfetti() {
@@ -886,13 +1175,13 @@
     }).join('');
   }
 
-  // ===== Assign Modal =====
+  // ===== Assign Modal (Period Picker) =====
   let modalPlaceId = null, modalSelectedDay = 1;
 
   function showAssignModal(place) {
     modalPlaceId = place.id; modalSelectedDay = 1;
     document.getElementById('modalPlaceInfo').textContent = `${place.emoji} ${place.name} — ${place.group}/${place.category}`;
-    renderModalDayTabs(); renderModalSlots();
+    renderModalDayTabs(); renderModalPeriods();
     document.getElementById('assignModal').classList.add('active');
   }
   function hideAssignModal() { document.getElementById('assignModal').classList.remove('active'); modalPlaceId = null; }
@@ -904,31 +1193,86 @@
       return `<button class="modal-day-tab ${modalSelectedDay === d ? 'active' : ''}" data-day="${d}">${info.label}<br><span style="font-size:11px; font-weight:400;">${info.date}</span></button>`;
     }).join('');
     tabs.querySelectorAll('.modal-day-tab').forEach(tab => {
-      tab.onclick = () => { modalSelectedDay = parseInt(tab.dataset.day); renderModalDayTabs(); renderModalSlots(); };
+      tab.onclick = () => { modalSelectedDay = parseInt(tab.dataset.day); renderModalDayTabs(); renderModalPeriods(); };
     });
   }
 
-  function renderModalSlots() {
-    const container = document.getElementById('modalSlots');
+  function renderModalPeriods() {
+    const container = document.getElementById('modalPeriods');
     const dayKey = 'day' + modalSelectedDay;
-    const slots = DAY_SLOTS[modalSelectedDay];
-    container.innerHTML = slots.filter(s => !s.fixed).map(s => {
-      const slotKey = 'slot_' + s.time.replace(':', '');
-      const slotData = (state.timeline[dayKey] || {})[slotKey];
-      const occupied = slotData && slotData.placeId;
-      const place = occupied ? PLACES.find(p => p.id === slotData.placeId) : null;
-      return `<button class="modal-slot ${occupied ? 'occupied' : ''}" data-day="${modalSelectedDay}" data-slot-time="${s.time}" ${occupied ? 'disabled' : ''}>
-        <span class="ms-time">${s.time}</span>
-        <span class="ms-label">${occupied ? (place ? place.emoji + ' ' + place.name : '已占用') : s.label}</span>
+    const activities = state.timeline[dayKey] || [];
+    const config = DAY_CONFIG[modalSelectedDay];
+    const dayStartMins = timeToMinutes(config.startTime);
+    const dayStartPeriod = getPeriod(dayStartMins);
+
+    // Compute period counts
+    const schedule = computeDaySchedule(modalSelectedDay);
+    const counts = { morning: 0, afternoon: 0, evening: 0 };
+    schedule.forEach(e => { if (e.type === 'activity') counts[getPeriod(e.startTime)]++; });
+
+    const options = [
+      { key: 'end', label: '📍 追加到末尾', emoji: '', recommended: true },
+      { key: 'morning', label: '🌅 上午', emoji: '🌅', disabled: dayStartPeriod !== 'morning' },
+      { key: 'afternoon', label: '🌤️ 下午', emoji: '🌤️', disabled: dayStartPeriod === 'evening' },
+      { key: 'evening', label: '🌙 晚上', emoji: '🌙', disabled: false },
+    ];
+
+    container.innerHTML = options.map(opt => {
+      const disabled = opt.disabled ? 'disabled' : '';
+      const recClass = opt.recommended ? ' recommended' : '';
+      const countText = opt.key === 'end'
+        ? `${activities.length} 项`
+        : (opt.disabled ? '不可用' : `${counts[opt.key]} 项`);
+      const disabledReason = opt.key === 'morning' && opt.disabled ? ' (到达时间晚于上午)' : opt.key === 'afternoon' && opt.disabled ? ' (到达时间晚于下午)' : '';
+      return `<button class="modal-period-btn${recClass}" data-period="${opt.key}" ${disabled}>
+        <span class="mp-label">${opt.label}${disabledReason}</span>
+        <span class="mp-count">${countText}</span>
       </button>`;
     }).join('');
-    container.querySelectorAll('.modal-slot:not(.occupied)').forEach(btn => {
-      btn.onclick = () => assignToSlot(modalPlaceId, btn.dataset.day, btn.dataset.slotTime);
+
+    container.querySelectorAll('.modal-period-btn:not(:disabled)').forEach(btn => {
+      btn.onclick = () => {
+        if (modalPlaceId) addActivityToDay(modalPlaceId, modalSelectedDay, btn.dataset.period);
+      };
     });
   }
 
   document.getElementById('modalClose').onclick = hideAssignModal;
   document.getElementById('assignModal').onclick = (e) => { if (e.target.id === 'assignModal') hideAssignModal(); };
+
+  // ===== Migration from old timeline to timelineV2 =====
+  async function migrateTimeline() {
+    try {
+      const oldSnap = await get(ref(db, BASE + '/timeline'));
+      const oldData = oldSnap.val();
+      if (!oldData) return;
+      const newSnap = await get(ref(db, BASE + '/timelineV2'));
+      if (newSnap.exists()) return;
+      const updates = {};
+      for (const [dayKey, slots] of Object.entries(oldData)) {
+        if (!slots || typeof slots !== 'object') continue;
+        const activities = [];
+        const sortedSlots = Object.entries(slots)
+          .filter(([, v]) => v && v.placeId)
+          .sort(([a], [b]) => a.localeCompare(b));
+        for (const [, slotVal] of sortedSlots) {
+          const place = PLACES.find(p => p.id === slotVal.placeId);
+          activities.push({ placeId: slotVal.placeId, duration: place ? place.duration : 60 });
+        }
+        if (activities.length > 0) {
+          const dayObj = {};
+          activities.forEach((a, i) => { dayObj[i] = a; });
+          updates[`${BASE}/timelineV2/${dayKey}`] = dayObj;
+        }
+      }
+      if (Object.keys(updates).length > 0) {
+        await update(ref(db), updates);
+        console.log('Timeline migrated to V2');
+      }
+    } catch (err) {
+      console.warn('Migration skipped:', err.message);
+    }
+  }
 
   // ===== Presence =====
   const animals = ['仙鹤','熊猫','老虎','孔雀','海豚','企鹅','考拉','狐狸','鹿','猫头鹰','蝴蝶','鲸鱼','海龟','蜜蜂','鹦鹉'];
@@ -985,7 +1329,46 @@
     catch (err) { console.error('保存失败:', err); }
   }
 
+  // ===== Cleanup test data =====
+  async function cleanupTestData() {
+    try {
+      const statusSnap = await get(ref(db, BASE + '/placeStatus'));
+      const statusData = statusSnap.val();
+      if (statusData) {
+        // Reset all places to pending (clear drawn/scheduled/skipped from testing)
+        const updates = {};
+        let needsCleanup = false;
+        for (const [id, obj] of Object.entries(statusData)) {
+          if (obj && obj.status && obj.status !== 'pending') {
+            updates[`${BASE}/placeStatus/${id}`] = null;
+            needsCleanup = true;
+          }
+        }
+        if (needsCleanup) {
+          await update(ref(db), updates);
+          console.log('Cleaned up test place statuses');
+        }
+      }
+      // Clear timeline test data
+      const tlSnap = await get(ref(db, BASE + '/timelineV2'));
+      if (tlSnap.exists()) {
+        await remove(ref(db, BASE + '/timelineV2'));
+        console.log('Cleaned up test timeline data');
+      }
+      // Clear old timeline format too
+      const oldTlSnap = await get(ref(db, BASE + '/timeline'));
+      if (oldTlSnap.exists()) {
+        await remove(ref(db, BASE + '/timeline'));
+        console.log('Cleaned up old timeline data');
+      }
+    } catch (err) {
+      console.warn('Cleanup skipped:', err.message);
+    }
+  }
+
   // ===== Init =====
+  cleanupTestData();
+  migrateTimeline();
   renderFilterBar();
   renderPlaceGrid();
   renderTimeline();
