@@ -492,7 +492,7 @@
 
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-  import { getDatabase, ref, onValue, set, update, remove, get, onDisconnect, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
+  import { getDatabase, ref, onValue, set, update, get, onDisconnect, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
 
   const firebaseConfig = {
     apiKey: "AIzaSyA3BLKqMcG848EOGGXVLvJr2rRp7T4ebbA",
@@ -1329,45 +1329,7 @@
     catch (err) { console.error('保存失败:', err); }
   }
 
-  // ===== Cleanup test data =====
-  async function cleanupTestData() {
-    try {
-      const statusSnap = await get(ref(db, BASE + '/placeStatus'));
-      const statusData = statusSnap.val();
-      if (statusData) {
-        // Reset all places to pending (clear drawn/scheduled/skipped from testing)
-        const updates = {};
-        let needsCleanup = false;
-        for (const [id, obj] of Object.entries(statusData)) {
-          if (obj && obj.status && obj.status !== 'pending') {
-            updates[`${BASE}/placeStatus/${id}`] = null;
-            needsCleanup = true;
-          }
-        }
-        if (needsCleanup) {
-          await update(ref(db), updates);
-          console.log('Cleaned up test place statuses');
-        }
-      }
-      // Clear timeline test data
-      const tlSnap = await get(ref(db, BASE + '/timelineV2'));
-      if (tlSnap.exists()) {
-        await remove(ref(db, BASE + '/timelineV2'));
-        console.log('Cleaned up test timeline data');
-      }
-      // Clear old timeline format too
-      const oldTlSnap = await get(ref(db, BASE + '/timeline'));
-      if (oldTlSnap.exists()) {
-        await remove(ref(db, BASE + '/timeline'));
-        console.log('Cleaned up old timeline data');
-      }
-    } catch (err) {
-      console.warn('Cleanup skipped:', err.message);
-    }
-  }
-
   // ===== Init =====
-  cleanupTestData();
   migrateTimeline();
   renderFilterBar();
   renderPlaceGrid();
