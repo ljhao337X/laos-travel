@@ -1,5 +1,6 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/laos-travel-plan.html" }
+    { "source": "/laos", "destination": "/laos-travel-plan.html" },
+    { "source": "/(.*)", "destination": "/xiamen-travel-plan.html" }
   ]
 }

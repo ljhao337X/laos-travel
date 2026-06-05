@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>厦门旅行计划 | 6月19-21日 · 3天2晚 · 华尔道夫酒店</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  :root {
+    --ocean-deep: #1B4965;
+    --ocean-mid: #3D8EB9;
+    --ocean-light: #7EC8E3;
+    --sand: #F5E6CA;
+    --sand-light: #FFF8F0;
+    --coral: #E07A5F;
+    --seafoam: #81B29A;
+    --gold: #D4A574;
+    --text-dark: #2C3E50;
+    --text-muted: #7F8C8D;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: var(--sand-light);
+    color: var(--text-dark);
+    line-height: 1.8;
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    background: linear-gradient(135deg, #1B4965 0%, #3D8EB9 40%, #7EC8E3 70%, #F5E6CA 100%);
+    color: white;
+    padding: 80px 40px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='80' height='40' viewBox='0 0 80 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 Q10 0 20 20 Q30 40 40 20 Q50 0 60 20 Q70 40 80 20' fill='none' stroke='%23ffffff' stroke-opacity='0.06' stroke-width='1.5'/%3E%3C/svg%3E");
+  }
+  .hero h1 { font-size: 42px; font-weight: 700; margin-bottom: 16px; position: relative; }
+  .hero .subtitle { font-size: 20px; font-weight: 300; opacity: 0.9; position: relative; }
+  .hero .dates { margin-top: 20px; font-size: 18px; font-weight: 500; color: var(--sand); position: relative; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+
+  /* ===== Overview Card ===== */
+  .overview {
+    background: white; border-radius: 16px; padding: 40px;
+    margin: -30px 20px 40px; position: relative;
+    box-shadow: 0 4px 24px rgba(27,73,101,0.08); border: 1px solid #e8eef2;
+  }
+  .overview h2 { font-size: 24px; color: var(--ocean-deep); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid var(--ocean-light); }
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .info-card { background: var(--sand-light); padding: 16px; border-radius: 12px; text-align: center; }
+  .info-card .icon { font-size: 28px; margin-bottom: 8px; }
+  .info-card .label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+  .info-card .value { font-size: 15px; font-weight: 500; margin-top: 4px; }
+
+  .divider { height: 2px; background: linear-gradient(to right, transparent, var(--ocean-mid), transparent); margin: 48px 0; }
+  .section-title { font-size: 28px; font-weight: 700; text-align: center; margin: 48px 0 32px; color: var(--ocean-deep); }
+  .section-title span { color: var(--ocean-mid); }
+
+  /* ===== Planner Layout ===== */
+  .planner-app { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 48px; }
+
+  /* ===== Place Pool Panel ===== */
+  .pool-panel { background: white; border-radius: 16px; padding: 28px; box-shadow: 0 4px 24px rgba(27,73,101,0.08); border: 1px solid #e8eef2; }
+  .pool-panel h3 { font-size: 20px; color: var(--ocean-deep); margin-bottom: 16px; }
+  .pool-counter { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; padding: 8px 14px; background: var(--sand-light); border-radius: 8px; display: inline-block; }
+
+  /* Two-level Filter Bar */
+  .filter-group { margin-bottom: 16px; }
+  .filter-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+  .filter-row:last-child { margin-bottom: 0; }
+  .filter-row-label { font-size: 11px; color: var(--text-muted); width: 100%; margin-bottom: -4px; font-weight: 500; }
+  .filter-pill {
+    padding: 6px 14px; border-radius: 20px; border: 1.5px solid #ddd; background: white;
+    font-size: 13px; cursor: pointer; transition: all 0.2s; font-family: inherit; color: var(--text-dark);
+  }
+  .filter-pill:hover { border-color: var(--ocean-mid); color: var(--ocean-mid); }
+  .filter-pill.active { background: var(--ocean-mid); color: white; border-color: var(--ocean-mid); }
+  .filter-pill.sub { font-size: 12px; padding: 4px 12px; }
+
+  .status-filter { margin-bottom: 16px; }
+  .status-filter select { padding: 6px 12px; border: 1.5px solid #ddd; border-radius: 8px; font-size: 13px; font-family: inherit; color: var(--text-dark); background: white; cursor: pointer; outline: none; }
+  .status-filter select:focus { border-color: var(--ocean-mid); }
+
+  /* Place Cards Grid */
+  .place-grid { display: grid; grid-template-columns: 1fr; gap: 10px; max-height: 520px; overflow-y: auto; padding-right: 4px; }
+  .place-grid::-webkit-scrollbar { width: 4px; }
+  .place-grid::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
+
+  .place-card {
+    display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+    border-radius: 12px; border: 1.5px solid #eee; background: white;
+    transition: all 0.2s; cursor: pointer; position: relative;
+  }
+  .place-card:hover { box-shadow: 0 2px 12px rgba(27,73,101,0.1); border-color: var(--ocean-light); transform: translateX(2px); }
+  .place-card .place-emoji { font-size: 28px; flex-shrink: 0; }
+  .place-card .place-info { flex: 1; min-width: 0; }
+  .place-card .place-name { font-size: 15px; font-weight: 600; }
+  .place-card .place-meta { font-size: 12px; color: var(--text-muted); display: flex; gap: 8px; align-items: center; margin-top: 2px; }
+  .place-card .cat-badge { font-size: 11px; padding: 1px 8px; border-radius: 10px; color: white; font-weight: 500; }
+  .place-card .status-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .status-pending { background: #F5C542; }
+  .status-drawn { background: var(--ocean-mid); }
+  .status-scheduled { background: var(--seafoam); }
+  .status-visited { background: #4CAF50; }
+  .status-skipped { background: #bbb; }
+
+  /* ===== Lottery Section ===== */
+  .lottery-section { text-align: center; padding: 24px 0; border-top: 1.5px solid #eee; margin-top: 20px; }
+  .lottery-hint { font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+  .lottery-btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 16px 40px;
+    background: linear-gradient(135deg, var(--coral), #d4623f); color: white;
+    border: none; border-radius: 40px; font-size: 20px; font-weight: 700;
+    cursor: pointer; font-family: inherit; transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(224,122,95,0.4); position: relative; overflow: hidden;
+  }
+  .lottery-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(224,122,95,0.5); }
+  .lottery-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .lottery-btn.pulse { animation: btnPulse 0.6s ease; }
+  @keyframes btnPulse { 0% { transform: scale(1); } 30% { transform: scale(0.95); } 60% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+  /* Slot Machine */
+  .slot-machine { display: none; justify-content: center; gap: 12px; margin: 24px 0; padding: 20px; background: linear-gradient(135deg, #1B4965, #2a6085); border-radius: 16px; position: relative; overflow: hidden; }
+  .slot-machine.active { display: flex; }
+  .slot-machine::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='10' r='1' fill='%23ffffff' fill-opacity='0.05'/%3E%3C/svg%3E"); }
+  .reel-container { width: 120px; height: 80px; overflow: hidden; border-radius: 10px; background: white; position: relative; z-index: 1; box-shadow: inset 0 2px 8px rgba(0,0,0,0.15); }
+  .reel { transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1); }
+  .reel-item { height: 80px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: var(--text-dark); gap: 6px; padding: 0 8px; text-align: center; }
+  .reel-item .reel-emoji { font-size: 24px; }
+
+  /* Lottery Result */
+  .lottery-result { display: none; margin: 20px auto 0; max-width: 360px; padding: 24px; background: white; border-radius: 16px; border: 2px solid var(--gold); box-shadow: 0 4px 24px rgba(212,165,116,0.3); position: relative; overflow: hidden; }
+  .lottery-result.active { display: block; }
+  .lottery-result .result-glow { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(212,165,116,0.1), transparent); pointer-events: none; }
+  .lottery-result .result-emoji { font-size: 48px; margin-bottom: 8px; }
+  .lottery-result .result-name { font-size: 22px; font-weight: 700; color: var(--ocean-deep); }
+  .lottery-result .result-cat { display: inline-block; padding: 2px 12px; border-radius: 12px; color: white; font-size: 12px; font-weight: 500; margin: 8px 0; }
+  .lottery-result .result-desc { font-size: 14px; color: var(--text-muted); margin: 8px 0; line-height: 1.6; }
+  .lottery-result .result-meta { font-size: 13px; color: var(--text-muted); display: flex; gap: 16px; justify-content: center; margin: 12px 0; }
+  .result-actions { display: flex; gap: 10px; justify-content: center; margin-top: 16px; }
+  .result-actions button { padding: 10px 20px; border-radius: 24px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+  .btn-assign { background: var(--ocean-mid); color: white; }
+  .btn-assign:hover { background: var(--ocean-deep); }
+  .btn-skip { background: #f0f0f0; color: var(--text-muted); }
+  .btn-skip:hover { background: #e0e0e0; }
+  .btn-redraw { background: transparent; color: var(--coral); border: 1.5px solid var(--coral); }
+  .btn-redraw:hover { background: var(--coral); color: white; }
+
+  /* Confetti */
+  .confetti-container { position: fixed; inset: 0; pointer-events: none; z-index: 9999; overflow: hidden; }
+  .confetti-piece { position: absolute; width: 8px; height: 8px; border-radius: 2px; animation: confettiFall 2s ease-out forwards; }
+  @keyframes confettiFall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+
+  /* Draw History */
+  .draw-history { margin-top: 16px; text-align: left; }
+  .draw-history summary { font-size: 13px; color: var(--text-muted); cursor: pointer; padding: 6px 0; }
+  .draw-history-list { max-height: 120px; overflow-y: auto; padding: 8px 0; }
+  .draw-history-item { font-size: 12px; color: var(--text-muted); padding: 4px 0; display: flex; align-items: center; gap: 6px; }
+
+  /* ===== Timeline Panel ===== */
+  .timeline-panel { background: white; border-radius: 16px; padding: 28px; box-shadow: 0 4px 24px rgba(27,73,101,0.08); border: 1px solid #e8eef2; }
+  .timeline-panel h3 { font-size: 20px; color: var(--ocean-deep); margin-bottom: 20px; }
+  .timeline-days { display: flex; flex-direction: column; gap: 24px; }
+  .day-column { border: 1.5px solid #e8eef2; border-radius: 12px; overflow: hidden; }
+  .day-header { padding: 12px 16px; background: linear-gradient(135deg, var(--ocean-deep), #2a6085); color: white; display: flex; align-items: center; justify-content: space-between; }
+  .day-header .day-label { font-size: 16px; font-weight: 700; }
+  .day-header .day-date { font-size: 13px; opacity: 0.85; }
+  .day-header .day-count { font-size: 12px; background: rgba(255,255,255,0.2); padding: 2px 10px; border-radius: 10px; }
+  .day-slots { padding: 8px; }
+  .time-slot { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 10px; margin-bottom: 6px; transition: all 0.2s; border: 1.5px solid transparent; min-height: 52px; }
+  .time-slot:hover { background: #fafafa; }
+  .time-slot .slot-time { font-size: 13px; font-weight: 600; color: var(--ocean-mid); min-width: 48px; flex-shrink: 0; }
+  .time-slot .slot-label { font-size: 12px; color: var(--text-muted); }
+  .time-slot .slot-content { flex: 1; display: flex; align-items: center; gap: 8px; }
+  .time-slot .slot-empty { font-size: 13px; color: #ccc; font-style: italic; }
+  .time-slot .slot-place { display: flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 8px; background: var(--sand-light); border: 1px solid #e8e0d0; font-size: 14px; flex: 1; cursor: pointer; transition: all 0.2s; }
+  .time-slot .slot-place:hover { box-shadow: 0 2px 8px rgba(27,73,101,0.1); }
+  .time-slot .slot-place .sp-emoji { font-size: 18px; }
+  .time-slot .slot-place .sp-name { font-weight: 600; font-size: 13px; }
+  .time-slot .slot-place .sp-cat { font-size: 10px; padding: 1px 6px; border-radius: 8px; color: white; font-weight: 500; }
+  .time-slot .slot-remove { width: 24px; height: 24px; border-radius: 50%; border: none; background: #f0f0f0; color: #999; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; }
+  .time-slot .slot-remove:hover { background: var(--coral); color: white; }
+  .time-slot.fixed .slot-place { background: linear-gradient(135deg, #E3F2FD, #E8EAF6); border-color: #BBDEFB; cursor: default; }
+
+  /* ===== Modals ===== */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+  .modal-overlay.active { display: flex; }
+  .modal-box { background: white; border-radius: 16px; padding: 32px; max-width: 440px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 8px 40px rgba(0,0,0,0.2); }
+  .modal-box h3 { font-size: 20px; color: var(--ocean-deep); margin-bottom: 20px; }
+  .modal-close { float: right; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-muted); margin-top: -8px; }
+  .modal-day-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+  .modal-day-tab { flex: 1; padding: 10px; border: 1.5px solid #ddd; border-radius: 10px; background: white; text-align: center; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: 600; transition: all 0.2s; }
+  .modal-day-tab.active { background: var(--ocean-mid); color: white; border-color: var(--ocean-mid); }
+  .modal-slots { display: flex; flex-direction: column; gap: 8px; }
+  .modal-slot { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border: 1.5px solid #eee; border-radius: 10px; cursor: pointer; transition: all 0.2s; font-family: inherit; background: white; font-size: 14px; }
+  .modal-slot:hover:not(.occupied) { border-color: var(--ocean-mid); background: rgba(61,142,185,0.05); }
+  .modal-slot.occupied { opacity: 0.5; cursor: not-allowed; background: #f9f9f9; }
+  .modal-slot .ms-time { font-weight: 600; color: var(--ocean-mid); }
+  .modal-slot .ms-label { color: var(--text-muted); font-size: 13px; }
+
+  /* Place Detail Modal */
+  .detail-modal .modal-box { text-align: center; max-width: 400px; }
+  .detail-modal .detail-emoji { font-size: 56px; margin-bottom: 8px; }
+  .detail-modal .detail-name { font-size: 24px; font-weight: 700; color: var(--ocean-deep); }
+  .detail-modal .detail-cat { display: inline-block; padding: 3px 14px; border-radius: 14px; color: white; font-size: 13px; font-weight: 500; margin: 10px 0; }
+  .detail-modal .detail-group { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+  .detail-modal .detail-desc { font-size: 15px; color: #555; margin: 12px 0; line-height: 1.7; }
+  .detail-modal .detail-meta { display: flex; gap: 20px; justify-content: center; margin: 12px 0; font-size: 14px; color: var(--text-muted); }
+  .detail-modal .detail-status { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 16px 0 8px; font-size: 14px; }
+  .detail-modal .detail-status .status-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .detail-modal .detail-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+  .detail-modal .detail-actions button { padding: 10px 20px; border-radius: 24px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+
+  /* ===== Packing / Notes / Presence / Footer ===== */
+  .packing-section { background: white; border-radius: 16px; padding: 28px; box-shadow: 0 4px 24px rgba(27,73,101,0.08); border: 1px solid #e8eef2; margin-bottom: 32px; }
+  .packing-section h3 { font-size: 20px; color: var(--ocean-deep); margin-bottom: 16px; }
+  .packing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .packing-grid h5 { color: var(--ocean-mid); margin-bottom: 8px; font-size: 14px; }
+  .packing-grid ul { font-size: 14px; color: #555; list-style: none; padding: 0; }
+  .packing-grid li { display: flex; align-items: center; gap: 8px; padding: 3px 0; }
+  .packing-checkbox { appearance: none; width: 18px; height: 18px; border: 2px solid #ccc; border-radius: 4px; cursor: pointer; position: relative; flex-shrink: 0; transition: all 0.2s; }
+  .packing-checkbox:checked { background: var(--ocean-mid); border-color: var(--ocean-mid); }
+  .packing-checkbox:checked::after { content: '\2713'; color: white; position: absolute; top: -1px; left: 2px; font-size: 13px; font-weight: bold; }
+  .packing-counter { font-size: 13px; color: var(--text-muted); margin-top: 16px; padding: 8px 14px; background: var(--sand-light); border-radius: 8px; display: inline-block; }
+
+  .shared-notes-section { background: white; border-radius: 16px; padding: 28px; box-shadow: 0 4px 24px rgba(27,73,101,0.08); border: 1px solid #e8eef2; margin-bottom: 32px; }
+  .shared-notes-section h3 { font-size: 20px; color: var(--ocean-mid); margin-bottom: 16px; }
+  .shared-notes-editor { min-height: 100px; padding: 16px; background: #f9f9f9; border-radius: 10px; font-size: 14px; color: #555; outline: none; border: 1px solid #e0e0e0; transition: border-color 0.2s; line-height: 1.8; font-family: inherit; }
+  .shared-notes-editor:focus { border-color: var(--ocean-mid); background: white; }
+  .shared-notes-editor:empty::before { content: "在这里写下共享备注：集合时间、分工、其他想法..."; color: #bbb; }
+  .save-status { font-size: 11px; color: #999; margin-left: 8px; display: inline-block; }
+  .save-status.saving { color: #F57C00; }
+  .save-status.saved { color: var(--seafoam); }
+
+  .presence-pill { position: fixed; top: 16px; right: 16px; z-index: 9999; background: white; border-radius: 24px; padding: 8px 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); font-size: 13px; color: #555; display: flex; align-items: center; gap: 8px; max-width: 260px; }
+  .presence-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--seafoam); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .presence-list { display: none; position: absolute; top: 100%; right: 0; margin-top: 8px; background: white; border-radius: 12px; padding: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); min-width: 180px; }
+  .presence-pill:hover .presence-list { display: block; }
+  .presence-user { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 12px; }
+  .presence-avatar { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; font-weight: bold; }
+
+  footer { text-align: center; padding: 40px 20px; color: #999; font-size: 13px; }
+
+  @media (max-width: 768px) {
+    .planner-app { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 28px; }
+    .hero { padding: 60px 20px 40px; }
+    .overview { padding: 24px; margin: -20px 12px 30px; }
+    .reel-container { width: 90px; height: 64px; }
+    .reel-item { height: 64px; font-size: 12px; }
+    .reel-item .reel-emoji { font-size: 20px; }
+  }
+  @media (max-width: 480px) {
+    .modal-box { padding: 20px; }
+    .lottery-btn { padding: 14px 28px; font-size: 18px; }
+    .result-actions, .detail-actions { flex-direction: column; }
+    .result-actions button, .detail-actions button { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>厦门旅行计划</h1>
+  <div class="subtitle">3 天 2 晚 · 抽签决定每日行程</div>
+  <div class="dates">2026 年 6 月 19 日 - 21 日</div>
+</div>
+
+<div class="container">
+  <div class="overview">
+    <h2>行程总览</h2>
+    <div class="info-grid">
+      <div class="info-card"><div class="icon">🚄</div><div class="label">到达</div><div class="value">6/19 14:45 厦门北站</div></div>
+      <div class="info-card"><div class="icon">🏨</div><div class="label">住宿</div><div class="value">厦门华尔道夫酒店</div></div>
+      <div class="info-card"><div class="icon">🌤️</div><div class="label">6 月天气</div><div class="value">28-33°C 偶有阵雨</div></div>
+      <div class="info-card"><div class="icon">🚄</div><div class="label">返程</div><div class="value">6/21 下午出发</div></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-title">🎯 <span>抽签规划</span></div>
+  <p style="text-align:center; color:var(--text-muted); margin-bottom:32px; font-size:15px;">
+    从地点池中随机抽签，决定每天去哪里。点击卡片查看详情，点击"放入行程"将结果安排到时间轴。
+  </p>
+
+  <div class="planner-app">
+    <div class="pool-panel">
+      <h3>📍 地点池</h3>
+      <div class="pool-counter" id="poolCounter">加载中...</div>
+      <div class="filter-group" id="filterGroup"></div>
+      <div class="status-filter">
+        <select id="statusFilter">
+          <option value="all">全部状态</option>
+          <option value="pending">待抽签</option>
+          <option value="drawn">已抽出</option>
+          <option value="scheduled">已安排</option>
+          <option value="visited">已去过</option>
+          <option value="skipped">已跳过</option>
+        </select>
+      </div>
+      <div class="place-grid" id="placeGrid"></div>
+
+      <div class="lottery-section">
+        <button class="lottery-btn" id="lotteryBtn">🎰 抽签！</button>
+        <div class="lottery-hint" id="lotteryHint"></div>
+        <div class="slot-machine" id="slotMachine">
+          <div class="reel-container"><div class="reel" id="reel1"></div></div>
+          <div class="reel-container"><div class="reel" id="reel2"></div></div>
+          <div class="reel-container"><div class="reel" id="reel3"></div></div>
+        </div>
+        <div class="lottery-result" id="lotteryResult">
+          <div class="result-glow"></div>
+          <div class="result-emoji" id="resultEmoji"></div>
+          <div class="result-name" id="resultName"></div>
+          <div class="result-cat" id="resultCat"></div>
+          <div class="result-desc" id="resultDesc"></div>
+          <div class="result-meta" id="resultMeta"></div>
+          <div class="result-actions">
+            <button class="btn-assign" id="btnAssign">📌 放入行程</button>
+            <button class="btn-redraw" id="btnRedraw">🔄 重抽</button>
+            <button class="btn-skip" id="btnSkip">⏭️ 跳过</button>
+          </div>
+        </div>
+        <details class="draw-history" id="drawHistory">
+          <summary>抽签历史</summary>
+          <div class="draw-history-list" id="drawHistoryList"></div>
+        </details>
+      </div>
+    </div>
+
+    <div class="timeline-panel">
+      <h3>📅 三天时间轴</h3>
+      <div class="timeline-days" id="timelineDays"></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-title">🎒 <span>打包清单</span></div>
+  <div class="packing-section">
+    <div class="packing-grid" id="packingGrid">
+      <div><h5>📄 证件</h5><ul>
+        <li><input type="checkbox" class="packing-checkbox" data-pack-id="id_card" id="pack_id_card"><label for="pack_id_card">身份证</label></li>
+        <li><input type="checkbox" class="packing-checkbox" data-pack-id="tickets" id="pack_tickets"><label for="pack_tickets">车票/行程单</label></li>
+        <li><input type="checkbox" class="packing-checkbox" data-pack-id="hotel_confirm" id="pack_hotel_confirm"><label for="pack_hotel_confirm">酒店预订单</label></li>
+      </ul></div>
+      <div><h5>👕 衣物</h5><ul>
+        <li><input type="checkbox" class="packing-checkbox" data-pack-id="tshirts" id="pack_tshirts"><label for="pack_tshirts">短袖 T 恤 x3</label></li>
+        <li><input type="checkbox" class="packing-checkbox" data-pack-id="shorts" id="pack_shorts"><label for="pack_shorts">短裤/轻薄裤</label></li>
+        <li><input type="checkbox" class="packing-checkbox" data-pack-id="swimsuit" id="pack_swimsuit"><label for="pack_swimsuit">泳衣</label></li>
+        <li><input type="checkbox" class="packing-checkbox" data-pack-id="sandals" id="pack_sandals"><label for="pack_sandals">凉鞋/拖鞋</label></li>
+        <li><input type="checkbox" class="packing-checkbox" data-pack-id="light_jacket" id="pack_light_jacket"><label for="pack_light_jacket">薄外套</label></li>
+      </ul></div>
+      <div><h5>🧴 防护</h5><ul>
+        <li><input type="checkbox" class="packing-checkbox" data-pack-id="sunscreen" id="pack_sunscreen"><label for="pack_sunscreen">防晒霜</label></li>
+        <li><input type="checkbox" class="packing-checkbox" data-pack-id="umbrella" id="pack_umbrella"><label for="pack_umbrella">折叠伞</label></li>
+        <li><input type="checkbox" class="packing-checkbox" data-pack-id="mosquito" id="pack_mosquito"><label for="pack_mosquito">防蚊液</label></li>
+      </ul></div>
+      <div><h5>🔌 电子</h5><ul>
+        <li><input type="checkbox" class="packing-checkbox" data-pack-id="phone" id="pack_phone"><label for="pack_phone">手机 + 充电器</label></li>
+        <li><input type="checkbox" class="packing-checkbox" data-pack-id="powerbank" id="pack_powerbank"><label for="pack_powerbank">充电宝</label></li>
+        <li><input type="checkbox" class="packing-checkbox" data-pack-id="camera" id="pack_camera"><label for="pack_camera">相机</label></li>
+      </ul></div>
+    </div>
+    <div class="packing-counter" id="packingCounter">加载中...</div>
+  </div>
+
+  <div class="shared-notes-section">
+    <h3>💬 共享笔记 <span class="save-status" id="status_shared"></span></h3>
+    <div class="shared-notes-editor" contenteditable="true" id="sharedNotesEditor"></div>
+  </div>
+</div>
+
+<!-- Assign Modal -->
+<div class="modal-overlay" id="assignModal">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <h3>📌 选择时间段</h3>
+    <p style="font-size:14px; color:var(--text-muted); margin-bottom:16px;" id="modalPlaceInfo"></p>
+    <div class="modal-day-tabs" id="modalDayTabs"></div>
+    <div class="modal-slots" id="modalSlots"></div>
+  </div>
+</div>
+
+<!-- Place Detail Modal -->
+<div class="modal-overlay detail-modal" id="placeDetailModal">
+  <div class="modal-box">
+    <button class="modal-close" id="detailModalClose">&times;</button>
+    <div class="detail-emoji" id="detailEmoji"></div>
+    <div class="detail-name" id="detailName"></div>
+    <div class="detail-group" id="detailGroup"></div>
+    <div class="detail-cat" id="detailCat"></div>
+    <div class="detail-desc" id="detailDesc"></div>
+    <div class="detail-meta" id="detailMeta"></div>
+    <div class="detail-status" id="detailStatus"></div>
+    <div class="detail-actions" id="detailActions"></div>
+  </div>
+</div>
+
+<footer><p>厦门旅行计划 · 2026 年 6 月 19-21 日 · 祝你旅途愉快！</p></footer>
+
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+  import { getDatabase, ref, onValue, set, update, remove, onDisconnect, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA3BLKqMcG848EOGGXVLvJr2rRp7T4ebbA",
+    authDomain: "laos-travel-log.firebaseapp.com",
+    databaseURL: "https://laos-travel-log-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "laos-travel-log",
+    storageBucket: "laos-travel-log.firebasestorage.app",
+    messagingSenderId: "928952280898",
+    appId: "1:928952280898:web:5e373c5ffd17a4a939cadb",
+    measurementId: "G-0KTZ9DV5H4"
+  };
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const BASE = 'xiamen';
+
+  // ===== Two-level Category System =====
+  const GROUPS = [
+    { key: '吃的', emoji: '🍴', subs: ['正餐', '小吃'] },
+    { key: '玩的', emoji: '🎮', subs: ['景点', '运动'] },
+    { key: '逛的', emoji: '🚶', subs: ['购物', '闲逛'] },
+  ];
+  const SUB_COLORS = {
+    '正餐': '#E07A5F', '小吃': '#D4A574',
+    '景点': '#3D8EB9', '运动': '#E88D67',
+    '购物': '#81B29A', '闲逛': '#7EC8E3',
+  };
+  function getCatColor(cat) { return SUB_COLORS[cat] || '#999'; }
+  function getGroupForCategory(cat) {
+    for (const g of GROUPS) { if (g.subs.includes(cat)) return g.key; }
+    return '';
+  }
+
+  const PLACES = [
+    { id: 'shangqing', name: '上青本港海鲜', group: '吃的', category: '正餐', emoji: '🦀', description: '厦门本地人推荐的海鲜餐厅，食材新鲜', duration: 90, price: '人均 200-300 元' },
+    { id: 'linjia', name: '临家闽南菜', group: '吃的', category: '正餐', emoji: '🍲', description: '正宗闽南家常菜，古早味十足', duration: 90, price: '人均 100-150 元' },
+    { id: 'huangzehe', name: '黄则和花生汤', group: '吃的', category: '小吃', emoji: '🥜', description: '百年老字号，花生汤甜而不腻，厦门必吃', duration: 30, price: '人均 15-30 元' },
+    { id: 'yuehua', name: '月华沙茶面', group: '吃的', category: '小吃', emoji: '🍜', description: '地道厦门沙茶面，汤底浓郁鲜香', duration: 40, price: '人均 20-40 元' },
+    { id: 'gulanyu', name: '鼓浪屿', group: '玩的', category: '景点', emoji: '🏝️', description: '世界文化遗产，万国建筑博览，钢琴之岛', duration: 240, price: '船票 35 元' },
+    { id: 'nanputuo', name: '南普陀寺', group: '玩的', category: '景点', emoji: '🛕', description: '千年古刹，闽南佛教圣地，素斋闻名', duration: 120, price: '免费' },
+    { id: 'wuyuanwan', name: '五缘湾帆船', group: '玩的', category: '运动', emoji: '⛵', description: '体验帆船出海，感受厦门海湾风光', duration: 90, price: '约 200-400 元/人' },
+    { id: 'morning_run', name: '海边晨跑', group: '玩的', category: '运动', emoji: '🏃', description: '清晨沿海岸线慢跑，享受日出和海风', duration: 60, price: '免费' },
+    { id: 'zhongshan', name: '中山路步行街', group: '逛的', category: '购物', emoji: '🛍️', description: '骑楼建筑老街，各类商铺和小吃', duration: 120, price: '免费' },
+    { id: 'bashi', name: '八市海鲜市场', group: '逛的', category: '购物', emoji: '🐟', description: '厦门最接地气的海鲜市场，可买了找店加工', duration: 90, price: '按购买量' },
+    { id: 'shapowei', name: '沙坡尾艺术西区', group: '逛的', category: '闲逛', emoji: '🎨', description: '老渔港改造的文创园区，咖啡馆和独立小店', duration: 120, price: '免费' },
+    { id: 'huandao', name: '环岛路骑行', group: '逛的', category: '闲逛', emoji: '🚲', description: '沿海骑行，途经白城沙滩、曾厝垵等', duration: 120, price: '租车约 30-50 元' },
+  ];
+
+  const DAY_SLOTS = {
+    1: [
+      { time: '14:45', label: '抵达厦门北', fixed: true, emoji: '🚄' },
+      { time: '15:30', label: '入住酒店', fixed: true, emoji: '🏨' },
+      { time: '16:00', label: '下午活动' },
+      { time: '18:00', label: '晚餐' },
+      { time: '20:00', label: '晚间' },
+    ],
+    2: [
+      { time: '08:00', label: '早餐/出发' },
+      { time: '10:00', label: '上午活动' },
+      { time: '12:00', label: '午餐' },
+      { time: '14:00', label: '下午活动' },
+      { time: '16:00', label: '下午续' },
+      { time: '18:00', label: '晚餐' },
+      { time: '20:00', label: '晚间' },
+    ],
+    3: [
+      { time: '08:00', label: '早餐/出发' },
+      { time: '10:00', label: '上午活动' },
+      { time: '12:00', label: '午餐' },
+      { time: '14:00', label: '返程', fixed: true, emoji: '🚄' },
+    ],
+  };
+  const DAY_INFO = {
+    1: { label: 'Day 1', date: '6 月 19 日（周四）' },
+    2: { label: 'Day 2', date: '6 月 20 日（周五）' },
+    3: { label: 'Day 3', date: '6 月 21 日（周六）' },
+  };
+
+  // ===== State =====
+  const state = {
+    placeStatus: {},
+    timeline: {},
+    lotteryHistory: [],
+    activeGroupFilter: '全部',  // '全部' | '吃的' | '玩的' | '逛的'
+    activeSubFilter: null,       // null | specific sub like '正餐'
+    activeStatusFilter: 'all',
+    currentDraw: null,
+    isAnimating: false,
+  };
+
+  function getStatus(id) { return state.placeStatus[id] || 'pending'; }
+  function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; }
+  function shuffle(arr) { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+  const STATUS_LABELS = { pending: '待抽签', drawn: '已抽出', scheduled: '已安排', visited: '已去过', skipped: '已跳过' };
+
+  // ===== Firebase Listeners =====
+  onValue(ref(db, BASE + '/placeStatus'), (snap) => {
+    const data = snap.val() || {};
+    state.placeStatus = {};
+    Object.entries(data).forEach(([id, obj]) => { if (obj && obj.status) state.placeStatus[id] = obj.status; });
+    renderPlaceGrid(); renderTimeline(); updatePoolCounter(); updateLotteryHint();
+  });
+  onValue(ref(db, BASE + '/timeline'), (snap) => {
+    const data = snap.val() || {};
+    state.timeline = {};
+    Object.entries(data).forEach(([day, slots]) => {
+      state.timeline[day] = {};
+      if (slots) Object.entries(slots).forEach(([k, v]) => { if (v && v.placeId) state.timeline[day][k] = v; });
+    });
+    renderTimeline(); renderPlaceGrid(); updatePoolCounter();
+  });
+  onValue(ref(db, BASE + '/lotteryHistory'), (snap) => {
+    const data = snap.val() || {};
+    state.lotteryHistory = Object.entries(data).map(([id, val]) => ({ id, ...val })).sort((a, b) => (b.drawnAt || 0) - (a.drawnAt || 0));
+    renderDrawHistory();
+  });
+
+  // ===== Filtered Places Helper =====
+  function getFilteredPlaces() {
+    let places = PLACES;
+    if (state.activeGroupFilter !== '全部') {
+      places = places.filter(p => p.group === state.activeGroupFilter);
+    }
+    if (state.activeSubFilter) {
+      places = places.filter(p => p.category === state.activeSubFilter);
+    }
+    if (state.activeStatusFilter !== 'all') {
+      places = places.filter(p => getStatus(p.id) === state.activeStatusFilter);
+    }
+    return places;
+  }
+
+  // ===== Render: Two-level Filter =====
+  function renderFilterBar() {
+    const container = document.getElementById('filterGroup');
+    let html = '<div class="filter-row"><span class="filter-row-label">分类</span>';
+    const groups = ['全部', ...GROUPS.map(g => g.key)];
+    groups.forEach(g => {
+      const label = g === '全部' ? '全部' : (GROUPS.find(gr => gr.key === g)?.emoji + ' ' + g);
+      html += `<button class="filter-pill ${state.activeGroupFilter === g ? 'active' : ''}" data-group="${g}">${label}</button>`;
+    });
+    html += '</div>';
+
+    // Second level
+    if (state.activeGroupFilter !== '全部') {
+      const group = GROUPS.find(g => g.key === state.activeGroupFilter);
+      if (group) {
+        html += '<div class="filter-row"><span class="filter-row-label">细分</span>';
+        html += `<button class="filter-pill sub ${!state.activeSubFilter ? 'active' : ''}" data-sub="">全部${group.key}</button>`;
+        group.subs.forEach(sub => {
+          html += `<button class="filter-pill sub ${state.activeSubFilter === sub ? 'active' : ''}" data-sub="${sub}">${sub}</button>`;
+        });
+        html += '</div>';
+      }
+    }
+    container.innerHTML = html;
+
+    // Events - level 1
+    container.querySelectorAll('[data-group]').forEach(btn => {
+      btn.onclick = () => {
+        state.activeGroupFilter = btn.dataset.group;
+        state.activeSubFilter = null;
+        renderFilterBar(); renderPlaceGrid(); updatePoolCounter(); updateLotteryHint();
+      };
+    });
+    // Events - level 2
+    container.querySelectorAll('[data-sub]').forEach(btn => {
+      btn.onclick = () => {
+        state.activeSubFilter = btn.dataset.sub || null;
+        renderFilterBar(); renderPlaceGrid(); updatePoolCounter(); updateLotteryHint();
+      };
+    });
+  }
+
+  document.getElementById('statusFilter').onchange = (e) => {
+    state.activeStatusFilter = e.target.value;
+    renderPlaceGrid(); updatePoolCounter(); updateLotteryHint();
+  };
+
+  // ===== Render: Place Grid =====
+  function renderPlaceGrid() {
+    const grid = document.getElementById('placeGrid');
+    const places = getFilteredPlaces();
+    grid.innerHTML = places.map(p => {
+      const status = getStatus(p.id);
+      return `
+        <div class="place-card" data-place-id="${p.id}">
+          <div class="place-emoji">${p.emoji}</div>
+          <div class="place-info">
+            <div class="place-name">${p.name}</div>
+            <div class="place-meta">
+              <span class="cat-badge" style="background:${getCatColor(p.category)}">${p.category}</span>
+              <span>${p.duration} min</span>
+              ${p.price ? `<span>${p.price}</span>` : ''}
+            </div>
+          </div>
+          <div class="status-dot status-${status}" title="${STATUS_LABELS[status]}"></div>
+        </div>`;
+    }).join('');
+    if (places.length === 0) {
+      grid.innerHTML = '<div style="text-align:center; color:#ccc; padding:24px; font-size:14px;">没有匹配的地点</div>';
+    }
+    // Click to open detail
+    grid.querySelectorAll('.place-card').forEach(card => {
+      card.onclick = () => showPlaceDetail(card.dataset.placeId);
+    });
+  }
+
+  function updatePoolCounter() {
+    const filtered = getFilteredPlaces();
+    const pending = filtered.filter(p => getStatus(p.id) === 'pending').length;
+    document.getElementById('poolCounter').textContent = `当前筛选: ${pending} 个待抽 / ${filtered.length} 个地点`;
+  }
+
+  function updateLotteryHint() {
+    const pool = getDrawPool();
+    const hint = document.getElementById('lotteryHint');
+    if (state.activeGroupFilter === '全部' && !state.activeSubFilter) {
+      hint.textContent = pool.length > 0 ? `从全部地点中抽签，剩余 ${pool.length} 个` : '';
+    } else {
+      const filterLabel = state.activeSubFilter || state.activeGroupFilter;
+      hint.textContent = pool.length > 0 ? `从「${filterLabel}」中抽签，剩余 ${pool.length} 个` : `「${filterLabel}」中没有可抽签的地点`;
+    }
+  }
+
+  // ===== Render: Timeline =====
+  function renderTimeline() {
+    const container = document.getElementById('timelineDays');
+    let html = '';
+    for (let day = 1; day <= 3; day++) {
+      const info = DAY_INFO[day];
+      const slots = DAY_SLOTS[day];
+      const dayKey = 'day' + day;
+      const assignedCount = slots.filter(s => !s.fixed && (state.timeline[dayKey] || {})[s.time]?.placeId).length;
+      html += `<div class="day-column"><div class="day-header">
+        <div><div class="day-label">${info.label}</div><div class="day-date">${info.date}</div></div>
+        <div class="day-count">已安排 ${assignedCount} 项</div></div><div class="day-slots">`;
+      slots.forEach(slot => {
+        const slotKey = 'slot_' + slot.time.replace(':', '');
+        const slotData = (state.timeline[dayKey] || {})[slotKey];
+        const hasPlace = slotData && slotData.placeId;
+        const place = hasPlace ? PLACES.find(p => p.id === slotData.placeId) : null;
+        if (slot.fixed) {
+          html += `<div class="time-slot fixed"><div class="slot-time">${slot.time}</div><div class="slot-content"><div class="slot-place"><span class="sp-emoji">${slot.emoji || '📍'}</span><span class="sp-name">${slot.label}</span></div></div></div>`;
+        } else if (hasPlace && place) {
+          html += `<div class="time-slot" data-day="${day}" data-slot-key="${slotKey}"><div class="slot-time">${slot.time}</div><div class="slot-content"><div class="slot-place" data-place-id="${place.id}"><span class="sp-emoji">${place.emoji}</span><span class="sp-name">${place.name}</span><span class="sp-cat" style="background:${getCatColor(place.category)}">${place.category}</span></div><button class="slot-remove" data-day="${day}" data-slot-key="${slotKey}" title="移除">&times;</button></div></div>`;
+        } else {
+          html += `<div class="time-slot"><div class="slot-time">${slot.time}</div><div class="slot-label">${slot.label}</div><div class="slot-content"><span class="slot-empty">空 - 从抽签或详情分配</span></div></div>`;
+        }
+      });
+      html += '</div></div>';
+    }
+    container.innerHTML = html;
+    // Remove buttons
+    container.querySelectorAll('.slot-remove').forEach(btn => {
+      btn.onclick = (e) => { e.stopPropagation(); removeFromSlot(btn.dataset.day, btn.dataset.slotKey); };
+    });
+    // Click on assigned place to show detail
+    container.querySelectorAll('.slot-place[data-place-id]').forEach(el => {
+      el.onclick = (e) => { e.stopPropagation(); showPlaceDetail(el.dataset.placeId); };
+    });
+  }
+
+  // ===== Assign / Remove =====
+  async function assignToSlot(placeId, day, slotTime) {
+    const dayKey = 'day' + day;
+    const slotKey = 'slot_' + slotTime.replace(':', '');
+    const updates = {};
+    updates[`${BASE}/placeStatus/${placeId}/status`] = 'scheduled';
+    updates[`${BASE}/timeline/${dayKey}/${slotKey}`] = { placeId, assignedAt: Date.now() };
+    await update(ref(db), updates);
+    hideAssignModal();
+  }
+
+  async function removeFromSlot(day, slotKey) {
+    const slotData = (state.timeline['day' + day] || {})[slotKey];
+    if (!slotData || !slotData.placeId) return;
+    const placeId = slotData.placeId;
+    const updates = {};
+    updates[`${BASE}/placeStatus/${placeId}/status`] = 'drawn';
+    updates[`${BASE}/timeline/day${day}/${slotKey}`] = null;
+    await update(ref(db), updates);
+  }
+
+  // ===== Place Detail Modal =====
+  let detailPlaceId = null;
+
+  function showPlaceDetail(placeId) {
+    const place = PLACES.find(p => p.id === placeId);
+    if (!place) return;
+    detailPlaceId = placeId;
+    const status = getStatus(placeId);
+
+    document.getElementById('detailEmoji').textContent = place.emoji;
+    document.getElementById('detailName').textContent = place.name;
+    document.getElementById('detailGroup').textContent = place.group + ' / ' + place.category;
+    const catEl = document.getElementById('detailCat');
+    catEl.textContent = place.category;
+    catEl.style.background = getCatColor(place.category);
+    document.getElementById('detailDesc').textContent = place.description;
+    document.getElementById('detailMeta').innerHTML = `<span>⏱️ ${place.duration} 分钟</span>${place.price ? `<span>💰 ${place.price}</span>` : ''}`;
+    document.getElementById('detailStatus').innerHTML = `<div class="status-dot status-${status}"></div> ${STATUS_LABELS[status]}`;
+
+    // Action buttons based on status
+    const actions = document.getElementById('detailActions');
+    let btns = '';
+    if (status === 'pending' || status === 'drawn') {
+      btns += `<button class="btn-assign" onclick="window._detailAssign()">📌 放入行程</button>`;
+      btns += `<button class="btn-skip" onclick="window._detailSkip()">⏭️ 跳过</button>`;
+    }
+    if (status === 'drawn') {
+      btns += `<button class="btn-redraw" onclick="window._detailReset()">↩️ 放回池中</button>`;
+    }
+    if (status === 'scheduled') {
+      btns += `<button class="btn-assign" onclick="window._detailVisit()">✅ 标记已去过</button>`;
+      btns += `<button class="btn-redraw" onclick="window._detailUnschedule()">🔙 从时间轴移除</button>`;
+    }
+    if (status === 'visited' || status === 'skipped') {
+      btns += `<button class="btn-redraw" onclick="window._detailReset()">↩️ 恢复为待抽签</button>`;
+    }
+    actions.innerHTML = btns;
+    document.getElementById('placeDetailModal').classList.add('active');
+  }
+
+  function hidePlaceDetail() {
+    document.getElementById('placeDetailModal').classList.remove('active');
+    detailPlaceId = null;
+  }
+
+  // Global handlers for detail modal buttons
+  window._detailAssign = () => {
+    if (detailPlaceId) { hidePlaceDetail(); const place = PLACES.find(p => p.id === detailPlaceId); if (place) showAssignModal(place); }
+  };
+  window._detailSkip = async () => {
+    if (detailPlaceId) { await set(ref(db, `${BASE}/placeStatus/${detailPlaceId}/status`), 'skipped'); hidePlaceDetail(); }
+  };
+  window._detailReset = async () => {
+    if (detailPlaceId) { await set(ref(db, `${BASE}/placeStatus/${detailPlaceId}/status`), 'pending'); hidePlaceDetail(); }
+  };
+  window._detailVisit = async () => {
+    if (detailPlaceId) { await set(ref(db, `${BASE}/placeStatus/${detailPlaceId}/status`), 'visited'); hidePlaceDetail(); }
+  };
+  window._detailUnschedule = async () => {
+    if (detailPlaceId) {
+      // Find and remove from timeline
+      for (let d = 1; d <= 3; d++) {
+        const dayKey = 'day' + d;
+        const daySlots = state.timeline[dayKey] || {};
+        for (const [slotKey, val] of Object.entries(daySlots)) {
+          if (val && val.placeId === detailPlaceId) {
+            const updates = {};
+            updates[`${BASE}/placeStatus/${detailPlaceId}/status`] = 'drawn';
+            updates[`${BASE}/timeline/${dayKey}/${slotKey}`] = null;
+            await update(ref(db), updates);
+            hidePlaceDetail();
+            return;
+          }
+        }
+      }
+    }
+  };
+
+  document.getElementById('detailModalClose').onclick = hidePlaceDetail;
+  document.getElementById('placeDetailModal').onclick = (e) => {
+    if (e.target === document.getElementById('placeDetailModal')) hidePlaceDetail();
+  };
+
+  // ===== Lottery =====
+  const lotteryBtn = document.getElementById('lotteryBtn');
+  const slotMachine = document.getElementById('slotMachine');
+  const lotteryResult = document.getElementById('lotteryResult');
+
+  lotteryBtn.onclick = () => startLottery();
+
+  function getDrawPool() {
+    let pool = PLACES.filter(p => getStatus(p.id) === 'pending');
+    if (state.activeGroupFilter !== '全部') {
+      pool = pool.filter(p => p.group === state.activeGroupFilter);
+    }
+    if (state.activeSubFilter) {
+      pool = pool.filter(p => p.category === state.activeSubFilter);
+    }
+    return pool;
+  }
+
+  async function startLottery() {
+    const pool = getDrawPool();
+    if (pool.length === 0) { alert('没有可抽签的地点了！'); return; }
+    if (state.isAnimating) return;
+    state.isAnimating = true;
+    lotteryBtn.disabled = true;
+    lotteryBtn.classList.add('pulse');
+    lotteryResult.classList.remove('active');
+
+    const winner = pool[Math.floor(Math.random() * pool.length)];
+    state.currentDraw = winner;
+
+    [1, 2, 3].forEach(idx => {
+      const reel = document.getElementById('reel' + idx);
+      const items = shuffle(PLACES).slice(0, 8);
+      if (idx === 3) items[items.length - 1] = winner;
+      reel.innerHTML = items.map(p => `<div class="reel-item"><span class="reel-emoji">${p.emoji}</span>${p.name}</div>`).join('');
+      reel.style.transition = 'none';
+      reel.style.transform = 'translateY(0)';
+    });
+    slotMachine.classList.add('active');
+
+    const itemH = window.innerWidth <= 768 ? 64 : 80;
+    [1, 2, 3].forEach((idx, i) => {
+      const reel = document.getElementById('reel' + idx);
+      const count = reel.children.length;
+      setTimeout(() => {
+        reel.style.transition = `transform ${i === 2 ? '1s' : '0.7s'} cubic-bezier(0.25, 0.1, 0.25, 1)`;
+        reel.style.transform = `translateY(-${(count - 1) * itemH}px)`;
+      }, 50);
+    });
+
+    setTimeout(async () => {
+      slotMachine.classList.remove('active');
+      showResult(winner);
+      await set(ref(db, `${BASE}/placeStatus/${winner.id}/status`), 'drawn');
+      const drawId = 'draw_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
+      await set(ref(db, `${BASE}/lotteryHistory/${drawId}`), {
+        placeId: winner.id, drawnAt: Date.now(), drawnBy: sessionStorage.getItem('collabUserName') || '匿名',
+      });
+      state.isAnimating = false;
+      lotteryBtn.disabled = false;
+      lotteryBtn.classList.remove('pulse');
+      showConfetti();
+    }, 2800);
+  }
+
+  function showResult(place) {
+    document.getElementById('resultEmoji').textContent = place.emoji;
+    document.getElementById('resultName').textContent = place.name;
+    const catEl = document.getElementById('resultCat');
+    catEl.textContent = place.group + ' · ' + place.category;
+    catEl.style.background = getCatColor(place.category);
+    document.getElementById('resultDesc').textContent = place.description;
+    document.getElementById('resultMeta').innerHTML = `<span>⏱️ ${place.duration} 分钟</span>${place.price ? `<span>💰 ${place.price}</span>` : ''}`;
+    lotteryResult.classList.add('active');
+  }
+
+  document.getElementById('btnAssign').onclick = () => { if (state.currentDraw) showAssignModal(state.currentDraw); };
+  document.getElementById('btnSkip').onclick = async () => {
+    if (state.currentDraw) { await set(ref(db, `${BASE}/placeStatus/${state.currentDraw.id}/status`), 'skipped'); lotteryResult.classList.remove('active'); state.currentDraw = null; }
+  };
+  document.getElementById('btnRedraw').onclick = async () => {
+    if (state.currentDraw) { await set(ref(db, `${BASE}/placeStatus/${state.currentDraw.id}/status`), 'pending'); lotteryResult.classList.remove('active'); state.currentDraw = null; startLottery(); }
+  };
+
+  function showConfetti() {
+    const c = document.createElement('div'); c.className = 'confetti-container'; document.body.appendChild(c);
+    const colors = ['#E07A5F', '#3D8EB9', '#7EC8E3', '#81B29A', '#D4A574', '#F5C542'];
+    for (let i = 0; i < 40; i++) {
+      const p = document.createElement('div'); p.className = 'confetti-piece';
+      p.style.left = Math.random() * 100 + '%'; p.style.background = colors[Math.floor(Math.random() * colors.length)];
+      p.style.animationDelay = Math.random() * 0.5 + 's'; p.style.animationDuration = (1.5 + Math.random()) + 's';
+      c.appendChild(p);
+    }
+    setTimeout(() => c.remove(), 3000);
+  }
+
+  function renderDrawHistory() {
+    const list = document.getElementById('drawHistoryList');
+    if (state.lotteryHistory.length === 0) { list.innerHTML = '<div style="font-size:12px; color:#ccc; padding:4px;">还没有抽签记录</div>'; return; }
+    list.innerHTML = state.lotteryHistory.map(h => {
+      const place = PLACES.find(p => p.id === h.placeId); if (!place) return '';
+      const time = h.drawnAt ? new Date(h.drawnAt).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }) : '';
+      return `<div class="draw-history-item">${place.emoji} ${place.name} <span style="color:#ccc">${time}</span></div>`;
+    }).join('');
+  }
+
+  // ===== Assign Modal =====
+  let modalPlaceId = null, modalSelectedDay = 1;
+
+  function showAssignModal(place) {
+    modalPlaceId = place.id; modalSelectedDay = 1;
+    document.getElementById('modalPlaceInfo').textContent = `${place.emoji} ${place.name} — ${place.group}/${place.category}`;
+    renderModalDayTabs(); renderModalSlots();
+    document.getElementById('assignModal').classList.add('active');
+  }
+  function hideAssignModal() { document.getElementById('assignModal').classList.remove('active'); modalPlaceId = null; }
+
+  function renderModalDayTabs() {
+    const tabs = document.getElementById('modalDayTabs');
+    tabs.innerHTML = [1, 2, 3].map(d => {
+      const info = DAY_INFO[d];
+      return `<button class="modal-day-tab ${modalSelectedDay === d ? 'active' : ''}" data-day="${d}">${info.label}<br><span style="font-size:11px; font-weight:400;">${info.date}</span></button>`;
+    }).join('');
+    tabs.querySelectorAll('.modal-day-tab').forEach(tab => {
+      tab.onclick = () => { modalSelectedDay = parseInt(tab.dataset.day); renderModalDayTabs(); renderModalSlots(); };
+    });
+  }
+
+  function renderModalSlots() {
+    const container = document.getElementById('modalSlots');
+    const dayKey = 'day' + modalSelectedDay;
+    const slots = DAY_SLOTS[modalSelectedDay];
+    container.innerHTML = slots.filter(s => !s.fixed).map(s => {
+      const slotKey = 'slot_' + s.time.replace(':', '');
+      const slotData = (state.timeline[dayKey] || {})[slotKey];
+      const occupied = slotData && slotData.placeId;
+      const place = occupied ? PLACES.find(p => p.id === slotData.placeId) : null;
+      return `<button class="modal-slot ${occupied ? 'occupied' : ''}" data-day="${modalSelectedDay}" data-slot-time="${s.time}" ${occupied ? 'disabled' : ''}>
+        <span class="ms-time">${s.time}</span>
+        <span class="ms-label">${occupied ? (place ? place.emoji + ' ' + place.name : '已占用') : s.label}</span>
+      </button>`;
+    }).join('');
+    container.querySelectorAll('.modal-slot:not(.occupied)').forEach(btn => {
+      btn.onclick = () => assignToSlot(modalPlaceId, btn.dataset.day, btn.dataset.slotTime);
+    });
+  }
+
+  document.getElementById('modalClose').onclick = hideAssignModal;
+  document.getElementById('assignModal').onclick = (e) => { if (e.target.id === 'assignModal') hideAssignModal(); };
+
+  // ===== Presence =====
+  const animals = ['仙鹤','熊猫','老虎','孔雀','海豚','企鹅','考拉','狐狸','鹿','猫头鹰','蝴蝶','鲸鱼','海龟','蜜蜂','鹦鹉'];
+  const colors = ['#3D8EB9','#E91E63','#FF9800','#4CAF50','#9C27B0','#F44336','#00BCD4','#795548','#607D8B','#8BC34A'];
+  let userId = sessionStorage.getItem('collabUserId');
+  if (!userId) {
+    userId = 'user_' + Math.random().toString(36).substr(2, 9);
+    sessionStorage.setItem('collabUserId', userId);
+    sessionStorage.setItem('collabUserName', '匿名' + animals[Math.floor(Math.random() * animals.length)]);
+    sessionStorage.setItem('collabUserColor', colors[Math.floor(Math.random() * colors.length)]);
+  }
+  const userName = sessionStorage.getItem('collabUserName');
+  const userColor = sessionStorage.getItem('collabUserColor');
+  const presenceRef = ref(db, BASE + '/presence/' + userId);
+  set(presenceRef, { name: userName, color: userColor, online: true, updatedAt: Date.now() });
+  onDisconnect(presenceRef).remove();
+
+  document.body.insertAdjacentHTML('beforeend', `<div class="presence-pill"><div class="presence-dot"></div><span id="presenceCount">1 人在线</span><div class="presence-list" id="presenceList"></div></div>`);
+  onValue(ref(db, BASE + '/presence'), (snap) => {
+    const data = snap.val() || {};
+    const users = Object.values(data);
+    const el = document.getElementById('presenceCount');
+    if (el) el.textContent = users.filter(u => u.online).length + ' 人在线';
+    const list = document.getElementById('presenceList');
+    if (list) list.innerHTML = users.map(u => `<div class="presence-user"><div class="presence-avatar" style="background:${u.color}">${u.name.slice(-1)}</div><span>${u.name}</span></div>`).join('');
+  });
+  setInterval(() => update(presenceRef, { online: true, updatedAt: Date.now() }), 15000);
+
+  // ===== Packing =====
+  onValue(ref(db, BASE + '/packing'), (snap) => {
+    const data = snap.val() || {};
+    document.querySelectorAll('.packing-checkbox').forEach(cb => { if (data[cb.dataset.packId] !== undefined) cb.checked = data[cb.dataset.packId]; });
+    const checked = Object.values(data).filter(v => v).length;
+    document.getElementById('packingCounter').textContent = `已打包 ${checked}/${document.querySelectorAll('.packing-checkbox').length} 件物品`;
+  });
+  document.addEventListener('change', (e) => {
+    if (e.target.classList.contains('packing-checkbox')) set(ref(db, BASE + '/packing/' + e.target.dataset.packId), e.target.checked);
+  });
+
+  // ===== Shared Notes =====
+  const sharedEditor = document.getElementById('sharedNotesEditor');
+  const sharedStatus = document.getElementById('status_shared');
+  let sharedFocused = false;
+  sharedEditor.addEventListener('focus', () => { sharedFocused = true; });
+  sharedEditor.addEventListener('blur', () => { sharedFocused = false; writeSharedNotes(); });
+  const debouncedWrite = debounce(writeSharedNotes, 800);
+  sharedEditor.addEventListener('input', () => { sharedStatus.textContent = '编辑中...'; sharedStatus.className = 'save-status saving'; debouncedWrite(); });
+  onValue(ref(db, BASE + '/sharedNotes/content'), (snap) => {
+    const data = snap.val();
+    if (data && !sharedFocused) { sharedEditor.innerHTML = data; sharedStatus.textContent = '已同步'; sharedStatus.className = 'save-status saved'; }
+  });
+  async function writeSharedNotes() {
+    try { await set(ref(db, BASE + '/sharedNotes/content'), sharedEditor.innerHTML); sharedStatus.textContent = '已保存'; sharedStatus.className = 'save-status saved'; }
+    catch (err) { console.error('保存失败:', err); }
+  }
+
+  // ===== Init =====
+  renderFilterBar();
+  renderPlaceGrid();
+  renderTimeline();
+  renderDrawHistory();
+  updatePoolCounter();
+  updateLotteryHint();
+  console.log('🌊 厦门旅行计划 - Firebase 已连接 | 用户:', userName);
+</script>
+</body>
+</html>
