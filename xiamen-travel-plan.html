@@ -1031,7 +1031,7 @@
   }
 
   window._detailAssign = () => {
-    if (detailPlaceId) { hidePlaceDetail(); const place = PLACES.find(p => p.id === detailPlaceId); if (place) showAssignModal(place); }
+    if (detailPlaceId) { const id = detailPlaceId; hidePlaceDetail(); const place = PLACES.find(p => p.id === id); if (place) showAssignModal(place); }
   };
   window._detailSkip = async () => {
     if (detailPlaceId) { await set(ref(db, `${BASE}/placeStatus/${detailPlaceId}/status`), 'skipped'); hidePlaceDetail(); }
