@@ -330,6 +330,27 @@
 
   footer { text-align: center; padding: 40px 20px; color: #999; font-size: 13px; }
 
+  /* Auth Overlay */
+  .auth-overlay { position: fixed; inset: 0; background: linear-gradient(135deg, #1B4965 0%, #3D8EB9 50%, #7EC8E3 100%); z-index: 2000; display: flex; align-items: center; justify-content: center; }
+  .auth-overlay.hidden { display: none; }
+  .auth-box { background: white; border-radius: 20px; padding: 40px; max-width: 380px; width: 90%; text-align: center; box-shadow: 0 8px 40px rgba(0,0,0,0.3); }
+  .auth-box .auth-emoji { font-size: 48px; margin-bottom: 8px; }
+  .auth-box h2 { font-size: 22px; color: var(--ocean-deep); margin-bottom: 8px; }
+  .auth-box .auth-subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+  .auth-input { width: 100%; padding: 14px 18px; border: 2px solid #ddd; border-radius: 12px; font-size: 16px; font-family: inherit; outline: none; text-align: center; letter-spacing: 4px; transition: border-color 0.2s; margin-bottom: 16px; }
+  .auth-input:focus { border-color: var(--ocean-mid); }
+  .auth-input.error { border-color: var(--coral); animation: shake 0.4s; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+  .auth-error { font-size: 13px; color: var(--coral); margin-bottom: 12px; min-height: 20px; }
+  .auth-btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.2s; margin-bottom: 10px; }
+  .auth-btn-primary { background: linear-gradient(135deg, var(--ocean-mid), var(--ocean-deep)); color: white; }
+  .auth-btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .auth-btn-guest { background: transparent; color: var(--text-muted); border: 1.5px solid #ddd; }
+  .auth-btn-guest:hover { border-color: var(--ocean-light); color: var(--ocean-mid); }
+  .sync-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 3px 10px; border-radius: 10px; margin-left: 8px; }
+  .sync-badge.synced { background: #E8F5E9; color: #2E7D32; }
+  .sync-badge.guest { background: #FFF3E0; color: #E65100; }
+
   @media (max-width: 768px) {
     .planner-app { grid-template-columns: 1fr; }
     .hero h1 { font-size: 28px; }
@@ -352,6 +373,22 @@
 </style>
 </head>
 <body>
+
+<!-- Auth Overlay -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-box">
+    <div class="auth-emoji">🔒</div>
+    <h2 id="authTitle">输入同步密码</h2>
+    <div class="auth-subtitle" id="authSubtitle">输入密码以启用数据同步</div>
+    <input type="password" class="auth-input" id="authInput" placeholder="请输入密码" autocomplete="off">
+    <div id="authInput2Wrap" style="display:none">
+      <input type="password" class="auth-input" id="authInput2" placeholder="再次输入密码" autocomplete="off" style="margin-top:-8px">
+    </div>
+    <div class="auth-error" id="authError"></div>
+    <button class="auth-btn auth-btn-primary" id="authBtn">确认</button>
+    <button class="auth-btn auth-btn-guest" id="authGuestBtn">游客模式进入</button>
+  </div>
+</div>
 
 <div class="hero">
   <h1>厦门旅行计划</h1>
@@ -378,7 +415,7 @@
 
   <div class="planner-app">
     <div class="pool-panel">
-      <h3>📍 地点池</h3>
+      <h3>📍 地点池 <span class="sync-badge guest" id="syncBadge">👁️ 游客模式</span></h3>
       <div class="pool-counter" id="poolCounter">加载中...</div>
       <div class="filter-group" id="filterGroup"></div>
       <div class="status-filter">
@@ -595,7 +632,20 @@
     activeStatusFilter: 'all',
     currentDraw: null,
     isAnimating: false,
+    syncEnabled: false,
   };
+
+  // ===== SHA-256 Hash =====
+  async function sha256(message) {
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  // ===== Firebase Write Gate =====
+  function fbSet(...args) { return state.syncEnabled ? set(...args) : Promise.resolve(); }
+  function fbUpdate(...args) { return state.syncEnabled ? update(...args) : Promise.resolve(); }
 
   function getStatus(id) { return state.placeStatus[id] || 'pending'; }
   function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; }
@@ -603,33 +653,86 @@
 
   const STATUS_LABELS = { pending: '待抽签', scheduled: '已安排', visited: '已去过', skipped: '已跳过' };
 
-  // ===== Firebase Listeners =====
-  onValue(ref(db, BASE + '/placeStatus'), (snap) => {
-    const data = snap.val() || {};
-    state.placeStatus = {};
-    Object.entries(data).forEach(([id, obj]) => { if (obj && obj.status) state.placeStatus[id] = obj.status; });
-    renderPlaceGrid(); renderTimeline(); updatePoolCounter(); updateLotteryHint();
-  });
-  onValue(ref(db, BASE + '/timelineV2'), (snap) => {
-    const data = snap.val() || {};
-    state.timeline = {};
-    for (let d = 1; d <= 3; d++) {
-      const dayData = data['day' + d];
-      if (dayData) {
-        state.timeline['day' + d] = Object.entries(dayData)
-          .sort(([a], [b]) => parseInt(a) - parseInt(b))
-          .map(([, v]) => v);
-      } else {
-        state.timeline['day' + d] = [];
+  // ===== Firebase Listeners (registered after auth) =====
+  let presenceRef = null;
+
+  function enableFirebaseSync() {
+    state.syncEnabled = true;
+
+    onValue(ref(db, BASE + '/placeStatus'), (snap) => {
+      const data = snap.val() || {};
+      state.placeStatus = {};
+      Object.entries(data).forEach(([id, obj]) => { if (obj && obj.status) state.placeStatus[id] = obj.status; });
+      renderPlaceGrid(); renderTimeline(); updatePoolCounter(); updateLotteryHint();
+    });
+    onValue(ref(db, BASE + '/timelineV2'), (snap) => {
+      const data = snap.val() || {};
+      state.timeline = {};
+      for (let d = 1; d <= 3; d++) {
+        const dayData = data['day' + d];
+        if (dayData) {
+          state.timeline['day' + d] = Object.entries(dayData)
+            .sort(([a], [b]) => parseInt(a) - parseInt(b))
+            .map(([, v]) => v);
+        } else {
+          state.timeline['day' + d] = [];
+        }
       }
+      renderTimeline(); renderPlaceGrid(); updatePoolCounter();
+    });
+    onValue(ref(db, BASE + '/lotteryHistory'), (snap) => {
+      const data = snap.val() || {};
+      state.lotteryHistory = Object.entries(data).map(([id, val]) => ({ id, ...val })).sort((a, b) => (b.drawnAt || 0) - (a.drawnAt || 0));
+      renderDrawHistory();
+    });
+
+    // Presence
+    presenceRef = ref(db, BASE + '/presence/' + userId);
+    fbSet(presenceRef, { name: userName, color: userColor, online: true, updatedAt: Date.now() });
+    onDisconnect(presenceRef).remove();
+    onValue(ref(db, BASE + '/presence'), (snap) => {
+      const data = snap.val() || {};
+      const users = Object.values(data);
+      const el = document.getElementById('presenceCount');
+      if (el) el.textContent = users.filter(u => u.online).length + ' 人在线';
+      const list = document.getElementById('presenceList');
+      if (list) list.innerHTML = users.map(u => `<div class="presence-user"><div class="presence-avatar" style="background:${u.color}">${u.name.slice(-1)}</div><span>${u.name}</span></div>`).join('');
+    });
+    setInterval(() => fbUpdate(presenceRef, { online: true, updatedAt: Date.now() }), 15000);
+
+    // Packing
+    onValue(ref(db, BASE + '/packing'), (snap) => {
+      const data = snap.val() || {};
+      document.querySelectorAll('.packing-checkbox').forEach(cb => { if (data[cb.dataset.packId] !== undefined) cb.checked = data[cb.dataset.packId]; });
+      const checked = Object.values(data).filter(v => v).length;
+      document.getElementById('packingCounter').textContent = `已打包 ${checked}/${document.querySelectorAll('.packing-checkbox').length} 件物品`;
+    });
+
+    // Shared Notes
+    onValue(ref(db, BASE + '/sharedNotes/content'), (snap) => {
+      const data = snap.val();
+      if (data && !sharedFocused) { sharedEditor.innerHTML = data; sharedStatus.textContent = '已同步'; sharedStatus.className = 'save-status saved'; }
+    });
+
+    // Migration
+    migrateTimeline();
+
+    // Update sync badge
+    updateSyncBadge();
+    console.log('🌊 厦门旅行计划 - 数据同步已启用 | 用户:', userName);
+  }
+
+  function updateSyncBadge() {
+    const badge = document.getElementById('syncBadge');
+    if (!badge) return;
+    if (state.syncEnabled) {
+      badge.className = 'sync-badge synced';
+      badge.innerHTML = '☁️ 已同步';
+    } else {
+      badge.className = 'sync-badge guest';
+      badge.innerHTML = '👁️ 游客模式';
     }
-    renderTimeline(); renderPlaceGrid(); updatePoolCounter();
-  });
-  onValue(ref(db, BASE + '/lotteryHistory'), (snap) => {
-    const data = snap.val() || {};
-    state.lotteryHistory = Object.entries(data).map(([id, val]) => ({ id, ...val })).sort((a, b) => (b.drawnAt || 0) - (a.drawnAt || 0));
-    renderDrawHistory();
-  });
+  }
 
   // ===== Core: Compute Day Schedule =====
   function computeDaySchedule(day) {
@@ -911,7 +1014,7 @@
       state.timeline['day' + day] = arr;
       const dayObj = {};
       arr.forEach((a, i) => { dayObj[i] = a; });
-      await set(ref(db, `${BASE}/timelineV2/day${day}`), dayObj);
+      await fbSet(ref(db, `${BASE}/timelineV2/day${day}`), dayObj);
     };
     const cancel = () => { renderTimeline(); };
 
@@ -952,7 +1055,7 @@
     const updates = {};
     updates[`${BASE}/placeStatus/${placeId}/status`] = 'scheduled';
     updates[`${BASE}/timelineV2/${dayKey}`] = dayObj;
-    await update(ref(db), updates);
+    await fbUpdate(ref(db), updates);
     hideAssignModal();
   }
 
@@ -973,7 +1076,7 @@
     } else {
       updates[`${BASE}/timelineV2/${dayKey}`] = null;
     }
-    await update(ref(db), updates);
+    await fbUpdate(ref(db), updates);
   }
 
   async function reorderActivity(day, index, direction) {
@@ -985,7 +1088,7 @@
     state.timeline[dayKey] = arr;
     const dayObj = {};
     arr.forEach((a, i) => { dayObj[i] = a; });
-    await set(ref(db, `${BASE}/timelineV2/${dayKey}`), dayObj);
+    await fbSet(ref(db, `${BASE}/timelineV2/${dayKey}`), dayObj);
   }
 
   // ===== Place Detail Modal =====
@@ -1034,13 +1137,13 @@
     if (detailPlaceId) { const id = detailPlaceId; hidePlaceDetail(); const place = PLACES.find(p => p.id === id); if (place) showAssignModal(place); }
   };
   window._detailSkip = async () => {
-    if (detailPlaceId) { await set(ref(db, `${BASE}/placeStatus/${detailPlaceId}/status`), 'skipped'); hidePlaceDetail(); }
+    if (detailPlaceId) { await fbSet(ref(db, `${BASE}/placeStatus/${detailPlaceId}/status`), 'skipped'); hidePlaceDetail(); }
   };
   window._detailReset = async () => {
-    if (detailPlaceId) { await set(ref(db, `${BASE}/placeStatus/${detailPlaceId}/status`), 'pending'); hidePlaceDetail(); }
+    if (detailPlaceId) { await fbSet(ref(db, `${BASE}/placeStatus/${detailPlaceId}/status`), 'pending'); hidePlaceDetail(); }
   };
   window._detailVisit = async () => {
-    if (detailPlaceId) { await set(ref(db, `${BASE}/placeStatus/${detailPlaceId}/status`), 'visited'); hidePlaceDetail(); }
+    if (detailPlaceId) { await fbSet(ref(db, `${BASE}/placeStatus/${detailPlaceId}/status`), 'visited'); hidePlaceDetail(); }
   };
   window._detailUnschedule = async () => {
     if (detailPlaceId) {
@@ -1124,7 +1227,7 @@
       slotMachine.classList.remove('active');
       showResult(winner);
       const drawId = 'draw_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
-      await set(ref(db, `${BASE}/lotteryHistory/${drawId}`), {
+      await fbSet(ref(db, `${BASE}/lotteryHistory/${drawId}`), {
         placeId: winner.id, drawnAt: Date.now(), drawnBy: sessionStorage.getItem('collabUserName') || '匿名',
       });
       state.isAnimating = false;
@@ -1147,7 +1250,7 @@
 
   document.getElementById('btnAssign').onclick = () => { if (state.currentDraw) showAssignModal(state.currentDraw); };
   document.getElementById('btnSkip').onclick = async () => {
-    if (state.currentDraw) { await set(ref(db, `${BASE}/placeStatus/${state.currentDraw.id}/status`), 'skipped'); lotteryResult.classList.remove('active'); state.currentDraw = null; }
+    if (state.currentDraw) { await fbSet(ref(db, `${BASE}/placeStatus/${state.currentDraw.id}/status`), 'skipped'); lotteryResult.classList.remove('active'); state.currentDraw = null; }
   };
   document.getElementById('btnRedraw').onclick = () => {
     if (state.currentDraw) { lotteryResult.classList.remove('active'); state.currentDraw = null; startLottery(); }
@@ -1266,7 +1369,7 @@
         }
       }
       if (Object.keys(updates).length > 0) {
-        await update(ref(db), updates);
+        await fbUpdate(ref(db), updates);
         console.log('Timeline migrated to V2');
       }
     } catch (err) {
@@ -1274,7 +1377,7 @@
     }
   }
 
-  // ===== Presence =====
+  // ===== Presence (user identity setup, listeners in enableFirebaseSync) =====
   const animals = ['仙鹤','熊猫','老虎','孔雀','海豚','企鹅','考拉','狐狸','鹿','猫头鹰','蝴蝶','鲸鱼','海龟','蜜蜂','鹦鹉'];
   const colors = ['#3D8EB9','#E91E63','#FF9800','#4CAF50','#9C27B0','#F44336','#00BCD4','#795548','#607D8B','#8BC34A'];
   let userId = sessionStorage.getItem('collabUserId');
@@ -1286,33 +1389,15 @@
   }
   const userName = sessionStorage.getItem('collabUserName');
   const userColor = sessionStorage.getItem('collabUserColor');
-  const presenceRef = ref(db, BASE + '/presence/' + userId);
-  set(presenceRef, { name: userName, color: userColor, online: true, updatedAt: Date.now() });
-  onDisconnect(presenceRef).remove();
 
   document.body.insertAdjacentHTML('beforeend', `<div class="presence-pill"><div class="presence-dot"></div><span id="presenceCount">1 人在线</span><div class="presence-list" id="presenceList"></div></div>`);
-  onValue(ref(db, BASE + '/presence'), (snap) => {
-    const data = snap.val() || {};
-    const users = Object.values(data);
-    const el = document.getElementById('presenceCount');
-    if (el) el.textContent = users.filter(u => u.online).length + ' 人在线';
-    const list = document.getElementById('presenceList');
-    if (list) list.innerHTML = users.map(u => `<div class="presence-user"><div class="presence-avatar" style="background:${u.color}">${u.name.slice(-1)}</div><span>${u.name}</span></div>`).join('');
-  });
-  setInterval(() => update(presenceRef, { online: true, updatedAt: Date.now() }), 15000);
 
-  // ===== Packing =====
-  onValue(ref(db, BASE + '/packing'), (snap) => {
-    const data = snap.val() || {};
-    document.querySelectorAll('.packing-checkbox').forEach(cb => { if (data[cb.dataset.packId] !== undefined) cb.checked = data[cb.dataset.packId]; });
-    const checked = Object.values(data).filter(v => v).length;
-    document.getElementById('packingCounter').textContent = `已打包 ${checked}/${document.querySelectorAll('.packing-checkbox').length} 件物品`;
-  });
+  // ===== Packing (listener in enableFirebaseSync, write gate below) =====
   document.addEventListener('change', (e) => {
-    if (e.target.classList.contains('packing-checkbox')) set(ref(db, BASE + '/packing/' + e.target.dataset.packId), e.target.checked);
+    if (e.target.classList.contains('packing-checkbox')) fbSet(ref(db, BASE + '/packing/' + e.target.dataset.packId), e.target.checked);
   });
 
-  // ===== Shared Notes =====
+  // ===== Shared Notes (listener in enableFirebaseSync) =====
   const sharedEditor = document.getElementById('sharedNotesEditor');
   const sharedStatus = document.getElementById('status_shared');
   let sharedFocused = false;
@@ -1320,23 +1405,95 @@
   sharedEditor.addEventListener('blur', () => { sharedFocused = false; writeSharedNotes(); });
   const debouncedWrite = debounce(writeSharedNotes, 800);
   sharedEditor.addEventListener('input', () => { sharedStatus.textContent = '编辑中...'; sharedStatus.className = 'save-status saving'; debouncedWrite(); });
-  onValue(ref(db, BASE + '/sharedNotes/content'), (snap) => {
-    const data = snap.val();
-    if (data && !sharedFocused) { sharedEditor.innerHTML = data; sharedStatus.textContent = '已同步'; sharedStatus.className = 'save-status saved'; }
-  });
   async function writeSharedNotes() {
-    try { await set(ref(db, BASE + '/sharedNotes/content'), sharedEditor.innerHTML); sharedStatus.textContent = '已保存'; sharedStatus.className = 'save-status saved'; }
+    try { await fbSet(ref(db, BASE + '/sharedNotes/content'), sharedEditor.innerHTML); sharedStatus.textContent = '已保存'; sharedStatus.className = 'save-status saved'; }
     catch (err) { console.error('保存失败:', err); }
   }
 
+  // ===== Auth Logic =====
+  const AUTH_KEY = 'xiamen_sync_auth';
+
+  async function initAuth() {
+    // Check if already authenticated in this session
+    if (sessionStorage.getItem(AUTH_KEY) === 'true') {
+      document.getElementById('authOverlay').classList.add('hidden');
+      enableFirebaseSync();
+      return;
+    }
+
+    // Check if password hash exists in Firebase
+    try {
+      const hashSnap = await get(ref(db, BASE + '/config/passwordHash'));
+      const storedHash = hashSnap.val();
+
+      const authInput = document.getElementById('authInput');
+      const authInput2 = document.getElementById('authInput2');
+      const authInput2Wrap = document.getElementById('authInput2Wrap');
+      const authError = document.getElementById('authError');
+      const authBtn = document.getElementById('authBtn');
+      const authGuestBtn = document.getElementById('authGuestBtn');
+      const authTitle = document.getElementById('authTitle');
+      const authSubtitle = document.getElementById('authSubtitle');
+
+      if (!storedHash) {
+        // First-time: set up password
+        authTitle.textContent = '设置同步密码';
+        authSubtitle.textContent = '首次使用，请设置一个同步密码';
+        authInput2Wrap.style.display = 'block';
+        authBtn.textContent = '设置密码';
+
+        authBtn.onclick = async () => {
+          const pw = authInput.value.trim();
+          const pw2 = authInput2.value.trim();
+          if (!pw || pw.length < 4) { authError.textContent = '密码至少 4 位'; authInput.classList.add('error'); setTimeout(() => authInput.classList.remove('error'), 500); return; }
+          if (pw !== pw2) { authError.textContent = '两次密码不一致'; authInput2.classList.add('error'); setTimeout(() => authInput2.classList.remove('error'), 500); return; }
+          const hash = await sha256(pw);
+          await set(ref(db, BASE + '/config/passwordHash'), hash);
+          sessionStorage.setItem(AUTH_KEY, 'true');
+          document.getElementById('authOverlay').classList.add('hidden');
+          enableFirebaseSync();
+        };
+      } else {
+        // Verify password
+        authBtn.onclick = async () => {
+          const pw = authInput.value.trim();
+          if (!pw) { authError.textContent = '请输入密码'; authInput.classList.add('error'); setTimeout(() => authInput.classList.remove('error'), 500); return; }
+          const hash = await sha256(pw);
+          if (hash === storedHash) {
+            sessionStorage.setItem(AUTH_KEY, 'true');
+            document.getElementById('authOverlay').classList.add('hidden');
+            enableFirebaseSync();
+          } else {
+            authError.textContent = '密码错误';
+            authInput.classList.add('error');
+            authInput.value = '';
+            setTimeout(() => authInput.classList.remove('error'), 500);
+          }
+        };
+      }
+
+      authGuestBtn.onclick = () => {
+        document.getElementById('authOverlay').classList.add('hidden');
+        updateSyncBadge();
+      };
+
+      // Enter key support
+      authInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') authBtn.click(); });
+      authInput2.addEventListener('keydown', (e) => { if (e.key === 'Enter') authBtn.click(); });
+    } catch (err) {
+      console.error('Auth init failed:', err);
+      document.getElementById('authOverlay').classList.add('hidden');
+    }
+  }
+
   // ===== Init =====
-  migrateTimeline();
   renderFilterBar();
   renderPlaceGrid();
   renderTimeline();
   renderDrawHistory();
   updatePoolCounter();
   updateLotteryHint();
+  initAuth();
   console.log('🌊 厦门旅行计划 - Firebase 已连接 | 用户:', userName);
 </script>
 </body>
