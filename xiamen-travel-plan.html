@@ -378,12 +378,9 @@
 <div class="auth-overlay" id="authOverlay">
   <div class="auth-box">
     <div class="auth-emoji">🔒</div>
-    <h2 id="authTitle">输入同步密码</h2>
-    <div class="auth-subtitle" id="authSubtitle">输入密码以启用数据同步</div>
+    <h2>输入同步密码</h2>
+    <div class="auth-subtitle">输入密码以启用数据同步</div>
     <input type="password" class="auth-input" id="authInput" placeholder="请输入密码" autocomplete="off">
-    <div id="authInput2Wrap" style="display:none">
-      <input type="password" class="auth-input" id="authInput2" placeholder="再次输入密码" autocomplete="off" style="margin-top:-8px">
-    </div>
     <div class="auth-error" id="authError"></div>
     <button class="auth-btn auth-btn-primary" id="authBtn">确认</button>
     <button class="auth-btn auth-btn-guest" id="authGuestBtn">游客模式进入</button>
@@ -1421,65 +1418,39 @@
       return;
     }
 
-    // Check if password hash exists in Firebase
+    // Verify password against hash stored in Firebase
     try {
       const hashSnap = await get(ref(db, BASE + '/config/passwordHash'));
       const storedHash = hashSnap.val();
 
       const authInput = document.getElementById('authInput');
-      const authInput2 = document.getElementById('authInput2');
-      const authInput2Wrap = document.getElementById('authInput2Wrap');
       const authError = document.getElementById('authError');
       const authBtn = document.getElementById('authBtn');
       const authGuestBtn = document.getElementById('authGuestBtn');
-      const authTitle = document.getElementById('authTitle');
-      const authSubtitle = document.getElementById('authSubtitle');
 
-      if (!storedHash) {
-        // First-time: set up password
-        authTitle.textContent = '设置同步密码';
-        authSubtitle.textContent = '首次使用，请设置一个同步密码';
-        authInput2Wrap.style.display = 'block';
-        authBtn.textContent = '设置密码';
-
-        authBtn.onclick = async () => {
-          const pw = authInput.value.trim();
-          const pw2 = authInput2.value.trim();
-          if (!pw || pw.length < 4) { authError.textContent = '密码至少 4 位'; authInput.classList.add('error'); setTimeout(() => authInput.classList.remove('error'), 500); return; }
-          if (pw !== pw2) { authError.textContent = '两次密码不一致'; authInput2.classList.add('error'); setTimeout(() => authInput2.classList.remove('error'), 500); return; }
-          const hash = await sha256(pw);
-          await set(ref(db, BASE + '/config/passwordHash'), hash);
+      authBtn.onclick = async () => {
+        const pw = authInput.value.trim();
+        if (!pw) { authError.textContent = '请输入密码'; authInput.classList.add('error'); setTimeout(() => authInput.classList.remove('error'), 500); return; }
+        if (!storedHash) { authError.textContent = '未配置同步密码，请使用游客模式'; return; }
+        const hash = await sha256(pw);
+        if (hash === storedHash) {
           sessionStorage.setItem(AUTH_KEY, 'true');
           document.getElementById('authOverlay').classList.add('hidden');
           enableFirebaseSync();
-        };
-      } else {
-        // Verify password
-        authBtn.onclick = async () => {
-          const pw = authInput.value.trim();
-          if (!pw) { authError.textContent = '请输入密码'; authInput.classList.add('error'); setTimeout(() => authInput.classList.remove('error'), 500); return; }
-          const hash = await sha256(pw);
-          if (hash === storedHash) {
-            sessionStorage.setItem(AUTH_KEY, 'true');
-            document.getElementById('authOverlay').classList.add('hidden');
-            enableFirebaseSync();
-          } else {
-            authError.textContent = '密码错误';
-            authInput.classList.add('error');
-            authInput.value = '';
-            setTimeout(() => authInput.classList.remove('error'), 500);
-          }
-        };
-      }
+        } else {
+          authError.textContent = '密码错误';
+          authInput.classList.add('error');
+          authInput.value = '';
+          setTimeout(() => authInput.classList.remove('error'), 500);
+        }
+      };
 
       authGuestBtn.onclick = () => {
         document.getElementById('authOverlay').classList.add('hidden');
         updateSyncBadge();
       };
 
-      // Enter key support
       authInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') authBtn.click(); });
-      authInput2.addEventListener('keydown', (e) => { if (e.key === 'Enter') authBtn.click(); });
     } catch (err) {
       console.error('Auth init failed:', err);
       document.getElementById('authOverlay').classList.add('hidden');
