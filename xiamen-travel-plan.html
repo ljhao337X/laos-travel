@@ -351,6 +351,71 @@
   .sync-badge.synced { background: #E8F5E9; color: #2E7D32; }
   .sync-badge.guest { background: #FFF3E0; color: #E65100; }
 
+  /* ===== Auth: Username Input ===== */
+  .auth-name-row { display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px; text-align: left; }
+  .auth-name-label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .auth-name-input { width: 100%; padding: 12px 16px; border: 2px solid #ddd; border-radius: 12px; font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+  .auth-name-input:focus { border-color: var(--ocean-mid); }
+
+  /* ===== User Menu (presence pill extension) ===== */
+  .user-menu-btn { background: none; border: none; cursor: pointer; font-size: 16px; padding: 0 2px; color: #888; transition: color 0.2s; }
+  .user-menu-btn:hover { color: var(--ocean-mid); }
+  .user-menu-panel { display: none; position: absolute; top: 100%; right: 0; margin-top: 8px; background: white; border-radius: 14px; padding: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.18); min-width: 200px; z-index: 10000; }
+  .user-menu-panel.open { display: block; }
+  .user-menu-panel .um-name { font-size: 15px; font-weight: 700; color: var(--ocean-deep); margin-bottom: 4px; }
+  .user-menu-panel .um-status { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid #f0f0f0; }
+  .user-menu-btn-row { display: flex; flex-direction: column; gap: 8px; }
+  .um-action-btn { padding: 9px 14px; border-radius: 10px; border: 1.5px solid #eee; background: white; font-size: 13px; font-family: inherit; cursor: pointer; text-align: left; transition: all 0.2s; color: var(--text-dark); }
+  .um-action-btn:hover { border-color: var(--ocean-mid); color: var(--ocean-mid); background: rgba(61,142,185,0.04); }
+  .um-action-btn.danger { color: var(--coral); border-color: #fdd; }
+  .um-action-btn.danger:hover { border-color: var(--coral); background: rgba(224,122,95,0.05); }
+
+  /* ===== Link Pool Section ===== */
+  .link-pool-section { background: white; border-radius: 16px; padding: 28px; box-shadow: 0 4px 24px rgba(27,73,101,0.08); border: 1px solid #e8eef2; margin-bottom: 32px; }
+  .link-pool-section h3 { font-size: 20px; color: var(--ocean-deep); margin-bottom: 16px; }
+  .link-add-row { display: flex; gap: 8px; margin-bottom: 16px; }
+  .link-add-url { flex: 1; padding: 10px 14px; border: 1.5px solid #ddd; border-radius: 10px; font-size: 14px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+  .link-add-url:focus { border-color: var(--ocean-mid); }
+  .link-add-title { width: 140px; padding: 10px 14px; border: 1.5px solid #ddd; border-radius: 10px; font-size: 14px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+  .link-add-title:focus { border-color: var(--ocean-mid); }
+  .link-add-btn { padding: 10px 18px; background: var(--ocean-mid); color: white; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.2s; white-space: nowrap; }
+  .link-add-btn:hover { background: var(--ocean-deep); }
+  .link-list { display: flex; flex-direction: column; gap: 8px; }
+  .link-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1.5px solid #eee; border-radius: 10px; background: white; transition: all 0.2s; }
+  .link-item:hover { border-color: var(--ocean-light); box-shadow: 0 2px 8px rgba(27,73,101,0.07); }
+  .link-favicon { width: 20px; height: 20px; border-radius: 4px; flex-shrink: 0; }
+  .link-info { flex: 1; min-width: 0; }
+  .link-title-text { font-size: 14px; font-weight: 600; color: var(--ocean-deep); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .link-url-text { font-size: 11px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .link-by { font-size: 11px; color: #bbb; flex-shrink: 0; }
+  .link-delete-btn { width: 22px; height: 22px; border-radius: 50%; border: none; background: #f0f0f0; color: #999; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; }
+  .link-delete-btn:hover { background: var(--coral); color: white; }
+  .link-empty { text-align: center; padding: 24px; color: #ccc; font-size: 14px; font-style: italic; }
+
+  /* ===== Place Generator Section ===== */
+  .place-gen-section { background: white; border-radius: 16px; padding: 28px; box-shadow: 0 4px 24px rgba(27,73,101,0.08); border: 1px solid #e8eef2; margin-bottom: 32px; }
+  .place-gen-section h3 { font-size: 20px; color: var(--ocean-deep); margin-bottom: 8px; }
+  .place-gen-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+  .place-gen-form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .pg-field { display: flex; flex-direction: column; gap: 4px; }
+  .pg-field label { font-size: 12px; font-weight: 500; color: var(--text-muted); }
+  .pg-field input, .pg-field select, .pg-field textarea { padding: 10px 14px; border: 1.5px solid #ddd; border-radius: 10px; font-size: 14px; font-family: inherit; outline: none; transition: border-color 0.2s; background: white; }
+  .pg-field input:focus, .pg-field select:focus, .pg-field textarea:focus { border-color: var(--ocean-mid); }
+  .pg-field.full { grid-column: 1 / -1; }
+  .pg-field textarea { resize: vertical; min-height: 60px; }
+  .place-gen-submit { width: 100%; padding: 12px; background: linear-gradient(135deg, var(--seafoam), #5a9e7e); color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.2s; margin-bottom: 20px; }
+  .place-gen-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+  .custom-places-list { display: flex; flex-direction: column; gap: 8px; }
+  .custom-place-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1.5px solid #eee; border-radius: 10px; transition: all 0.2s; }
+  .custom-place-item:hover { border-color: var(--ocean-light); }
+  .cp-emoji { font-size: 24px; flex-shrink: 0; }
+  .cp-info { flex: 1; min-width: 0; }
+  .cp-name { font-size: 14px; font-weight: 600; }
+  .cp-meta { font-size: 12px; color: var(--text-muted); }
+  .cp-by { font-size: 11px; color: #bbb; flex-shrink: 0; }
+  .cp-delete-btn { width: 22px; height: 22px; border-radius: 50%; border: none; background: #f0f0f0; color: #999; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; }
+  .cp-delete-btn:hover { background: var(--coral); color: white; }
+
   @media (max-width: 768px) {
     .planner-app { grid-template-columns: 1fr; }
     .hero h1 { font-size: 28px; }
@@ -378,12 +443,16 @@
 <div class="auth-overlay" id="authOverlay">
   <div class="auth-box">
     <div class="auth-emoji">🔒</div>
-    <h2>输入同步密码</h2>
+    <h2>厦门旅行计划</h2>
     <div class="auth-subtitle">输入密码以启用数据同步</div>
-    <input type="password" class="auth-input" id="authInput" placeholder="请输入密码" autocomplete="off">
+    <div class="auth-name-row">
+      <label class="auth-name-label" for="authNameInput">你的名字</label>
+      <input type="text" class="auth-name-input" id="authNameInput" placeholder="例如：XXL、小明..." autocomplete="off" maxlength="10">
+    </div>
+    <input type="password" class="auth-input" id="authInput" placeholder="请输入同步密码" autocomplete="off">
     <div class="auth-error" id="authError"></div>
-    <button class="auth-btn auth-btn-primary" id="authBtn">确认</button>
-    <button class="auth-btn auth-btn-guest" id="authGuestBtn">游客模式进入</button>
+    <button class="auth-btn auth-btn-primary" id="authBtn">确认并同步</button>
+    <button class="auth-btn auth-btn-guest" id="authGuestBtn">游客模式（只读）</button>
   </div>
 </div>
 
@@ -458,6 +527,68 @@
       <h3>📅 三天时间轴</h3>
       <div class="timeline-days" id="timelineDays"></div>
     </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-title">🔗 <span>链接池</span></div>
+  <div class="link-pool-section">
+    <h3>🔗 感兴趣的链接 <span class="sync-badge guest" id="linkSyncBadge">👁️ 游客模式</span></h3>
+    <div class="link-add-row">
+      <input type="url" class="link-add-url" id="linkUrlInput" placeholder="粘贴链接 https://..." autocomplete="off">
+      <input type="text" class="link-add-title" id="linkTitleInput" placeholder="备注名称（可选）" autocomplete="off">
+      <button class="link-add-btn" id="linkAddBtn">+ 添加</button>
+    </div>
+    <div class="link-list" id="linkList"><div class="link-empty">还没有添加任何链接</div></div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-title">✏️ <span>地点生成器</span></div>
+  <div class="place-gen-section">
+    <h3>✏️ 自定义地点 <span class="sync-badge guest" id="genSyncBadge">👁️ 游客模式</span></h3>
+    <p class="place-gen-desc">手动添加想去的地点，会自动加入地点池供所有人看到。</p>
+    <div class="place-gen-form">
+      <div class="pg-field">
+        <label>地点名称 *</label>
+        <input type="text" id="pgName" placeholder="例如：曾厝垵" maxlength="20">
+      </div>
+      <div class="pg-field">
+        <label>Emoji 图标</label>
+        <input type="text" id="pgEmoji" placeholder="🏖️" maxlength="4">
+      </div>
+      <div class="pg-field">
+        <label>大分类</label>
+        <select id="pgGroup">
+          <option value="吃的">🍴 吃的</option>
+          <option value="玩的" selected>🎮 玩的</option>
+          <option value="逛的">🚶 逛的</option>
+        </select>
+      </div>
+      <div class="pg-field">
+        <label>细分类型</label>
+        <select id="pgCategory">
+          <option value="景点">景点</option>
+          <option value="运动">运动</option>
+          <option value="正餐">正餐</option>
+          <option value="小吃">小吃</option>
+          <option value="购物">购物</option>
+          <option value="闲逛">闲逛</option>
+        </select>
+      </div>
+      <div class="pg-field">
+        <label>预计时长（分钟）</label>
+        <input type="number" id="pgDuration" placeholder="90" min="10" max="480" value="90">
+      </div>
+      <div class="pg-field">
+        <label>人均费用</label>
+        <input type="text" id="pgPrice" placeholder="例如：人均 50 元" maxlength="30">
+      </div>
+      <div class="pg-field full">
+        <label>简介描述</label>
+        <textarea id="pgDesc" placeholder="简单介绍一下这个地方..." maxlength="100"></textarea>
+      </div>
+    </div>
+    <button class="place-gen-submit" id="pgSubmitBtn">+ 添加到地点池</button>
+    <div class="custom-places-list" id="customPlacesList"></div>
   </div>
 
   <div class="divider"></div>
@@ -630,6 +761,8 @@
     currentDraw: null,
     isAnimating: false,
     syncEnabled: false,
+    customPlaces: {},
+    links: {},
   };
 
   // ===== SHA-256 Hash =====
@@ -714,21 +847,37 @@
     // Migration
     migrateTimeline();
 
+    // Custom Places
+    onValue(ref(db, BASE + '/customPlaces'), (snap) => {
+      state.customPlaces = snap.val() || {};
+      renderPlaceGrid(); renderTimeline(); updatePoolCounter(); updateLotteryHint();
+      renderCustomPlacesList();
+    });
+
+    // Links
+    onValue(ref(db, BASE + '/links'), (snap) => {
+      state.links = snap.val() || {};
+      renderLinkList();
+    });
+
     // Update sync badge
     updateSyncBadge();
     console.log('🌊 厦门旅行计划 - 数据同步已启用 | 用户:', userName);
   }
 
   function updateSyncBadge() {
-    const badge = document.getElementById('syncBadge');
-    if (!badge) return;
-    if (state.syncEnabled) {
-      badge.className = 'sync-badge synced';
-      badge.innerHTML = '☁️ 已同步';
-    } else {
-      badge.className = 'sync-badge guest';
-      badge.innerHTML = '👁️ 游客模式';
-    }
+    const badges = ['syncBadge', 'linkSyncBadge', 'genSyncBadge'];
+    badges.forEach(id => {
+      const badge = document.getElementById(id);
+      if (!badge) return;
+      if (state.syncEnabled) {
+        badge.className = 'sync-badge synced';
+        badge.innerHTML = '☁️ 已同步';
+      } else {
+        badge.className = 'sync-badge guest';
+        badge.innerHTML = '👁️ 游客模式';
+      }
+    });
   }
 
   // ===== Core: Compute Day Schedule =====
@@ -749,7 +898,7 @@
 
     // Process activities
     activities.forEach((activity, index) => {
-      const place = PLACES.find(p => p.id === activity.placeId);
+      const place = getAllPlaces().find(p => p.id === activity.placeId);
       if (!place) return;
 
       let startTime = cursor;
@@ -802,9 +951,19 @@
     return result;
   }
 
+  // ===== All Places (static + custom) =====
+  function getAllPlaces() {
+    const custom = Object.values(state.customPlaces).map(cp => ({
+      id: cp.id, name: cp.name, group: cp.group, category: cp.category,
+      emoji: cp.emoji || '📍', description: cp.desc || '', duration: cp.duration || 90,
+      price: cp.price || '', isCustom: true,
+    }));
+    return [...PLACES, ...custom];
+  }
+
   // ===== Filtered Places Helper =====
   function getFilteredPlaces() {
-    let places = PLACES;
+    let places = getAllPlaces();
     if (state.activeGroupFilter !== '全部') {
       places = places.filter(p => p.group === state.activeGroupFilter);
     }
@@ -1024,7 +1183,7 @@
 
   // ===== Activity CRUD =====
   async function addActivityToDay(placeId, day, period) {
-    const place = PLACES.find(p => p.id === placeId);
+    const place = getAllPlaces().find(p => p.id === placeId);
     if (!place) return;
     const dayKey = 'day' + day;
     const arr = [...(state.timeline[dayKey] || [])];
@@ -1092,7 +1251,7 @@
   let detailPlaceId = null;
 
   function showPlaceDetail(placeId) {
-    const place = PLACES.find(p => p.id === placeId);
+    const place = getAllPlaces().find(p => p.id === placeId);
     if (!place) return;
     detailPlaceId = placeId;
     const status = getStatus(placeId);
@@ -1131,7 +1290,7 @@
   }
 
   window._detailAssign = () => {
-    if (detailPlaceId) { const id = detailPlaceId; hidePlaceDetail(); const place = PLACES.find(p => p.id === id); if (place) showAssignModal(place); }
+    if (detailPlaceId) { const id = detailPlaceId; hidePlaceDetail(); const place = getAllPlaces().find(p => p.id === id); if (place) showAssignModal(place); }
   };
   window._detailSkip = async () => {
     if (detailPlaceId) { await fbSet(ref(db, `${BASE}/placeStatus/${detailPlaceId}/status`), 'skipped'); hidePlaceDetail(); }
@@ -1178,7 +1337,7 @@
   lotteryBtn.onclick = () => startLottery();
 
   function getDrawPool() {
-    let pool = PLACES.filter(p => getStatus(p.id) === 'pending');
+    let pool = getAllPlaces().filter(p => getStatus(p.id) === 'pending');
     if (state.activeGroupFilter !== '全部') {
       pool = pool.filter(p => p.group === state.activeGroupFilter);
     }
@@ -1202,7 +1361,7 @@
 
     [1, 2, 3].forEach(idx => {
       const reel = document.getElementById('reel' + idx);
-      const items = shuffle(PLACES).slice(0, 8);
+      const items = shuffle(getAllPlaces()).slice(0, 8);
       if (idx === 3) items[items.length - 1] = winner;
       reel.innerHTML = items.map(p => `<div class="reel-item"><span class="reel-emoji">${p.emoji}</span>${p.name}</div>`).join('');
       reel.style.transition = 'none';
@@ -1269,7 +1428,7 @@
     const list = document.getElementById('drawHistoryList');
     if (state.lotteryHistory.length === 0) { list.innerHTML = '<div style="font-size:12px; color:#ccc; padding:4px;">还没有抽签记录</div>'; return; }
     list.innerHTML = state.lotteryHistory.map(h => {
-      const place = PLACES.find(p => p.id === h.placeId); if (!place) return '';
+      const place = getAllPlaces().find(p => p.id === h.placeId); if (!place) return '';
       const time = h.drawnAt ? new Date(h.drawnAt).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }) : '';
       return `<div class="draw-history-item">${place.emoji} ${place.name} <span style="color:#ccc">${time}</span></div>`;
     }).join('');
@@ -1356,7 +1515,7 @@
           .filter(([, v]) => v && v.placeId)
           .sort(([a], [b]) => a.localeCompare(b));
         for (const [, slotVal] of sortedSlots) {
-          const place = PLACES.find(p => p.id === slotVal.placeId);
+          const place = getAllPlaces().find(p => p.id === slotVal.placeId);
           activities.push({ placeId: slotVal.placeId, duration: place ? place.duration : 60 });
         }
         if (activities.length > 0) {
@@ -1384,10 +1543,67 @@
     sessionStorage.setItem('collabUserName', '匿名' + animals[Math.floor(Math.random() * animals.length)]);
     sessionStorage.setItem('collabUserColor', colors[Math.floor(Math.random() * colors.length)]);
   }
-  const userName = sessionStorage.getItem('collabUserName');
+  let userName = sessionStorage.getItem('collabUserName');
   const userColor = sessionStorage.getItem('collabUserColor');
 
-  document.body.insertAdjacentHTML('beforeend', `<div class="presence-pill"><div class="presence-dot"></div><span id="presenceCount">1 人在线</span><div class="presence-list" id="presenceList"></div></div>`);
+  document.body.insertAdjacentHTML('beforeend', `
+    <div class="presence-pill" id="presencePill" style="position:relative">
+      <div class="presence-dot"></div>
+      <span id="presenceCount">1 人在线</span>
+      <button class="user-menu-btn" id="userMenuBtn" title="用户设置">⚙️</button>
+      <div class="presence-list" id="presenceList"></div>
+      <div class="user-menu-panel" id="userMenuPanel">
+        <div class="um-name" id="umName">${userName}</div>
+        <div class="um-status" id="umStatus">游客模式</div>
+        <div class="user-menu-btn-row">
+          <button class="um-action-btn" id="umSwitchBtn">🔐 输入密码启用同步</button>
+          <button class="um-action-btn danger" id="umLogoutBtn">🚪 退出同步 / 切换账号</button>
+        </div>
+      </div>
+    </div>`);
+
+  // Toggle user menu
+  document.getElementById('userMenuBtn').onclick = (e) => {
+    e.stopPropagation();
+    const panel = document.getElementById('userMenuPanel');
+    panel.classList.toggle('open');
+  };
+  document.addEventListener('click', () => {
+    document.getElementById('userMenuPanel')?.classList.remove('open');
+  });
+
+  function updateUserMenu() {
+    const statusEl = document.getElementById('umStatus');
+    const switchBtn = document.getElementById('umSwitchBtn');
+    const logoutBtn = document.getElementById('umLogoutBtn');
+    const nameEl = document.getElementById('umName');
+    if (nameEl) nameEl.textContent = userName;
+    if (state.syncEnabled) {
+      if (statusEl) statusEl.textContent = '已启用同步';
+      if (switchBtn) switchBtn.style.display = 'none';
+      if (logoutBtn) logoutBtn.textContent = '🚪 退出同步 / 切换账号';
+    } else {
+      if (statusEl) statusEl.textContent = '游客模式（只读）';
+      if (switchBtn) { switchBtn.style.display = ''; switchBtn.textContent = '🔐 输入密码启用同步'; }
+      if (logoutBtn) logoutBtn.textContent = '🔄 重新进入（清除会话）';
+    }
+  }
+
+  document.getElementById('umSwitchBtn').onclick = () => {
+    document.getElementById('userMenuPanel').classList.remove('open');
+    // Show auth overlay again
+    document.getElementById('authOverlay').classList.remove('hidden');
+    document.getElementById('authInput').value = '';
+    document.getElementById('authError').textContent = '';
+  };
+
+  document.getElementById('umLogoutBtn').onclick = () => {
+    sessionStorage.removeItem('xiamen_sync_auth');
+    sessionStorage.removeItem('collabUserId');
+    sessionStorage.removeItem('collabUserName');
+    sessionStorage.removeItem('collabUserColor');
+    location.reload();
+  };
 
   // ===== Packing (listener in enableFirebaseSync, write gate below) =====
   document.addEventListener('change', (e) => {
@@ -1407,6 +1623,106 @@
     catch (err) { console.error('保存失败:', err); }
   }
 
+  // ===== Link Pool =====
+  function renderLinkList() {
+    const container = document.getElementById('linkList');
+    const entries = Object.entries(state.links).sort(([,a],[,b]) => (b.addedAt||0) - (a.addedAt||0));
+    if (entries.length === 0) {
+      container.innerHTML = '<div class="link-empty">还没有添加任何链接</div>';
+      return;
+    }
+    container.innerHTML = entries.map(([id, item]) => {
+      const domain = (() => { try { return new URL(item.url).hostname; } catch { return ''; } })();
+      const favicon = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=32` : '';
+      const faviconHtml = favicon ? `<img class="link-favicon" src="${favicon}" onerror="this.style.display='none'">` : '<span style="font-size:16px">🔗</span>';
+      return `<div class="link-item">
+        ${faviconHtml}
+        <div class="link-info">
+          <a class="link-title-text" href="${item.url}" target="_blank" rel="noopener" style="text-decoration:none;display:block">${item.title || domain || item.url}</a>
+          <div class="link-url-text">${item.url}</div>
+        </div>
+        <span class="link-by">${item.addedBy || ''}</span>
+        <button class="link-delete-btn" data-link-id="${id}" title="删除">&times;</button>
+      </div>`;
+    }).join('');
+    container.querySelectorAll('.link-delete-btn').forEach(btn => {
+      btn.onclick = async () => {
+        if (!state.syncEnabled) { alert('请先启用同步才能删除链接'); return; }
+        await fbSet(ref(db, `${BASE}/links/${btn.dataset.linkId}`), null);
+      };
+    });
+  }
+
+  document.getElementById('linkAddBtn').onclick = async () => {
+    if (!state.syncEnabled) { alert('请先输入密码启用同步，才能添加链接'); return; }
+    const urlInput = document.getElementById('linkUrlInput');
+    const titleInput = document.getElementById('linkTitleInput');
+    const url = urlInput.value.trim();
+    if (!url) { urlInput.focus(); return; }
+    // Basic URL validation
+    try { new URL(url); } catch { alert('请输入有效的链接地址（需包含 https://）'); return; }
+    const id = 'link_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
+    await fbSet(ref(db, `${BASE}/links/${id}`), {
+      url, title: titleInput.value.trim(), addedBy: userName, addedAt: Date.now(),
+    });
+    urlInput.value = '';
+    titleInput.value = '';
+  };
+  document.getElementById('linkUrlInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') document.getElementById('linkAddBtn').click();
+  });
+
+  // ===== Custom Place Generator =====
+  function renderCustomPlacesList() {
+    const container = document.getElementById('customPlacesList');
+    const entries = Object.entries(state.customPlaces).sort(([,a],[,b]) => (b.addedAt||0) - (a.addedAt||0));
+    if (entries.length === 0) {
+      container.innerHTML = '<div class="link-empty">还没有添加自定义地点</div>';
+      return;
+    }
+    container.innerHTML = entries.map(([id, cp]) => `
+      <div class="custom-place-item">
+        <div class="cp-emoji">${cp.emoji || '📍'}</div>
+        <div class="cp-info">
+          <div class="cp-name">${cp.name}</div>
+          <div class="cp-meta">${cp.group} · ${cp.category} · ${cp.duration}min${cp.price ? ' · ' + cp.price : ''}</div>
+        </div>
+        <span class="cp-by">${cp.addedBy || ''}</span>
+        <button class="cp-delete-btn" data-cp-id="${id}" title="删除">&times;</button>
+      </div>`).join('');
+    container.querySelectorAll('.cp-delete-btn').forEach(btn => {
+      btn.onclick = async () => {
+        if (!state.syncEnabled) { alert('请先启用同步才能删除地点'); return; }
+        const cpId = btn.dataset.cpId;
+        // Also remove from placeStatus if exists
+        const updates = {};
+        updates[`${BASE}/customPlaces/${cpId}`] = null;
+        await fbUpdate(ref(db), updates);
+      };
+    });
+  }
+
+  document.getElementById('pgSubmitBtn').onclick = async () => {
+    if (!state.syncEnabled) { alert('请先输入密码启用同步，才能添加自定义地点'); return; }
+    const name = document.getElementById('pgName').value.trim();
+    if (!name) { document.getElementById('pgName').focus(); alert('请输入地点名称'); return; }
+    const id = 'custom_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
+    const cp = {
+      id, name,
+      emoji: document.getElementById('pgEmoji').value.trim() || '📍',
+      group: document.getElementById('pgGroup').value,
+      category: document.getElementById('pgCategory').value,
+      duration: parseInt(document.getElementById('pgDuration').value) || 90,
+      price: document.getElementById('pgPrice').value.trim(),
+      desc: document.getElementById('pgDesc').value.trim(),
+      addedBy: userName, addedAt: Date.now(),
+    };
+    await fbSet(ref(db, `${BASE}/customPlaces/${id}`), cp);
+    // Clear form
+    ['pgName','pgEmoji','pgPrice','pgDesc'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('pgDuration').value = '90';
+  };
+
   // ===== Auth Logic =====
   const AUTH_KEY = 'xiamen_sync_auth';
 
@@ -1415,6 +1731,7 @@
     if (sessionStorage.getItem(AUTH_KEY) === 'true') {
       document.getElementById('authOverlay').classList.add('hidden');
       enableFirebaseSync();
+      updateUserMenu();
       return;
     }
 
@@ -1424,19 +1741,32 @@
       const storedHash = hashSnap.val();
 
       const authInput = document.getElementById('authInput');
+      const authNameInput = document.getElementById('authNameInput');
       const authError = document.getElementById('authError');
       const authBtn = document.getElementById('authBtn');
       const authGuestBtn = document.getElementById('authGuestBtn');
 
-      authBtn.onclick = async () => {
+      // Pre-fill name if previously set
+      const savedName = sessionStorage.getItem('collabUserName');
+      if (savedName && !savedName.startsWith('匿名')) authNameInput.value = savedName;
+
+      const doAuth = async () => {
         const pw = authInput.value.trim();
         if (!pw) { authError.textContent = '请输入密码'; authInput.classList.add('error'); setTimeout(() => authInput.classList.remove('error'), 500); return; }
         if (!storedHash) { authError.textContent = '未配置同步密码，请使用游客模式'; return; }
         const hash = await sha256(pw);
         if (hash === storedHash) {
+          // Save username
+          const inputName = authNameInput.value.trim();
+          if (inputName) {
+            sessionStorage.setItem('collabUserName', inputName);
+            userName = inputName;
+          }
+          document.getElementById('umName').textContent = userName;
           sessionStorage.setItem(AUTH_KEY, 'true');
           document.getElementById('authOverlay').classList.add('hidden');
           enableFirebaseSync();
+          updateUserMenu();
         } else {
           authError.textContent = '密码错误';
           authInput.classList.add('error');
@@ -1445,12 +1775,21 @@
         }
       };
 
+      authBtn.onclick = doAuth;
       authGuestBtn.onclick = () => {
+        const inputName = authNameInput.value.trim();
+        if (inputName) {
+          sessionStorage.setItem('collabUserName', inputName);
+          userName = inputName;
+          document.getElementById('umName').textContent = userName;
+        }
         document.getElementById('authOverlay').classList.add('hidden');
         updateSyncBadge();
+        updateUserMenu();
       };
 
       authInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') authBtn.click(); });
+      authNameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') authInput.focus(); });
     } catch (err) {
       console.error('Auth init failed:', err);
       document.getElementById('authOverlay').classList.add('hidden');
@@ -1462,8 +1801,11 @@
   renderPlaceGrid();
   renderTimeline();
   renderDrawHistory();
+  renderLinkList();
+  renderCustomPlacesList();
   updatePoolCounter();
   updateLotteryHint();
+  updateUserMenu();
   initAuth();
   console.log('🌊 厦门旅行计划 - Firebase 已连接 | 用户:', userName);
 </script>
