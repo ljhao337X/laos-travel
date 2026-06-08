@@ -1281,6 +1281,39 @@
   // ===== Place Detail Modal =====
   let detailPlaceId = null;
 
+  function buildDetailMeta(place, status) {
+    let durationHtml;
+    if (status === 'scheduled') {
+      const loc = findPlaceInTimeline(place.id);
+      let currentDuration = place.duration;
+      if (loc) {
+        const activities = state.timeline['day' + loc.day] || [];
+        if (activities[loc.index]) currentDuration = activities[loc.index].duration || place.duration;
+      }
+      durationHtml = `<span>⏱️ <input type="number" id="detailDurationInput" value="${currentDuration}" min="10" max="480" step="10" style="width:56px; font-size:14px; font-family:inherit; border:1.5px solid #ddd; border-radius:6px; padding:2px 6px; text-align:center; outline:none; transition:border-color 0.2s;"> 分钟</span>`;
+    } else {
+      durationHtml = `<span>⏱️ ${place.duration} 分钟</span>`;
+    }
+    return durationHtml + (place.price ? `<span>💰 ${place.price}</span>` : '');
+  }
+
+  async function commitDurationChange(placeId) {
+    const input = document.getElementById('detailDurationInput');
+    if (!input) return;
+    const newDuration = parseInt(input.value);
+    if (!newDuration || newDuration < 10 || newDuration > 480) return;
+    const loc = findPlaceInTimeline(placeId);
+    if (!loc) return;
+    const dayKey = 'day' + loc.day;
+    const arr = [...(state.timeline[dayKey] || [])];
+    if (!arr[loc.index] || arr[loc.index].duration === newDuration) return;
+    arr[loc.index] = { ...arr[loc.index], duration: newDuration };
+    state.timeline[dayKey] = arr;
+    const dayObj = {};
+    arr.forEach((a, i) => { dayObj[i] = a; });
+    await fbSet(ref(db, `${BASE}/timelineV2/day${loc.day}`), dayObj);
+  }
+
   function showPlaceDetail(placeId) {
     const place = getAllPlaces().find(p => p.id === placeId);
     if (!place) return;
@@ -1294,7 +1327,7 @@
     catEl.textContent = place.category;
     catEl.style.background = getCatColor(place.category);
     document.getElementById('detailDesc').textContent = place.description;
-    document.getElementById('detailMeta').innerHTML = `<span>⏱️ ${place.duration} 分钟</span>${place.price ? `<span>💰 ${place.price}</span>` : ''}`;
+    document.getElementById('detailMeta').innerHTML = buildDetailMeta(place, status);
     document.getElementById('detailStatus').innerHTML = `<div class="status-dot status-${status}"></div> ${STATUS_LABELS[status]}`;
 
     const actions = document.getElementById('detailActions');
@@ -1316,6 +1349,10 @@
   }
 
   function hidePlaceDetail() {
+    // Commit duration change before closing if applicable
+    if (detailPlaceId && document.getElementById('detailDurationInput')) {
+      commitDurationChange(detailPlaceId);
+    }
     document.getElementById('placeDetailModal').classList.remove('active');
     detailPlaceId = null;
   }
