@@ -428,12 +428,43 @@
     .activity-time { min-width: 64px; font-size: 10px; }
     .activity-duration { display: none; }
     .timeline-activity { gap: 6px; padding: 6px 8px; }
+    .container { padding: 20px 12px; }
+    .pool-panel, .timeline-panel, .packing-section, .shared-notes-section, .link-pool-section, .place-gen-section { padding: 20px 16px; }
+    .section-title { font-size: 22px; margin: 32px 0 20px; }
+
+    /* Link pool mobile */
+    .link-add-row { flex-wrap: wrap; }
+    .link-add-url { flex: 1 1 100%; }
+    .link-add-title { width: 100%; }
+    .link-add-btn { width: 100%; }
+
+    /* Place generator mobile */
+    .place-gen-form { grid-template-columns: 1fr; }
+
+    /* Presence + user menu mobile */
+    .presence-pill { top: 8px; right: 8px; font-size: 12px; padding: 6px 12px; max-width: 180px; }
+    .user-menu-panel { min-width: 160px; right: -8px; }
   }
   @media (max-width: 480px) {
     .modal-box { padding: 20px; }
     .lottery-btn { padding: 14px 28px; font-size: 18px; }
     .result-actions, .detail-actions { flex-direction: column; }
     .result-actions button, .detail-actions button { width: 100%; }
+    .hero h1 { font-size: 24px; }
+    .hero { padding: 50px 16px 30px; }
+    .auth-input { letter-spacing: 2px; }
+    .auth-box { padding: 28px 20px; }
+    .info-grid { grid-template-columns: 1fr 1fr; }
+
+    /* Link item mobile */
+    .link-item { flex-wrap: wrap; gap: 6px; padding: 10px 12px; }
+    .link-info { flex: 1 1 calc(100% - 52px); }
+    .link-by { display: none; }
+
+    /* Custom place item mobile */
+    .custom-place-item { flex-wrap: wrap; gap: 6px; }
+    .cp-info { flex: 1 1 calc(100% - 52px); }
+    .cp-by { display: none; }
   }
 </style>
 </head>

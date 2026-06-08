@@ -1,2 +1,5 @@
 *.DS_Store
-./优化建议.md
+优化建议.md
+ref.md
+scripts/*
+ref.md
