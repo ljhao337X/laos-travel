@@ -721,20 +721,7 @@
     return '';
   }
 
-  const PLACES = [
-    { id: 'shangqing', name: '上青本港海鲜', group: '吃的', category: '正餐', emoji: '🦀', description: '厦门本地人推荐的海鲜餐厅，食材新鲜', duration: 90, price: '人均 200-300 元' },
-    { id: 'linjia', name: '临家闽南菜', group: '吃的', category: '正餐', emoji: '🍲', description: '正宗闽南家常菜，古早味十足', duration: 90, price: '人均 100-150 元' },
-    { id: 'huangzehe', name: '黄则和花生汤', group: '吃的', category: '小吃', emoji: '🥜', description: '百年老字号，花生汤甜而不腻，厦门必吃', duration: 30, price: '人均 15-30 元' },
-    { id: 'yuehua', name: '月华沙茶面', group: '吃的', category: '小吃', emoji: '🍜', description: '地道厦门沙茶面，汤底浓郁鲜香', duration: 40, price: '人均 20-40 元' },
-    { id: 'gulanyu', name: '鼓浪屿', group: '玩的', category: '景点', emoji: '🏝️', description: '世界文化遗产，万国建筑博览，钢琴之岛', duration: 240, price: '船票 35 元' },
-    { id: 'nanputuo', name: '南普陀寺', group: '玩的', category: '景点', emoji: '🛕', description: '千年古刹，闽南佛教圣地，素斋闻名', duration: 120, price: '免费' },
-    { id: 'wuyuanwan', name: '五缘湾帆船', group: '玩的', category: '运动', emoji: '⛵', description: '体验帆船出海，感受厦门海湾风光', duration: 90, price: '约 200-400 元/人' },
-    { id: 'morning_run', name: '海边晨跑', group: '玩的', category: '运动', emoji: '🏃', description: '清晨沿海岸线慢跑，享受日出和海风', duration: 60, price: '免费' },
-    { id: 'zhongshan', name: '中山路步行街', group: '逛的', category: '购物', emoji: '🛍️', description: '骑楼建筑老街，各类商铺和小吃', duration: 120, price: '免费' },
-    { id: 'bashi', name: '八市海鲜市场', group: '逛的', category: '购物', emoji: '🐟', description: '厦门最接地气的海鲜市场，可买了找店加工', duration: 90, price: '按购买量' },
-    { id: 'shapowei', name: '沙坡尾艺术西区', group: '逛的', category: '闲逛', emoji: '🎨', description: '老渔港改造的文创园区，咖啡馆和独立小店', duration: 120, price: '免费' },
-    { id: 'huandao', name: '环岛路骑行', group: '逛的', category: '闲逛', emoji: '🚲', description: '沿海骑行，途经白城沙滩、曾厝垵等', duration: 120, price: '租车约 30-50 元' },
-  ];
+  // Places are loaded from Firebase (xiamen/places/)
 
   // ===== Day Configuration (replaces old DAY_SLOTS) =====
   const DAY_CONFIG = {
@@ -792,7 +779,7 @@
     currentDraw: null,
     isAnimating: false,
     syncEnabled: false,
-    customPlaces: {},
+    places: {},
     links: {},
   };
 
@@ -814,12 +801,16 @@
 
   const STATUS_LABELS = { pending: '待抽签', scheduled: '已安排', visited: '已去过', skipped: '已跳过' };
 
-  // ===== Firebase Listeners (registered after auth) =====
+  // ===== Firebase Listeners =====
   let presenceRef = null;
 
-  function enableFirebaseSync() {
-    state.syncEnabled = true;
-
+  // Read-only listeners: always active (guests can see data)
+  function initFirebaseListeners() {
+    onValue(ref(db, BASE + '/places'), (snap) => {
+      state.places = snap.val() || {};
+      renderPlaceGrid(); renderTimeline(); updatePoolCounter(); updateLotteryHint();
+      renderCustomPlacesList();
+    });
     onValue(ref(db, BASE + '/placeStatus'), (snap) => {
       const data = snap.val() || {};
       state.placeStatus = {};
@@ -846,11 +837,21 @@
       state.lotteryHistory = Object.entries(data).map(([id, val]) => ({ id, ...val })).sort((a, b) => (b.drawnAt || 0) - (a.drawnAt || 0));
       renderDrawHistory();
     });
-
-    // Presence
-    presenceRef = ref(db, BASE + '/presence/' + userId);
-    fbSet(presenceRef, { name: userName, color: userColor, online: true, updatedAt: Date.now() });
-    onDisconnect(presenceRef).remove();
+    onValue(ref(db, BASE + '/packing'), (snap) => {
+      const data = snap.val() || {};
+      document.querySelectorAll('.packing-checkbox').forEach(cb => { if (data[cb.dataset.packId] !== undefined) cb.checked = data[cb.dataset.packId]; });
+      const checked = Object.values(data).filter(v => v).length;
+      document.getElementById('packingCounter').textContent = `已打包 ${checked}/${document.querySelectorAll('.packing-checkbox').length} 件物品`;
+    });
+    onValue(ref(db, BASE + '/sharedNotes/content'), (snap) => {
+      const data = snap.val();
+      if (data && !sharedFocused) { sharedEditor.innerHTML = data; sharedStatus.textContent = '已同步'; sharedStatus.className = 'save-status saved'; }
+    });
+    onValue(ref(db, BASE + '/links'), (snap) => {
+      state.links = snap.val() || {};
+      renderLinkList();
+    });
+    // Presence (read-only, shows who's online)
     onValue(ref(db, BASE + '/presence'), (snap) => {
       const data = snap.val() || {};
       const users = Object.values(data);
@@ -859,37 +860,20 @@
       const list = document.getElementById('presenceList');
       if (list) list.innerHTML = users.map(u => `<div class="presence-user"><div class="presence-avatar" style="background:${u.color}">${u.name.slice(-1)}</div><span>${u.name}</span></div>`).join('');
     });
+  }
+
+  // Write access + presence heartbeat: only after auth
+  function enableFirebaseSync() {
+    state.syncEnabled = true;
+
+    // Presence (write)
+    presenceRef = ref(db, BASE + '/presence/' + userId);
+    fbSet(presenceRef, { name: userName, color: userColor, online: true, updatedAt: Date.now() });
+    onDisconnect(presenceRef).remove();
     setInterval(() => fbUpdate(presenceRef, { online: true, updatedAt: Date.now() }), 15000);
-
-    // Packing
-    onValue(ref(db, BASE + '/packing'), (snap) => {
-      const data = snap.val() || {};
-      document.querySelectorAll('.packing-checkbox').forEach(cb => { if (data[cb.dataset.packId] !== undefined) cb.checked = data[cb.dataset.packId]; });
-      const checked = Object.values(data).filter(v => v).length;
-      document.getElementById('packingCounter').textContent = `已打包 ${checked}/${document.querySelectorAll('.packing-checkbox').length} 件物品`;
-    });
-
-    // Shared Notes
-    onValue(ref(db, BASE + '/sharedNotes/content'), (snap) => {
-      const data = snap.val();
-      if (data && !sharedFocused) { sharedEditor.innerHTML = data; sharedStatus.textContent = '已同步'; sharedStatus.className = 'save-status saved'; }
-    });
 
     // Migration
     migrateTimeline();
-
-    // Custom Places
-    onValue(ref(db, BASE + '/customPlaces'), (snap) => {
-      state.customPlaces = snap.val() || {};
-      renderPlaceGrid(); renderTimeline(); updatePoolCounter(); updateLotteryHint();
-      renderCustomPlacesList();
-    });
-
-    // Links
-    onValue(ref(db, BASE + '/links'), (snap) => {
-      state.links = snap.val() || {};
-      renderLinkList();
-    });
 
     // Update sync badge
     updateSyncBadge();
@@ -982,14 +966,13 @@
     return result;
   }
 
-  // ===== All Places (static + custom) =====
+  // ===== All Places (from Firebase) =====
   function getAllPlaces() {
-    const custom = Object.values(state.customPlaces).map(cp => ({
+    return Object.values(state.places).map(cp => ({
       id: cp.id, name: cp.name, group: cp.group, category: cp.category,
-      emoji: cp.emoji || '📍', description: cp.desc || '', duration: cp.duration || 90,
-      price: cp.price || '', isCustom: true,
+      emoji: cp.emoji || '📍', description: cp.desc || cp.description || '', duration: cp.duration || 90,
+      price: cp.price || '',
     }));
-    return [...PLACES, ...custom];
   }
 
   // ===== Filtered Places Helper =====
@@ -1282,18 +1265,16 @@
   let detailPlaceId = null;
 
   function buildDetailMeta(place, status) {
-    let durationHtml;
+    // Duration is editable for all statuses
+    let currentDuration = place.duration;
     if (status === 'scheduled') {
       const loc = findPlaceInTimeline(place.id);
-      let currentDuration = place.duration;
       if (loc) {
         const activities = state.timeline['day' + loc.day] || [];
         if (activities[loc.index]) currentDuration = activities[loc.index].duration || place.duration;
       }
-      durationHtml = `<span>⏱️ <input type="number" id="detailDurationInput" value="${currentDuration}" min="10" max="480" step="10" style="width:56px; font-size:14px; font-family:inherit; border:1.5px solid #ddd; border-radius:6px; padding:2px 6px; text-align:center; outline:none; transition:border-color 0.2s;"> 分钟</span>`;
-    } else {
-      durationHtml = `<span>⏱️ ${place.duration} 分钟</span>`;
     }
+    const durationHtml = `<span>⏱️ <input type="number" id="detailDurationInput" value="${currentDuration}" min="10" max="480" step="10" style="width:56px; font-size:14px; font-family:inherit; border:1.5px solid #ddd; border-radius:6px; padding:2px 6px; text-align:center; outline:none; transition:border-color 0.2s;"> 分钟</span>`;
     return durationHtml + (place.price ? `<span>💰 ${place.price}</span>` : '');
   }
 
@@ -1302,16 +1283,26 @@
     if (!input) return;
     const newDuration = parseInt(input.value);
     if (!newDuration || newDuration < 10 || newDuration > 480) return;
+
+    // Update place default duration in Firebase
+    const placeData = state.places[placeId];
+    if (placeData && placeData.duration !== newDuration) {
+      await fbSet(ref(db, `${BASE}/places/${placeId}/duration`), newDuration);
+    }
+
+    // If scheduled, also update timeline instance
     const loc = findPlaceInTimeline(placeId);
-    if (!loc) return;
-    const dayKey = 'day' + loc.day;
-    const arr = [...(state.timeline[dayKey] || [])];
-    if (!arr[loc.index] || arr[loc.index].duration === newDuration) return;
-    arr[loc.index] = { ...arr[loc.index], duration: newDuration };
-    state.timeline[dayKey] = arr;
-    const dayObj = {};
-    arr.forEach((a, i) => { dayObj[i] = a; });
-    await fbSet(ref(db, `${BASE}/timelineV2/day${loc.day}`), dayObj);
+    if (loc) {
+      const dayKey = 'day' + loc.day;
+      const arr = [...(state.timeline[dayKey] || [])];
+      if (arr[loc.index] && arr[loc.index].duration !== newDuration) {
+        arr[loc.index] = { ...arr[loc.index], duration: newDuration };
+        state.timeline[dayKey] = arr;
+        const dayObj = {};
+        arr.forEach((a, i) => { dayObj[i] = a; });
+        await fbSet(ref(db, `${BASE}/timelineV2/day${loc.day}`), dayObj);
+      }
+    }
   }
 
   function showPlaceDetail(placeId) {
@@ -1743,7 +1734,9 @@
   // ===== Custom Place Generator =====
   function renderCustomPlacesList() {
     const container = document.getElementById('customPlacesList');
-    const entries = Object.entries(state.customPlaces).sort(([,a],[,b]) => (b.addedAt||0) - (a.addedAt||0));
+    const entries = Object.entries(state.places)
+      .filter(([, cp]) => cp.addedBy) // only show user-added places
+      .sort(([,a],[,b]) => (b.addedAt||0) - (a.addedAt||0));
     if (entries.length === 0) {
       container.innerHTML = '<div class="link-empty">还没有添加自定义地点</div>';
       return;
@@ -1762,9 +1755,9 @@
       btn.onclick = async () => {
         if (!state.syncEnabled) { alert('请先启用同步才能删除地点'); return; }
         const cpId = btn.dataset.cpId;
-        // Also remove from placeStatus if exists
         const updates = {};
-        updates[`${BASE}/customPlaces/${cpId}`] = null;
+        updates[`${BASE}/places/${cpId}`] = null;
+        if (state.placeStatus[cpId]) updates[`${BASE}/placeStatus/${cpId}`] = null;
         await fbUpdate(ref(db), updates);
       };
     });
@@ -1785,7 +1778,7 @@
       desc: document.getElementById('pgDesc').value.trim(),
       addedBy: userName, addedAt: Date.now(),
     };
-    await fbSet(ref(db, `${BASE}/customPlaces/${id}`), cp);
+    await fbSet(ref(db, `${BASE}/places/${id}`), cp);
     // Clear form
     ['pgName','pgEmoji','pgPrice','pgDesc'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('pgDuration').value = '90';
@@ -1865,6 +1858,7 @@
   }
 
   // ===== Init =====
+  initFirebaseListeners();
   renderFilterBar();
   renderPlaceGrid();
   renderTimeline();
@@ -1874,6 +1868,7 @@
   updatePoolCounter();
   updateLotteryHint();
   updateUserMenu();
+  updateSyncBadge();
   initAuth();
   console.log('🌊 厦门旅行计划 - Firebase 已连接 | 用户:', userName);
 </script>
